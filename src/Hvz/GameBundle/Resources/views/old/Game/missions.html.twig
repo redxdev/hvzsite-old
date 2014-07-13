@@ -1,0 +1,25 @@
+{# src/Hvz/GameBundle/Resources/views/Game/missions.html.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar', { active: 'missions' })) }}
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">Missions</h1>
+		</div>
+	</div>
+
+	{% for mission in missions %}
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 well">
+				<div class="alert alert-info">
+					<h3 class="text-center">{{ mission.title }}</h3>
+				</div>
+				{{ mission.body | raw | nl2br }}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

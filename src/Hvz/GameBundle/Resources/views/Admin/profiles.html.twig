@@ -1,0 +1,39 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/profiles.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	Administration: Profiles
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% for profile in profiles %}
+		<div class="card card-{{ profile.team }}" horizontal layout justified wrap>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-section" vertical layout flex>
+				<p><strong>User:</strong> {{ profile.user }}</p>
+				<p><strong>Active:</strong> {{ profile.active }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><strong>Game:</strong> {{ profile.game }}</p>
+				<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><strong># Tagged:</strong> {{ profile.numberTagged }}</p>
+				<p><strong>Team:</strong> {{ profile.team }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}"><paper-button label="View" raisedButton></paper-button></a>
+				<a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
+				<a href="{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

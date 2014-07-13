@@ -1,0 +1,62 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/games.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	Your Profile
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div horizontal layout wrap>
+		<div class="card card-section card-{{ profile.team }}" vertical layout flex>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal">
+				<h3 class="header" style="color: black;">{{ app.user.fullname }}</h3>
+				<p><strong>Email:</strong> {{ app.user.email }}</p>
+				<p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
+				<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
+				<p><a href="{{ path('hvz_profile_edit_clan') }}"><paper-button label="Edit Clan"></paper-button></a></p>
+			</div>
+		</div>
+		<div class="card card-section card-heading" vertical layout flex>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal">
+				<p><strong>Player ID:</strong> {{ profile.player_id }}  <small>(use as a zombie)</small></p>
+				<p><strong>ID Tags:</strong> <small>(give to zombies as a human)</small></p>
+				<ul>
+					{% for id in profile.id_tags %}
+						<li>{% if id.active == false %}<strike>{% endif %}{{ id.tag }}{% if id.active == false %}</strike>{% endif %}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	{% if profile.team == 'zombie' %}
+		<div horizontal layout wrap>
+			<div class="card card-section card-timer player-count" vertical layout center center-justified flex>
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal">
+					<h1>{{ profile.tags }}</h1>
+					<h3>Tags</h3>
+				</div>
+			</div>
+			<div class="card card-section" vertical layout center center-justified flex>
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal">
+					<h1 class="header">My Tags</h1>
+					{% for tag in profile.infections %}
+						<p><strong>{{ tag.victim }}</strong> on {{ tag.time }}</p>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

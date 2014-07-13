@@ -1,0 +1,42 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/users.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Missions</span>
+	<a href="{{ path('hvz_admin_mission_create') }}"><core-icon-button icon="add"></core-icon-button></a>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% for mission in missions %}
+		<div class="card" vertical layout>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-{{ mission.team }}" horizontal layout center justified wrap>
+				<div class="card-section" style="margin-left: 10px;" vertical layout flex>
+					<h2>{{ mission.title }}</h2>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<p><strong>Game:</strong> {{ mission.game }}</p>
+					<p><strong>Team:</strong> {{ mission.team }}</p>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<p><strong>Post date:</strong> {{ mission.postdate }}</p>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<a href="{{ path('hvz_admin_mission_edit', {'id': mission.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
+					<a href="{{ path('hvz_admin_mission_delete', {'id': mission.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+				</div>
+			</div>
+			<div style="margin-top: 20px;">
+				{{ mission.body | raw | nl2br }}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

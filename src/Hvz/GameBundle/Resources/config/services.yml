@@ -1,0 +1,11 @@
+parameters:
+#    hvz_game.example.class: Hvz\GameBundle\Example
+
+services:
+    google_oauth.security.authentication.provider:
+        class:  Hvz\GameBundle\Security\Authentication\Provider\GoogleOAuthProvider
+        arguments: [""]
+
+    google_oauth.security.authentication.listener:
+        class:  Hvz\GameBundle\Security\Firewall\GoogleOAuthListener
+        arguments: ["@security.context", "@security.authentication.manager"]

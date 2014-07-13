@@ -1,0 +1,65 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/view_profile.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	Administration: View Profile
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div class="card" vertical layout>
+		<paper-shadow z="1"></paper-shadow>
+		<div horizontal layout justified wrap>
+			<div class="card-section" vertical layout flex>
+				<p><strong>User:</strong> {{ profile.user }}</p>
+				<p><strong>Game:</strong> {{ profile.game }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><strong>Active:</strong> {{ profile.active }}</p>
+				<p><strong>Team:</strong> {{ profile.team }}</p>
+				<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a></p>
+				<p><a href="{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a></p>
+			</div>
+		</div>
+		<p><strong>Player ID:</strong> {{ profile.player_id }}</p>
+		<p><strong>ID Tags:</strong></p>
+		<ul>
+			{% for id_tag in profile.id_tags %}
+				<li>{% if id_tag.active == false %}<strike>{% endif %}{{ id_tag.data }}{% if id_tag.active == false %}</strike>{% endif %}</li>
+			{% endfor %}
+		</ul>
+		<a href="{{ path('hvz_admin_profile_add_tag', {'id': profile.id}) }}"><paper-button label="New ID Tag" raisedButton></paper-button></a>
+	</div>
+	
+	{% for profile in profiles %}
+		<div class="card card-{{ profile.team }}" horizontal layout justified wrap>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-section" vertical layout flex>
+				<p><strong>User:</strong> {{ profile.user }}</p>
+				<p><strong>Active:</strong> {{ profile.active }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><strong>Game:</strong> {{ profile.game }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><strong># Tagged:</strong> {{ profile.numberTagged }}</p>
+				<p><strong>Team:</strong> {{ profile.team }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}"><paper-button label="View" raisedButton></paper-button></a>
+				<a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
+				<a href="{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

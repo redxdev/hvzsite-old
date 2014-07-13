@@ -1,0 +1,23 @@
+{# src/Hvz/GameBundle/Resources/views/Game/rules.html.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar', { active: 'rules' })) }}
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">Rules</h1>
+		</div>
+	</div>
+
+	{% for rule in rules %}
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="text-center">{{ rule.title }}</h4>
+				{{ rule.body | raw }}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

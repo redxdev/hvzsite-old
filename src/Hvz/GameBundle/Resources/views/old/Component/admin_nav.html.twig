@@ -1,0 +1,12 @@
+{# src/Hvz/GameBundle/Resources/views/Component/admin_nav.html.twig #}
+<div class="col-md-2">
+	<ul class="nav nav-pills nav-stacked">
+		<li {% if active == 'overview' %}class="active"{% endif %}><a href="{{ path('hvz_admin_overview') }}">Overview</a></li>
+		<li {% if active == 'games' %}class="active"{% endif %}><a href="{{ path('hvz_admin_games') }}">Games</a></li>
+		<li {% if active == 'users' %}class="active"{% endif %}><a href="{{ path('hvz_admin_users') }}">Users</a></li>
+		<li {% if active == 'profiles' %}class="active"{% endif %}><a href="{{ path('hvz_admin_profiles') }}">Profiles</a></li>
+		<li {% if active == 'missions' %}class="active"{% endif %}><a href="{{ path('hvz_admin_missions') }}">Missions</a></li>
+		<li {% if active == 'news-posts' %}class="active"{% endif %}><a href="{{ path('hvz_admin_posts') }}">News Posts</a></li>
+        <li {% if active == 'rules' %}class="active"{% endif %}><a href="{{ path('hvz_admin_rules') }}">Rules</a></li>
+	</ul>
+</div>

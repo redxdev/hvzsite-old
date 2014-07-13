@@ -1,0 +1,63 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/edit_mission.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Edit Ruleset</span>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div class="card">
+		<paper-shadow z="1"></paper-shadow>
+		<div class="card-internal" vertical layout center>
+			<p><strong>Section Title:</strong></p>
+			<paper-input id="p-title" label="Title"></paper-input>
+			<p><strong>Section Position</strong></p>
+			<paper-input id="p-position" label="Position" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<p><strong>Body</strong></p>
+			<paper-input multiline id="p-body" style="width: 100%;" label="Body"></paper-input>
+			<paper-button id="fake-submit" label="Submit" raisedButton></paper-button>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body_javascripts %}
+	<div id="internal-form">
+		{{ form(form) }}
+	</div>
+	
+	{{ parent() }}
+	
+	<script>
+		document.addEventListener('polymer-ready', function() {
+			$("#p-title").val($("#form_title").val());
+			$("#p-position").val($("#form_position").val());
+			$("#p-body").val($("#form_body").val());
+		});
+		
+		$(function() {		
+			$("#fake-submit").click(function() {
+				var error = false;
+				
+				if(error) {
+					alert("There are problems with your input.");
+				}
+				else {
+					$("#form_title").val($("#p-title").val());
+					$("#form_position").val($("#p-position").val());
+					$("#form_body").val($("#p-body").val());
+					
+					$("#form_save").click();
+				}
+			});
+		});
+	</script>
+{% endblock %}

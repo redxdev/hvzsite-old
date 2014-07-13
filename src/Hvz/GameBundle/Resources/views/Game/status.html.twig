@@ -1,0 +1,62 @@
+{# src/Hvz/GameBundle/Resources/views/Game/status.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% if game.time is defined and game.time is not null %}
+		<div class="card card-timer">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal" vertical layout center center-justified>
+				<h1 id="countdown">{{ game.time.days }} <small>days</small> {{ game.time.hours }} <small>hours</small> {{ game.time.minutes }} <small>minutes</small> {{ game.time.seconds }} <small>seconds</small></h1>
+			</div>
+		</div>
+		<div horizontal layout wrap>
+			<div class="card player-count card-human card-section" flex>
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal" vertical layout center center-justified>
+					<h1>{{ game.humans }}</h1>
+					<h3>Human{% if game.humans != 1 %}s{% endif %}</h3>
+				</div>
+			</div>
+			<div class="card player-count card-zombie card-section" flex>
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal" vertical layout center center-justified>
+					<h1>{{ game.zombies }}</h1>
+					<h3>Zombie{% if game.zombies != 1 %}s{% endif %}</h3>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<div class="card card-timer" flex>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal" vertical layout center center-justified>
+				<h1>There is no game currently scheduled</h1>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block body_javascripts %}
+	{{ parent() }}
+	
+	<script src="{{ asset('bundles/hvzgame/js/jquery.countdown.min.js') }}"></script>
+	
+	{% if game.time is defined and game.time is not null %}
+		<script type="text/javascript" src="{{ asset('bundles/hvzgame/js/jquery.countdown.min.js') }}"></script>
+
+		<script type="text/javascript">
+			$(function() {
+				$("#countdown").countdown({
+					labels: ["<small>years</small>", "<small>months</small>", "<small>weeks</small>", "<small>days</small>", "<small>hours</small>", "<small>minutes</small>", "<small>seconds</small>"],
+					labels1: ["<small>year</small>", "<small>month</small>", "<small>week</small>", "<small>day</small>", "<small>hour</small>", "<small>minute</small>", "<small>second</small>"],
+					until: new Date({{ game.time.timestamp }}*1000),
+					layout:
+						{% verbatim %}
+							'{dn} {dl} {hn} {hl} {mn} {ml} {sn} {sl}'
+						{% endverbatim %}
+				});
+			});
+		</script>
+	{% endif %}
+{% endblock %}

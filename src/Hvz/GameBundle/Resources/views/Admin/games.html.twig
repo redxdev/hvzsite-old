@@ -1,0 +1,42 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/games.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/core-icon-button/core-icon-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Games</span>
+	<a href="{{ path('hvz_admin_game_create') }}"><core-icon-button icon="add"></core-icon-button></a>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% for game in games %}
+		<div class="card">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal" horizontal layout justified wrap>
+				<div class="card-section" vertical layout flex>
+					<p><strong>Start:</strong> {{ game.startDate }}</p>
+					<p><strong>End:</strong> {{ game.endDate }}</p>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<p><strong>Humans:</strong> {{ game.humans }}</p>
+					<p><strong>Zombies:</strong> {{ game.zombies }}</p>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}"><paper-button label="Profiles" raisedButton></paper-button></a>
+					<a href="{{ path('hvz_admin_missions_by_game', {'game': game.id}) }}"><paper-button label="Missions" raisedButton></paper-button></a>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
+					<a href="{{ path('hvz_admin_game_delete', {'id': game.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

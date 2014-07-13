@@ -1,0 +1,236 @@
+# Game Controller
+hvz_index:
+    pattern: /
+    defaults: { _controller: HvzGameBundle:Game:status }
+
+hvz_rules:
+    pattern: /rules
+    defaults: { _controller: HvzGameBundle:Game:rules }
+
+hvz_register_tag:
+    pattern: /register_tag
+    defaults: { _controller: HvzGameBundle:Game:registerTag }
+    methods: [GET]
+
+hvz_register_tag_submit:
+    pattern: /register_tag
+    defaults: { _controller: HvzGameBundle:Game:registerTag }
+    methods: [POST]
+
+hvz_players:
+    pattern: /players
+    defaults: { _controller: HvzGameBundle:Game:players }
+
+hvz_tags:
+    pattern: /tags
+    defaults: { _controller: HvzGameBundle:Game:tags }
+
+#hvz_graph:
+#    pattern: /graph
+#    defaults: { _controller: HvzGameBundle:Game:graph }
+
+hvz_missions:
+    pattern: /missions
+    defaults: { _controller: HvzGameBundle:Game:missions }
+
+
+# Profile Controller
+hvz_profile:
+    pattern: /profile
+    defaults: { _controller: HvzGameBundle:Profile:index }
+
+hvz_profile_edit_clan:
+    pattern: /profile/clan/edit
+    defaults: { _controller: HvzGameBundle:Profile:editClan }
+
+hvz_profile_submit_clan:
+    pattern: /profile/clan/submit
+    defaults: { _controller: HvzGameBundle:Profile:editClan }
+    methods: [POST]
+
+# Admin Controller
+hvz_admin_games:
+    pattern: /admin/games
+    defaults: { _controller: HvzGameBundle:Admin:games }
+
+hvz_admin_game_create:
+    pattern: /admin/game/create
+    defaults: { _controller: HvzGameBundle:Admin:gameCreate }
+
+hvz_admin_game_edit:
+    pattern: /admin/game/{id}/edit
+    defaults: { _controller: HvzGameBundle:Admin:gameEdit }
+    requirements:
+        id: \d+
+
+hvz_admin_game_delete:
+    pattern: /admin/game/{id}/delete
+    defaults: { _controller: HvzGameBundle:Admin:gameDelete }
+    requirements:
+        id: \d+
+
+hvz_admin_users:
+    pattern: /admin/users
+    defaults: { _controller: HvzGameBundle:Admin:users }
+
+hvz_admin_user_edit:
+    pattern: /admin/user/{id}/edit
+    defaults: { _controller: HvzGameBundle:Admin:userEdit }
+    requirements:
+        id: \d+
+
+hvz_admin_user_delete:
+    pattern: /admin/user/{id}/delete
+    defaults: { _controller: HvzGameBundle:Admin:userDelete }
+    requirements:
+        id: \d+
+
+hvz_admin_profile_generate:
+    pattern: /admin/profile/generate/{id}
+    defaults: { _controller: HvzGameBundle:Admin:profileGenerate }
+    requirements:
+        id: \d+
+
+hvz_admin_profiles:
+    pattern: /admin/profiles
+    defaults: { _controller: HvzGameBundle:Admin:profiles }
+
+hvz_admin_profiles_by_game:
+    pattern: /admin/profiles/game/{game}
+    defaults: { _controller: HvzGameBundle:Admin:profiles }
+    requirements:
+        game: \d+
+
+hvz_admin_profiles_by_user:
+    pattern: /admin/profiles/user/{user}
+    defaults: { _controller: HvzGameBundle:Admin:profiles }
+    requirements:
+        user: \d+
+
+hvz_admin_profile_view:
+    pattern: /admin/profile/{id}/view
+    defaults: { _controller: HvzGameBundle:Admin:profileView }
+    requirements:
+        id: \d+
+
+hvz_admin_profile_add_tag:
+    pattern: /admin/profile/{id}/tag/add
+    defaults: { _controller: HvzGameBundle:Admin:profileAddTag }
+    requirements:
+        id: \d+
+
+hvz_admin_profile_edit:
+    pattern: /admin/profile/{id}/edit
+    defaults: { _controller: HvzGameBundle:Admin:profileEdit }
+    requirements:
+        id: \d+
+
+hvz_admin_profile_delete:
+    pattern: /admin/profile/{id}/delete
+    defaults: { _controller: HvzGameBundle:Admin:profileDelete }
+    requirements:
+        id: \d+
+
+hvz_admin_missions:
+    pattern: /admin/missions
+    defaults: { _controller: HvzGameBundle:Admin:missions }
+
+hvz_admin_missions_by_game:
+    pattern: /admin/missions/game/{game}
+    defaults: { _controller: HvzGameBundle:Admin:missions }
+    requirements:
+        game: \d+
+
+hvz_admin_mission_edit:
+    pattern: /admin/mission/{id}/edit
+    defaults: { _controller: HvzGameBundle:Admin:missionEdit }
+    requirements:
+        id: \d+
+
+hvz_admin_mission_create:
+    pattern: /admin/mission/create
+    defaults: { _controller: HvzGameBundle:Admin:missionCreate }
+
+hvz_admin_mission_delete:
+    pattern: /admin/mission/{id}/delete
+    defaults: { _controller: HvzGameBundle:Admin:missionDelete }
+    requirements:
+        id: \d+
+
+hvz_admin_posts:
+    pattern: /admin/posts
+    defaults: { _controller: HvzGameBundle:Admin:posts }
+
+hvz_admin_post_edit:
+    pattern: /admin/post/{id}/edit
+    defaults: { _controller: HvzGameBundle:Admin:postEdit }
+    requirements:
+        id: \d+
+
+hvz_admin_post_create:
+    pattern: /admin/post/create
+    defaults: { _controller: HvzGameBundle:Admin:postCreate }
+
+hvz_admin_post_delete:
+    pattern: /admin/post/{id}/delete
+    defaults: { _controller: HvzGameBundle:Admin:postDelete }
+    requirements:
+        id: \d+
+
+hvz_admin_rules:
+    pattern: /admin/rules
+    defaults: { _controller: HvzGameBundle:Admin:rules }
+
+hvz_admin_rule_edit:
+    pattern: /admin/rule/{id}/edit
+    defaults: { _controller: HvzGameBundle:Admin:ruleEdit }
+    requirements:
+        id: \d+
+
+hvz_admin_rule_create:
+    pattern: /admin/rule/create
+    defaults: { _controller: HvzGameBundle:Admin:ruleCreate }
+
+hvz_admin_rule_delete:
+    pattern: /admin/rule/{id}/delete
+    defaults: { _controller: HvzGameBundle:Admin:ruleDelete }
+    requirements:
+        id: \d+
+
+
+# Auth Controller
+hvz_auth_register:
+    pattern: /auth/register
+    defaults: { _controller: HvzGameBundle:Auth:register }
+
+hvz_auth_register_code:
+    pattern: /auth/register/code
+    defaults: { _controller: HvzGameBundle:Auth:registerCode }
+
+hvz_auth_login:
+    pattern: /auth/login
+    defaults: { _controller: HvzGameBundle:Auth:login }
+
+hvz_auth_login_code:
+    pattern: /auth/login/code
+    defaults: { _controller: HvzGameBundle:Auth:loginCode }
+
+hvz_auth_login_message:
+    pattern: /auth/login/success
+    defaults: { _controller: HvzGameBundle:Auth:loginMessage }
+
+hvz_auth_logout:
+    pattern: /auth/logout
+    defaults: { _controller: HvzGameBundle:Auth:logout }
+
+hvz_auth_logout_message:
+    pattern: /auth/logout/success
+    defaults: { _controller: HvzGameBundle:Auth:logoutMessage }
+
+hvz_error_403:
+    pattern: /error/403
+    defaults: { _controller: HvzGameBundle:Auth:authError }
+
+hvz_error_active:
+    pattern: /error/active
+    defaults: { _controller: HvzGameBundle:Auth:activeError }

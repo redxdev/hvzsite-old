@@ -1,0 +1,22 @@
+{# src/Hvz/GameBundle/Resources/views/Auth/message.html.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar', { active: '' })) }}
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">Message</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="alert alert-{{ message.type }}">
+				{{ message.body | raw }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

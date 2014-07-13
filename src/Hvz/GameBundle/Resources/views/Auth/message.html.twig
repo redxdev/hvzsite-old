@@ -1,0 +1,13 @@
+{# src/Hvz/GameBundle/Resources/views/Auth/message.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div class="card card-{{ message.type }}">
+		<paper-shadow z="1"></paper-shadow>
+		<div class="card-internal" vertical layout center>
+			{{ message.body | raw }}
+		</div>
+	</div>
+{% endblock %}

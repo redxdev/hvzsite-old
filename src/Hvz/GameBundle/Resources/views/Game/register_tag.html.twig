@@ -1,0 +1,73 @@
+{# src/Hvz/GameBundle/Resources/views/Game/register_tag.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div vertical layout>
+		{% if errors is defined and errors is not null %}
+			<div class="card card-error" flex>
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal">
+					<ul>
+						{% for error in errors %}
+							<li>{{ error }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		{% elseif success is defined and success is not null %}
+			<div class="card card-success" flex>
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal">
+					{{ success }}
+				</div>
+			</div>
+		{% endif %}
+	
+		<div class="card" flex>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal" vertical layout center>
+				<paper-input id="victim_id" label="Victim ID"></paper-input>
+				<paper-input id="zombie_id" label="Zombie ID"></paper-input>
+				<paper-button id="submit_tag" label="Submit" raisedButton></paper-button>
+				<div style="margin-top: 5px;">
+					<small>Location: <span id="loc-status">NOT SENDING</span></small>
+				</div>
+				<form id="tag_form" method="post" action="{{ path('hvz_register_tag_submit') }}">
+					<input type="hidden" id="victim_id_hidden" name="victim">
+					<input type="hidden" id="zombie_id_hidden" name="zombie">
+					<input type="hidden" id="latitude" name="latitude">
+					<input type="hidden" id="longitude" name="longitude">
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body_javascripts %}
+	{{ parent() }}
+	
+	<script>
+		$(function() {
+			$('#submit_tag').click(function() {
+				$('#victim_id_hidden').val($('#victim_id').val());
+				$('#zombie_id_hidden').val($('#zombie_id').val());
+				$('#tag_form').submit();
+			});
+			
+			navigator.geolocation.getCurrentPosition(function(pos) {
+				$('#latitude').val(pos.coords.latitude);
+				$('#longitude').val(pos.coords.longitude);
+				$('#loc-status').html("OK");
+			});
+		});
+	</script>
+{% endblock %}

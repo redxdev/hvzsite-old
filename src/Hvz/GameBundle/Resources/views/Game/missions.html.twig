@@ -1,0 +1,18 @@
+{# src/Hvz/GameBundle/Resources/views/Game/missions.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% for mission in missions %}
+		<div class="card">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal">
+				<h1 class="header large-header">{{ mission.title }}</h1>
+				<div>
+					{{ mission.body | raw | nl2br }}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

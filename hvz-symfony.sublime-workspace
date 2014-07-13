@@ -1,0 +1,434 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"findByGame",
+				"findByGameAndUser"
+			],
+			[
+				"GoogleO",
+				"GoogleOAuthToken"
+			],
+			[
+				"findAllActive",
+				"findAllActiveByTeam"
+			],
+			[
+				"twig",
+				"twig"
+			],
+			[
+				"secur",
+				"securityContext"
+			],
+			[
+				"t",
+				"t"
+			],
+			[
+				"victim",
+				"victimTag"
+			],
+			[
+				"Hvz",
+				"HvzGameBundle"
+			],
+			[
+				"HvzGameBundle",
+				"HvzGameBundle:Default:index.html.twig [Tpl]"
+			],
+			[
+				"id",
+				"id"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/Hvz/GameBundle/Resources/views/Component/navbar.html.twig",
+			"settings":
+			{
+				"buffer_size": 1314,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/Hvz/GameBundle/Resources/views/base.html.twig",
+			"settings":
+			{
+				"buffer_size": 1919,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"Package Control: rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: list",
+				"Package Control: List Packages"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"Pack",
+				"Package Control: Install Package"
+			],
+			[
+				"Package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 456.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Controller/GameController.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/view_profile.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/ProfileRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Controller/AdminController.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Controller/AuthController.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/PlayerTag.php",
+		"/C/Users/Sam/workspace/bukkit-message-api/build/msgapi.jar",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/views/base_initializr.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/views/Form/formflow_buttons.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/edit_mission.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/edit_user.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/edit_profile.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/edit_post.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/views/Form/fields.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/edit_game.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/app/config/config.yml",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/app/AppKernel.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/composer.json",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Form/bootstrap-theme.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Form/flash.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Form/LICENSE",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/vendor/symfony/symfony/src/Symfony/Component/Form/Button.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/base.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Controller/ComponentController.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/status.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/profiles.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/users.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/missions.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/news_posts.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/config/routing.yml",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/User.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Component/admin_nav.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/Post.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/PostRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Profile/infections.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Profile/index.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Profile/id_tags.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/tags.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/rules.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/register_tag.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/players.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/missions.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Component/profile_nav.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/overview.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/message.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Admin/games.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Component/posts.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/Game.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/Mission.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/UserRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/RuleRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Controller/ProfileController.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/MissionRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/InfectionSpreadRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/GameRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/vendor/egeloen/ckeditor-bundle/Ivory/CKEditorBundle/DependencyInjection/IvoryCKEditorExtension.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/Antivirus.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/InfectionSpread.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/public/css/bootstrap.min.css",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/public/css/bootstrap.min.css.old",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/composer.lock",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/vendor/geta6/twig-markdown/README.mkd",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/PlayerTagRepository.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/Profile.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Entity/Rule.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Auth/message.html.twig",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/config/validation.yml",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/app/config/security.yml",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Security/Authentication/Token/GoogleOAuthToken.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Security/Authentication/Provider/GoogleOAuthProvider.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/OAuth/Google_Client.php",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/public/js/jquery-counter.min.js",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/app/config/parameters.yml",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/src/Hvz/GameBundle/Resources/config/doctrine/Users.orm.xml",
+		"/C/Users/Sam/Documents/Workspace/Web/HVZ/symfony/app/SymfonyRequirements.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/Rule.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/PlayerTag.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/Mission.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/ConfigValue.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/InfectionSpread.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Profile/infections.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/config/routing.yml",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Controller/ProfileController.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Component/navbar.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Component/profile_nav.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Profile/id_tags.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Controller/GameController.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/tags.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Profile/index.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/PlayerTagRepository.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/MissionRepository.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/User.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/players.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/profile.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Controller/AuthController.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/missions.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/web/app_dev.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/app/config/config_dev.yml",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/app/config/security.yml",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Security/Authentication/Token/GoogleOAuthToken.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Security/Authentication/Provider/GoogleOAuthProvider.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/OAuth/contrib/Google_Oauth2Service.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/OAuth/service/Google_Service.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/OAuth/Google_Client.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/status.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Security/Firewall/GoogleOAuthListener.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/HvzGameBundle.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/DependencyInjection/Security/Factory/GoogleOAuthFactory.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/config/services.yml",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Security/Factory/GoogleOAuthFactory.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Authentication/Token/AbstractToken.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Authentication/Token/UsernamePasswordToken.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Authentication/Provider/UserAuthenticationProvider.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/vendor/symfony/symfony/src/Symfony/Bridge/Doctrine/Security/User/EntityUserProvider.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Auth/message.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Controller/ComponentController.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/app/autoload.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/vendor/google/src/OAuth/OAuth.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/app/config/routing.yml",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/app/AppKernel.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/app/config/config.yml",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Resources/views/Game/rules.html.twig",
+		"/C/Users/Sam/Documents/Workspace/HVZ/rules.html",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/RuleRepository.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/UserRepository.php",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/User.php~",
+		"/C/Users/Sam/Documents/Workspace/HVZ/symfony/src/Hvz/GameBundle/Entity/InfectionSpread.php~",
+		"/C/Users/Sam/Documents/Workspace/HVZ/index.html"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"C:\\Users\\Sam\\Documents\\Workspace\\HVZ\\symfony"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"victime",
+			"col",
+			"col-",
+			"from '",
+			"show_legend",
+			"render_fieldset",
+			"missions.html.tw",
+			"games.html.twig",
+			"find",
+			"findAllActive",
+			"findAll",
+			"findActive",
+			"findAllActive",
+			"findAllPosted",
+			"findAllByGame",
+			"InfectionSpread",
+			"format",
+			"create",
+			"findByProfile",
+			"!$profile",
+			"redirect",
+			"getSingleResult",
+			"redirect",
+			"userinfo",
+			"username",
+			"uri",
+			"requesturi",
+			"authenticate",
+			"refresh",
+			"UsernamePasswordToken",
+			"AbstractToken",
+			"UsernamePasswordToken",
+			"authenticationproviderinterface",
+			"token",
+			"EntityUserProvider",
+			"UserAuthenticationProvider",
+			"UserProviderInterface",
+			"redirect",
+			"isactive",
+			"isacti",
+			"playerteam",
+			"fullname"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/Hvz/GameBundle/Resources/views/Component/navbar.html.twig",
+					"settings":
+					{
+						"buffer_size": 1314,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1283,
+								1283
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Hvz/GameBundle/Resources/views/base.html.twig",
+					"settings":
+					{
+						"buffer_size": 1919,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								438,
+								438
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 341.0,
+	"status_bar_visible": true
+}

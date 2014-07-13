@@ -1,0 +1,37 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/users.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	Administration: Users
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% for user in users %}
+		<div class="card" horizontal layout justified wrap>
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-section" vertical layout flex>
+				<p><strong>Name:</strong> {{ user.fullname }}</p>
+				<p><strong>Email:</strong> {{ user.email }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<p><strong>Access:</strong> {{ user.access }}</p>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}"><paper-button label="{{ user.profiles }} Profiles"></paper-button></a>
+				<a href="{{ path('hvz_admin_profile_generate', {'id': user.id}) }}"><paper-button label="Generate Profile"></a>
+			</div>
+			<div class="card-section" vertical layout flex>
+				<a href="{{ path('hvz_admin_user_edit', {'id': user.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
+				<a href="{{ path('hvz_admin_user_delete', {'id': user.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

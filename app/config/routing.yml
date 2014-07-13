@@ -1,0 +1,3 @@
+hvz_game:
+    resource: "@HvzGameBundle/Resources/config/routing.yml"
+    prefix:   /

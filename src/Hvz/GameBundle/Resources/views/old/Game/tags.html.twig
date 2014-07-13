@@ -1,0 +1,32 @@
+{# src/Hvz/GameBundle/Resources/views/Game/tagshtml.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar', { active: 'tags' })) }}
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1 class="text-center">Tags</h1>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Victim</th>
+						<th>Zombie</th>
+						<th>Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for tag in tags if tag.zombie != null %}
+						<tr>
+							<td>{{ tag.victim }}</td>
+							<td>{{ tag.zombie }}</td>
+							<td>{{ tag.time }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

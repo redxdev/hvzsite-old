@@ -1,0 +1,44 @@
+{# src/Hvz/GameBundle/Resources/views/base.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% block meta %}
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	    <meta charset="utf-8">
+		<meta name="description" content="{{ description | default('') }}">
+	    <meta name="author" content="{{ author | default('') }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+	{% endblock %}
+	
+	<link rel="shortcut icon" type="image/png" href="{{ asset('bundles/hvzgame/images/favicon.png') }}">
+	
+	<title>{{ title | default('Humans vs Zombies') }}</title>
+	
+	{% block javascripts %}
+		<script src="{{ asset('bundles/hvzgame/components/platform/platform.js') }}"></script>
+	{% endblock %}
+	
+	{% block components %}
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+		
+		<link rel="import" href="{{ asset('bundles/hvzgame/components/core-icons/core-icons.html') }}">
+	{% endblock components %}
+	
+	{% block stylesheets %}
+		<link rel="stylesheet" href="{{ asset('bundles/hvzgame/css/main.css') }}">
+	{% endblock %}
+	
+	{% block head %}
+	{% endblock %}
+</head>
+<body unresolved>
+	{% block body %}
+	{% endblock %}
+	
+	{% block body_javascripts %}
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	{% endblock %}
+</body>
+</html>

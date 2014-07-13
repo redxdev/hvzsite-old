@@ -1,0 +1,56 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/games.html.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar', { active: 'admin' })) }}
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">Admin Panel</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		{% include 'HvzGameBundle:Component:admin_nav.html.twig' with {'active': 'games'} %}
+
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Humans</th>
+								<th>Zombies</th>
+								<th>Profiles</th>
+								<th>Missions</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for game in games %}
+								<tr {% if game.active == true %}class="success"{% endif %}>
+									<td>{{ game.startDate }}</td>
+									<td>{{ game.endDate }}</td>
+									<td>{{ game.humans }}</td>
+									<td>{{ game.zombies }}</td>
+									<td><a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}">{{ game.profiles }}</a></td>
+									<td><a href="{{ path('hvz_admin_missions_by_game', {'game': game.id}) }}">{{ game.missions }}</a></td>
+									<td><a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}">Edit</a> | <a href="{{ path('hvz_admin_game_delete', {'id': game.id}) }}">Delete</a></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1 col-md-offset-10 text-center">
+					<a class="btn btn-primary" href="{{ path('hvz_admin_game_create') }}">Create</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

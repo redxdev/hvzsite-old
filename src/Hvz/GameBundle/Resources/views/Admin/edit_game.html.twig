@@ -1,0 +1,90 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/edit_game.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Edit Game</span>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div class="card" vertical layout center>
+		<paper-shadow z="1"></paper-shadow>
+		<div>
+			{{ form_errors(form) }}
+		</div>
+		<p><strong>Start Date:</strong> <small class="light">year month day hour minute</small></p>
+		<div horizontal layout wrap>
+			<paper-input id="start-year" label="Year" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="start-month" label="Month" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="start-day" label="Day" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="start-hour" label="Hour" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="start-minute" label="Minute" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+		</div>
+		<p><strong>End Date:</strong> <small class="light">year month day hour minute</small></p>
+		<div horizontal layout wrap>
+			<paper-input id="end-year" label="Year" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="end-month" label="Month" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="end-day" label="Day" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="end-hour" label="Hour" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			<paper-input id="end-minute" label="Minute" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+		</div>
+		<paper-button id="fake-submit" label="Submit" raisedButton></paper-button>
+	</div>
+{% endblock %}
+
+{% block body_javascripts %}
+	<div id="internal-form">
+		{{ form(form) }}
+	</div>
+	
+	{{ parent() }}
+	
+	<script>
+		document.addEventListener('polymer-ready', function() {
+			$("#start-year").val($("#form_startDate_date_year").val());
+			$("#start-month").val($("#form_startDate_date_month").val());
+			$("#start-day").val($("#form_startDate_date_day").val());
+			$("#start-hour").val($("#form_startDate_time_hour").val());
+			$("#start-minute").val($("#form_startDate_time_minute").val());
+			
+			$("#end-year").val($("#form_endDate_date_year").val());
+			$("#end-month").val($("#form_endDate_date_month").val());
+			$("#end-day").val($("#form_endDate_date_day").val());
+			$("#end-hour").val($("#form_endDate_time_hour").val());
+			$("#end-minute").val($("#form_endDate_time_minute").val());
+		});
+		
+		$(function() {		
+			$("#fake-submit").click(function() {
+				var error = false;
+				
+				if(error) {
+					alert("There are problems with your input.");
+				}
+				else {
+					$("#form_startDate_date_year").val($("#start-year").val());
+					$("#form_startDate_date_month").val($("#start-month").val());
+					$("#form_startDate_date_day").val($("#start-day").val());
+					$("#form_startDate_time_hour").val($("#start-hour").val());
+					$("#form_startDate_time_minute").val($("#start-minute").val());
+					
+					$("#form_endDate_date_year").val($("#end-year").val());
+					$("#form_endDate_date_month").val($("#end-month").val());
+					$("#form_endDate_date_day").val($("#end-day").val());
+					$("#form_endDate_time_hour").val($("#end-hour").val());
+					$("#form_endDate_time_minute").val($("#end-minute").val());
+					
+					$("#form_save").click();
+				}
+			});
+		});
+	</script>
+{% endblock %}

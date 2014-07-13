@@ -1,0 +1,68 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/edit_profile.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-checkbox/paper-checkbox.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-radio-group/paper-radio-group.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Edit Profile</span>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div class="card">
+		<paper-shadow z="1"></paper-shadow>
+		<div class="card-internal" vertical layout center>
+			<h3 class="header">{{ profile.user }}</h3>
+			<paper-checkbox id="p-active" label="Active"></paper-checkbox>
+			<p><strong>Team:</strong></p>
+			<paper-radio-group id="p-team" selected="0">
+				<paper-radio-button label="Human"></paper-radio-button>
+				<paper-radio-button label="Zombie"></paper-radio-button>
+			</paper-radio-group>
+			<p><strong>Clan:</strong></p>
+			<paper-input id="p-clan" label="Clan"></paper-input>
+			<paper-button id="fake-submit" label="Submit" raisedButton></paper-button>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body_javascripts %}
+	<div id="internal-form">
+		{{ form(form) }}
+	</div>
+	
+	{{ parent() }}
+	
+	<script>
+		document.addEventListener('polymer-ready', function() {
+			$("#p-active").prop("checked", $("#form_active").prop("checked"));
+			$("#p-team").prop("selected", $("#form_team").val());
+			$("#p-clan").val($("#form_clan").val());
+		});
+		
+		$(function() {		
+			$("#fake-submit").click(function() {
+				var error = false;
+				
+				if(error) {
+					alert("There are problems with your input.");
+				}
+				else {
+					$("#form_active").prop("checked", $("#p-active").prop("checked"));
+					$("#form_team").val($("#p-team").prop("selected"));
+					$("#form_clan").val($("#p-clan").val());
+					
+					$("#form_save").click();
+				}
+			});
+		});
+	</script>
+{% endblock %}

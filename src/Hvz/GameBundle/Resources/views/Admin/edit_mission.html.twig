@@ -1,0 +1,106 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/edit_mission.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-radio-group/paper-radio-group.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Edit Mission</span>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	<div class="card">
+		<paper-shadow z="1"></paper-shadow>
+		<div class="card-internal"  vertical layout center>
+			<p><strong>Mission Title:</strong></p>
+			<paper-input id="p-title" label="Title"></paper-input>
+			<p><strong>Body:</strong></p>
+			<paper-input multiline id="p-body" style="width: 100%;" label="Body"></paper-input>
+			<p><strong>Post Date:</strong> <small>year month day hour minute</small></p>
+			<div horizontal layout wrap>
+				<paper-input id="p-year" label="Year" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input id="p-month" label="Month" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input id="p-day" label="Day" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input id="p-hour" label="Hour" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input id="p-minute" label="Minute" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+			</div>
+			<p><strong>Team:</strong></p>
+			<paper-radio-group id="p-team" selected="0">
+				<paper-radio-button label="Human"></paper-radio-button>
+				<paper-radio-button label="Zombie"></paper-radio-button>
+			</paper-radio-group>
+			<p><strong>Game:</strong></p>
+			<paper-radio-group id="p-game">
+			</paper-radio-group>
+			<paper-button id="fake-submit" label="Submit" raisedButton></paper-button>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body_javascripts %}
+	<div id="internal-form">
+		{{ form(form) }}
+	</div>
+	
+	{{ parent() }}
+	
+	<script>
+		var gameSelect = {};
+		var rGameSelect = {};
+		document.addEventListener('polymer-ready', function() {
+			$("#p-title").val($("#form_title").val());
+			$("#p-body").val($("#form_body").val());
+			$("#p-year").val($("#form_postdate_date_year").val());
+			$("#p-month").val($("#form_postdate_date_month").val());
+			$("#p-day").val($("#form_postdate_date_day").val());
+			$("#p-hour").val($("#form_postdate_time_hour").val());
+			$("#p-minute").val($("#form_postdate_time_minute").val());
+			$("#p-team").prop("selected", $("#form_team").val());
+			
+			var i = 0;
+			$("#form_game option").each(function() {
+				var e = $(this);
+				$("#p-game").html(
+					$("p-game").html() +
+					"<paper-radio-button label=\"" + e.html() + "\"></paper-radio-button>"
+				);
+				
+				gameSelect[e.val()] = i;
+				rGameSelect[i] = e.val();
+				i++;
+			});
+			
+			$("#p-game").prop("selected", gameSelect[$("#form_game").val()]);
+		});
+		
+		$(function() {		
+			$("#fake-submit").click(function() {
+				var error = false;
+				
+				if(error) {
+					alert("There are problems with your input.");
+				}
+				else {
+					$("#form_title").val($("#p-title").val());
+					$("#form_body").val($("#p-body").val());
+					$("#form_postdate_date_year").val($("#p-year").val());
+					$("#form_postdate_date_month").val($("#p-month").val());
+					$("#form_postdate_date_day").val($("#p-day").val());
+					$("#form_postdate_time_hour").val($("#p-hour").val());
+					$("#form_postdate_time_minute").val($("#p-minute").val());
+					$("#form_team").val($("#p-team").prop("selected"));
+					$("#form_game").val(rGameSelect[$("#p-game").prop("selected")]);
+					
+					$("#form_save").click();
+				}
+			});
+		});
+	</script>
+{% endblock %}

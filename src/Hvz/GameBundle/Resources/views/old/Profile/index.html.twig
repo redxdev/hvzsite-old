@@ -1,0 +1,37 @@
+{# src/Hvz/GameBundle/Resources/views/Profile/index.html.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar', { active: '' })) }}
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">Profile</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		{% include 'HvzGameBundle:Component:profile_nav.html.twig' with {'active': 'profile'} %}
+
+		<div class="col-md-9">
+			<div class="col-md-5 col-md-offset-1">
+				<p><strong>Player:</strong> {{ app.user.fullname }}</p>
+				<p><strong>Team:</strong>
+					{% if profile.team is null %}
+						No Team
+					{% elseif profile.team == 'human' %}
+						<img src="{{ asset('bundles/hvzgame/images/fist.png') }}" alt="Human" title="Human" width="32" height="32">
+					{% else %}
+						<img src="{{ asset('bundles/hvzgame/images/biohazard.png') }}" alt="Zombie" title="Zombie" width="32" height="32">
+					{% endif %}
+				</p>
+				<p><strong>Tags:</strong> {{ profile.tags }}</p>
+			</div>
+			<div class="col-md-5">
+				<img src="holder.js/300x300" alt="avatar" class="img-responsive text-center">
+			</div>
+		</div>
+	</div>
+{% endblock %}

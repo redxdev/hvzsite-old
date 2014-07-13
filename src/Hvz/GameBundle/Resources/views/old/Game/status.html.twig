@@ -1,0 +1,95 @@
+{# src/Hvz/GameBundle/Resources/views/Game/status.html.twig #}
+{% extends 'HvzGameBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{% if game.time is defined and game.time is not null %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/hvzgame/css/jquery.countdown.css') }}">
+	{% endif %}
+{% endblock %}
+
+{% block body_javascripts %}
+	{{ parent() }}
+
+	{% if game.time is defined and game.time is not null %}
+		<script type="text/javascript" src="{{ asset('bundles/hvzgame/js/jquery.countdown.min.js') }}"></script>
+
+		<script type="text/javascript">
+			$(function() {
+				$("#small-countdown, #big-countdown").countdown({
+					labels: ["<small>years</small>", "<small>months</small>", "<small>weeks</small>", "<small>days</small>", "<small>hours</small>", "<small>minutes</small>", "<small>seconds</small>"],
+					labels1: ["<small>year</small>", "<small>month</small>", "<small>week</small>", "<small>day</small>", "<small>hour</small>", "<small>minute</small>", "<small>second</small>"],
+					until: new Date({{ game.time.timestamp }}*1000),
+					layout:
+						{% verbatim %}
+							'{dn} {dl} {hn} {hl} {mn} {ml} {sn} {sl}'
+						{% endverbatim %}
+				});
+			});
+		</script>
+	{% endif %}
+{% endblock %}
+
+{% block pre_container %}
+	{{ render(controller('HvzGameBundle:Component:navbar'), {active: 'status'}) }}
+	
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				{% if game.time is defined and game.time is not null %}
+					<div class="col-md-2 text-center">
+						<h1>{{ game.humans }}</h1>
+						<p>human{% if game.humans != 1 %}s{% endif %}</p>
+					</div>
+					<div class="visible-lg visible-md col-md-8 text-center">
+						<h1 class="label" id="big-countdown">{{ game.time.days }} <small>days</small> {{ game.time.hours }} <small>hours</small> {{ game.time.minutes }} <small>minutes</small> {{ game.time.seconds }} <small>seconds</small></h1>
+					</div>
+					<div class="visible-xs visible-sm col-md-8 text-center">
+						<h1 id="small-countdown">{{ game.time.days }} <small>days</small> {{ game.time.hours }} <small>hours</small> {{ game.time.minutes }} <small>minutes</small> {{ game.time.seconds }} <small>seconds</small></h1>
+					</div>
+					<div class="col-md-2 text-center">
+						<h1>{{ game.zombies }}</h1>
+						<p>zombie{% if game.zombies != 1 %}s{% endif %}</p>
+					</div>
+				{% else %}
+					<div class="col-md-12 text-center">
+						<h2>There is no game currently scheduled</h2>
+					</div>
+				{% endif %}
+			</div>
+			{% if game.human_percent is not null and game.zombie_percent is not null %}
+			{% if game.human_percent != 0 or game.zombie_percent != 0 %}
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="progress">
+						<div class="progress-bar progress-bar-success" style="width: {{ game.human_percent }}%">
+							{% if game.human_percent != 0 %} {{ game.human_percent }}% Humans {% endif %}
+						</div>
+						<div class="progress-bar progress-bar-danger" style="width: {{ game.zombie_percent }}%">
+							{% if game.zombie_percent != 0 %} {{ game.zombie_percent }}% Zombies {% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<div class="col-md-8">
+			{{ render(controller('HvzGameBundle:Component:posts')) }}
+		</div>
+		<div class="col-md-4">
+			<p>There should be a twitter box here. Just need to actually set it up. Pretend it's here in the meantime.</p>
+			<p>There should be a twitter box here. Just need to actually set it up. Pretend it's here in the meantime.</p>
+			<p>There should be a twitter box here. Just need to actually set it up. Pretend it's here in the meantime.</p>
+			<p>There should be a twitter box here. Just need to actually set it up. Pretend it's here in the meantime.</p>
+			<p>There should be a twitter box here. Just need to actually set it up. Pretend it's here in the meantime.</p>
+			<p>There should be a twitter box here. Just need to actually set it up. Pretend it's here in the meantime.</p>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/users.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block components %}
+	{{ parent() }}
+	
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+{% endblock %}
+
+{% block toolbar %}
+	<span flex>Administration: Rules</span>
+	<a href="{{ path('hvz_admin_rule_create') }}"><core-icon-button icon="add"></core-icon-button></a>
+{% endblock %}
+
+{% block content %}
+	{{ parent() }}
+	
+	{% for rule in rules %}
+		<div class="card" vertical layout>
+			<paper-shadow z="1"></paper-shadow>
+			<div horizontal layout center justified wrap>
+				<div class="card-section" vertical layout flex>
+					<p><strong>Title:</strong> {{ rule.title }}</p>
+					<p><strong>Position:</strong> {{ rule.position }}</p>
+				</div>
+				<div class="card-section" vertical layout flex>
+					<a href="{{ path('hvz_admin_rule_edit', {'id': rule.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
+					<a href="{{ path('hvz_admin_rule_delete', {'id': rule.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+				</div>
+			<div style="margin-top: 20px;">
+				{{ rule.body | raw | nl2br }}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}
