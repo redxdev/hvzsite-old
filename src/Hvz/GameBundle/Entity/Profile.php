@@ -64,14 +64,14 @@ class Profile
      *
      * @ORM\Column(name="numberTagged", type="integer")
      */
-    private $numberTagged;
+    private $numberTagged = 0;
 	
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="clan", type="text")
 	 */
-	private $clan;
+	private $clan = "";
 
     /**
      * Constructor
