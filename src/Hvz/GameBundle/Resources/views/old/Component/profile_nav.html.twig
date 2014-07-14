@@ -1,8 +1,0 @@
-{# src/Hvz/GameBundle/Resources/views/Component/profile_nav.html.twig #}
-<div class="col-md-3">
-	<ul class="nav nav-pills nav-stacked">
-		<li {% if active == 'profile' %}class="active"{% endif %}><a href="{{ path('hvz_profile') }}">Profile</a></li>
-		<li {% if active == 'id_tags' %}class="active"{% endif %}><a href="{{ path('hvz_profile_tag_ids') }}">My ID Tags</a></li>
-		<li {% if active == 'infections' %}class="active"{% endif %}><a href="{{ path('hvz_profile_infections') }}">My Infections</a></li>
-	</ul>
-</div>

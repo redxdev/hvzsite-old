@@ -21,11 +21,6 @@ framework:
     fragments:       ~
     http_method_override: true
 
-twig:
-    form:
-        resources:
-            - 'MopaBootstrapBundle:Form:fields.html.twig'
-
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
