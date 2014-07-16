@@ -9,3 +9,7 @@ services:
     google_oauth.security.authentication.listener:
         class:  Hvz\GameBundle\Security\Firewall\GoogleOAuthListener
         arguments: ["@security.context", "@security.authentication.manager"]
+
+    hvz.tag_generator:
+        class: Hvz\GameBundle\Services\TagGeneratorService
+        arguments: ["@doctrine.orm.entity_manager"]

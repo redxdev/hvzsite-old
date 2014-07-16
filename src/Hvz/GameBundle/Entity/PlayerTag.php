@@ -12,20 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PlayerTag
 {
-    public static function generateTag()
-    {
-        $str = '';
-        $charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
-        $count = strlen($charset) - 1;
-
-        for($i = 0; $i < 8; $i++)
-        {
-            $str .= $charset[mt_rand(0, $count)];
-        }
-
-        return $str;
-    }
-
     /**
      * @var integer
      *
@@ -55,16 +41,16 @@ class PlayerTag
      */
     private $active;
 
-    public function __construct()
+    public function __construct($tag)
     {
-        $this->tag = PlayerTag::generateTag();
+        $this->tag = $tag;
         $this->active = true;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,14 +66,14 @@ class PlayerTag
     public function setTag($tag)
     {
         $this->tag = $tag;
-    
+
         return $this;
     }
 
     /**
      * Get tag
      *
-     * @return string 
+     * @return string
      */
     public function getTag()
     {
@@ -103,14 +89,14 @@ class PlayerTag
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -126,14 +112,14 @@ class PlayerTag
     public function setProfile(\Hvz\GameBundle\Entity\Profile $profile = null)
     {
         $this->profile = $profile;
-    
+
         return $this;
     }
 
     /**
      * Get profile
      *
-     * @return \Hvz\GameBundle\Entity\Profile 
+     * @return \Hvz\GameBundle\Entity\Profile
      */
     public function getProfile()
     {

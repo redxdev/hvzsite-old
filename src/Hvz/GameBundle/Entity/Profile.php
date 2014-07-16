@@ -65,7 +65,7 @@ class Profile
      * @ORM\Column(name="numberTagged", type="integer")
      */
     private $numberTagged = 0;
-	
+
 	/**
 	 * @var string
 	 *
@@ -76,19 +76,19 @@ class Profile
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($tag)
     {
         $this->idTags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->active = false;
         $this->team = User::TEAM_HUMAN;
-        $this->tagId = PlayerTag::generateTag();
+        $this->tagId = $tag;
         $this->numberTagged = 0;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -104,14 +104,14 @@ class Profile
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -127,14 +127,14 @@ class Profile
     public function setTeam($team)
     {
         $this->team = $team;
-    
+
         return $this;
     }
 
     /**
      * Get team
      *
-     * @return integer 
+     * @return integer
      */
     public function getTeam()
     {
@@ -150,14 +150,14 @@ class Profile
     public function setTagId($tagId)
     {
         $this->tagId = $tagId;
-    
+
         return $this;
     }
 
     /**
      * Get tagId
      *
-     * @return string 
+     * @return string
      */
     public function getTagId()
     {
@@ -173,14 +173,14 @@ class Profile
     public function setNumberTagged($numberTagged)
     {
         $this->numberTagged = $numberTagged;
-    
+
         return $this;
     }
 
     /**
      * Get numberTagged
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumberTagged()
     {
@@ -196,14 +196,14 @@ class Profile
     public function setUser(\Hvz\GameBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \Hvz\GameBundle\Entity\User 
+     * @return \Hvz\GameBundle\Entity\User
      */
     public function getUser()
     {
@@ -219,20 +219,20 @@ class Profile
     public function setGame(\Hvz\GameBundle\Entity\Game $game = null)
     {
         $this->game = $game;
-    
+
         return $this;
     }
 
     /**
      * Get game
      *
-     * @return \Hvz\GameBundle\Entity\Game 
+     * @return \Hvz\GameBundle\Entity\Game
      */
     public function getGame()
     {
         return $this->game;
     }
-    
+
     /**
      * Add idTags
      *
@@ -242,7 +242,7 @@ class Profile
     public function addIdTag(\Hvz\GameBundle\Entity\PlayerTag $idTags)
     {
         $this->idTags[] = $idTags;
-    
+
         return $this;
     }
 
@@ -259,7 +259,7 @@ class Profile
     /**
      * Get idTags
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getIdTags()
     {
@@ -275,14 +275,14 @@ class Profile
     public function setClan($clan)
     {
         $this->clan = $clan;
-    
+
         return $this;
     }
 
     /**
      * Get clan
      *
-     * @return string 
+     * @return string
      */
     public function getClan()
     {

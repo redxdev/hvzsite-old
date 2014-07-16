@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class HvzGameBundle extends Bundle
 {
+	// TODO: Move to service
 	public static function generateNavigation($page_id, $router, $securityContext)
 	{
 		$navigation = array(
@@ -20,12 +21,12 @@ class HvzGameBundle extends Bundle
 			),
 			"selected" => -1
 		);
-		
+
 		if($securityContext->isGranted("ROLE_USER"))
 		{
 			$navigation["links"][] = array("id" => "missions", "icon" => "drive-form", "label" => "Missions", "link" => $router->generate('hvz_missions'));
 		}
-		
+
 		if($securityContext->isGranted("ROLE_ADMIN"))
 		{
 			$navigation["admin"] = array(
@@ -36,7 +37,7 @@ class HvzGameBundle extends Bundle
 				array("id" => "rules", "icon" => "", "label" => "Rules", "link" => $router->generate('hvz_admin_rules'))
 			);
 		}
-		
+
 		foreach($navigation["links"] as $k => $v)
 		{
 			if($v["id"] == $page_id) {
@@ -44,7 +45,7 @@ class HvzGameBundle extends Bundle
 				break;
 			}
 		}
-		
+
 		return $navigation;
 	}
 

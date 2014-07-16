@@ -427,18 +427,19 @@ class AdminController extends Controller
 		}
 
 		$em = $this->getDoctrine()->getManager();
+		$tagGen = $this->get('hvz.tag_generator');
 
-		$profile = new Profile();
+		$profile = new Profile($tagGen->generate());
 		$profile->setUser($user);
 		$profile->setGame($game);
 		$user->addProfile($profile);
 		$game->addProfile($profile);
 
-		$tag1 = new PlayerTag();
+		$tag1 = new PlayerTag($tagGen->generate());
 		$tag1->setProfile($profile);
 		$profile->addIdTag($tag1);
 
-		$tag2 = new PlayerTag();
+		$tag2 = new PlayerTag($tagGen->generate());
 		$tag2->setProfile($profile);
 		$profile->addIdTag($tag2);
 
@@ -584,7 +585,9 @@ class AdminController extends Controller
 			return new Response($content);
 		}
 
-		$newTag = new PlayerTag();
+		$tagGen = $this->get('hvz.tag_generator');
+
+		$newTag = new PlayerTag($tagGen->generate());
 		$newTag->setProfile($profile);
 		$profile->addIdTag($newTag);
 
