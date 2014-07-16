@@ -63,6 +63,13 @@ class TagGeneratorService
 
 	protected function isDuplicateAntiVirusTag($id)
 	{
-		return false; //TODO
+		$query = $this->entityManager->createQueryBuilder()
+			->select("count(av.id)")
+			->from("HvzGameBundle:AntiVirusTag", "av")
+			->where("av.tag = :t")
+			->setParameter("t", $id)
+			->getQuery();
+
+		return $query->getSingleScalarResult() != 0;
 	}
 }
