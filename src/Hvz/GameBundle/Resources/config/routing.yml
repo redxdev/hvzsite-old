@@ -53,6 +53,12 @@ hvz_admin_games:
     pattern: /admin/games
     defaults: { _controller: HvzGameBundle:Admin:games }
 
+hvz_admin_game_add_antivirus:
+    pattern: /admin/game/{id}/av/add
+    defaults: { _controller: HvzGameBundle:Admin:gameAddAntiVirus }
+    requirements:
+        id: \d+
+
 hvz_admin_game_create:
     pattern: /admin/game/create
     defaults: { _controller: HvzGameBundle:Admin:gameCreate }

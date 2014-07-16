@@ -27,3 +27,6 @@
 .idea/*
 *.sublime-project
 *.sublime-workspace
+
+# Other
+*.php~

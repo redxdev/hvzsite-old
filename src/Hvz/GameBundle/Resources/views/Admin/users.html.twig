@@ -3,7 +3,7 @@
 
 {% block components %}
 	{{ parent() }}
-	
+
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 {% endblock %}
 
@@ -13,15 +13,15 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	{% for user in users %}
 		<div class="card" horizontal layout justified wrap>
 			<paper-shadow z="1"></paper-shadow>
-			<div class="card-section" vertical layout flex>
+			<div class="card-section" flex>
 				<p><strong>Name:</strong> {{ user.fullname }}</p>
 				<p><strong>Email:</strong> {{ user.email }}</p>
 			</div>
-			<div class="card-section" vertical layout flex>
+			<div class="card-section" flex>
 				<p><strong>Access:</strong> {{ user.access }}</p>
 			</div>
 			<div class="card-section" vertical layout flex>

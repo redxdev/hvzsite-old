@@ -3,7 +3,7 @@
 
 {% block components %}
 	{{ parent() }}
-	
+
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 {% endblock %}
 
@@ -14,12 +14,12 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	{% for rule in rules %}
 		<div class="card" vertical layout>
 			<paper-shadow z="1"></paper-shadow>
 			<div horizontal layout center justified wrap>
-				<div class="card-section" vertical layout flex>
+				<div class="card-section" flex>
 					<p><strong>Title:</strong> {{ rule.title }}</p>
 					<p><strong>Position:</strong> {{ rule.position }}</p>
 				</div>

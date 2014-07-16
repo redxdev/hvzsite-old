@@ -102,4 +102,27 @@ class AntiVirusTag
     {
         return $this->active;
     }
+
+    /**
+     * Set game
+     *
+     * @param \Hvz\GameBundle\Entity\Game $game
+     * @return AntiVirusTag
+     */
+    public function setGame(\Hvz\GameBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \Hvz\GameBundle\Entity\Game 
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
 }

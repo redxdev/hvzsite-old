@@ -3,7 +3,7 @@
 
 {% block components %}
 	{{ parent() }}
-	
+
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/core-icon-button/core-icon-button.html') }}">
 {% endblock %}
@@ -15,18 +15,27 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	{% for game in games %}
 		<div class="card">
 			<paper-shadow z="1"></paper-shadow>
 			<div class="card-internal" horizontal layout justified wrap>
-				<div class="card-section" vertical layout flex>
+				<div class="card-section" flex>
 					<p><strong>Start:</strong> {{ game.startDate }}</p>
 					<p><strong>End:</strong> {{ game.endDate }}</p>
 				</div>
-				<div class="card-section" vertical layout flex>
+				<div class="card-section" flex>
 					<p><strong>Humans:</strong> {{ game.humans }}</p>
 					<p><strong>Zombies:</strong> {{ game.zombies }}</p>
+				</div>
+				<div class="card-section" flex>
+					<p><strong>AV Tags</strong></p>
+					<ul>
+						{% for av in game.av_codes %}
+							<li>{% if not av.active %}<strike>{% endif %}{{ av.id }}{% if not av.active %}</strike>{% endif %}</li>
+						{% endfor %}
+					</ul>
+					<a href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id }) }}"><paper-button label="Generate AV"></paper-button></a>
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}"><paper-button label="Profiles" raisedButton></paper-button></a>

@@ -13,6 +13,7 @@ use Hvz\GameBundle\Entity\Profile;
 use Hvz\GameBundle\Entity\Mission;
 use Hvz\GameBundle\Entity\Post;
 use Hvz\GameBundle\Entity\Rule;
+use Hvz\GameBundle\Entity\AntiVirusTag;
 
 class AdminController extends Controller
 {
@@ -27,11 +28,19 @@ class AdminController extends Controller
 
 		$gameRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Game');
 		$profileRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Profile');
+		$avRepo = $this->getDoctrine()->getRepository('HvzGameBundle:AntiVirusTag');
 		$gameEnts = $gameRepo->findAllOrderedByStartDate();
 		$currentGame = $gameRepo->findCurrentGame();
 		$games = array();
 		foreach($gameEnts as $game)
 		{
+			$avCodes = array();
+			$avs = $avRepo->findByGame($game);
+			foreach($avs as $av)
+			{
+				$avCodes[] = array('id' => $av->getTag(), 'active' => $av->getActive());
+			}
+
 			$games[] = array(
 				'id' => $game->getId(),
 				'active' => $currentGame == null ? false : $game == $currentGame,
@@ -40,7 +49,8 @@ class AdminController extends Controller
 				'humans' => count($profileRepo->findActiveHumans($game)),
 				'zombies' => count($profileRepo->findActiveZombies($game)),
 				'profiles' => count($profileRepo->findByGame($game)),
-				'missions' => count($game->getMissions())
+				'missions' => count($game->getMissions()),
+				'av_codes' => $avCodes
 			);
 		}
 
@@ -168,6 +178,44 @@ class AdminController extends Controller
     	);
 
     	return new Response($content);
+	}
+
+	public function gameAddAntiVirusAction($id)
+	{
+		$securityContext = $this->get('security.context');
+
+		if(!$securityContext->isGranted("ROLE_ADMIN"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findOneById($id);
+		if($game == null)
+		{
+			$content = $this->renderView(
+				'HvzGameBundle:Admin:message.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					'message' => array(
+						'type' => 'error',
+						'body' => 'Unknown game id.'
+					)
+				)
+			);
+
+			return new Response($content);
+		}
+
+		$tagGen = $this->get('hvz.tag_generator');
+
+		$newTag = new AntiVirusTag($tagGen->generate());
+		$newTag->setGame($game);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($newTag);
+		$em->flush();
+
+		return $this->redirect($this->generateUrl('hvz_admin_games'));
 	}
 
 	public function gameDeleteAction($id)
