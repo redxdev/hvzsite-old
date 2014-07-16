@@ -632,7 +632,7 @@ class AdminController extends Controller
 					User::TEAM_HUMAN => 'Human',
 					User::TEAM_ZOMBIE => 'Zombie')
 			))
-			->add('clan', 'text')
+			->add('clan', 'text', array('required' => false))
 			->add('save', 'submit')
 			->getForm();
 

@@ -79,7 +79,7 @@ class ProfileRepository extends EntityRepository
 
 		return $query->getResult();
 	}
-	
+
 	public function findActiveOrderedByCustom($game, $sortBy)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
@@ -88,16 +88,30 @@ class ProfileRepository extends EntityRepository
 					->where('p.active = true')
 					->andWhere('p.game = :game')
 					->setParameter('game', $game);
-		
+
 		switch($sortBy)
 		{
 			case "clan":
 				$query->orderBy('tmpClan', 'ASC');
 				break;
 		}
-		
+
 		$query = $query->getQuery();
 
 		return $query->getResult();
+	}
+
+	public function findOneByGameAndTagId($game, $tag)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('p')
+					->from('HvzGameBundle:Profile', 'p')
+					->where('p.game = :game')
+					->andWhere('p.tagId = :tag')
+					->setParameter('game', $game)
+					->setParameter('tag', $tag)
+					->getQuery();
+
+		return $query->getOneOrNullResult();
 	}
 }

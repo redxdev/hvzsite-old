@@ -35,6 +35,12 @@ class AntiVirusTag
      */
     private $active;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Game")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $game;
+
     public function __construct($tag)
     {
         $this->tag = $tag;

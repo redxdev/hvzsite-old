@@ -23,4 +23,19 @@ class PlayerTagRepository extends EntityRepository
 
 		return $query->getResult();
 	}
+
+	public function findOneByGameAndTag($game, $tag)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('t')
+					->from('HvzGameBundle:PlayerTag', 't')
+					->innerJoin('t.profile', 'p')
+					->where('p.game = :game')
+					->andWhere('t.tag = :tag')
+					->setParameter('game', $game)
+					->setParameter('tag', $tag)
+					->getQuery();
+
+		return $query->getOneOrNullResult();
+	}
 }

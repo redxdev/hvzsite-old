@@ -141,8 +141,61 @@ class GameController extends Controller
 
 			$tagRepo = $this->getDoctrine()->getRepository('HvzGameBundle:PlayerTag');
 			$profileRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Profile');
-			$victimTag = $tagRepo->findOneByTag($victim);
-			$zombieProfile = $profileRepo->findOneByTagId($zombie);
+			$victimTag = $tagRepo->findOneByGameAndTag($game, $victim);
+			$zombieProfile = $profileRepo->findOneByGameAndTagId($game, $zombie);
+
+			if(!$victimTag)
+			{
+				$av = $this->getDoctrine()->getRepository('HvzGameBundle:AntiVirusTag')->findOneByGameAndTag($game, $victim);
+
+				if($av && $av->getActive())
+				{
+					if(!$zombieProfile)
+					{
+						$content = $this->renderView(
+							'HvzGameBundle:Game:register_tag.html.twig',
+							array(
+								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+								"errors" => array("Correct AV code, but invalid zombie"),
+								"victim" => $victim,
+								"zombie" => $zombie
+							)
+						);
+
+						return new Response($content);
+					}
+
+					if($zombieProfile->getTeam() != User::TEAM_ZOMBIE)
+					{
+						$content = $this->renderView(
+							'HvzGameBundle:Game:register_tag.html.twig',
+							array(
+								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+								"errors" => array("You can't use an AV code on a human!"),
+								"victim" => $victim,
+								"zombie" => $zombie
+							)
+						);
+
+						return new Response($content);
+					}
+
+					$zombieProfile->setTeam(User::TEAM_HUMAN);
+					$av->setActive(false);
+
+					$this->getDoctrine()->getManager()->flush();
+
+					$content = $this->renderView(
+						'HvzGameBundle:Game:register_tag.html.twig',
+						array(
+							'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+							"success" => $zombieProfile->getUser()->getFullname() . " has taken an antivirus, and has become human once again!"
+						)
+					);
+
+					return new Response($content);
+				}
+			}
 
 			if(!$victimTag || $victimTag->getActive() == false || $victimTag->getProfile()->getActive() == false || $victimTag->getProfile()->getGame() != $game)
 			{

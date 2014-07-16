@@ -3,14 +3,14 @@
 
 {% block components %}
 	{{ parent() }}
-	
+
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 {% endblock %}
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div vertical layout>
 		{% if errors is defined and errors is not null %}
 			<div class="card card-error" flex>
@@ -31,12 +31,15 @@
 				</div>
 			</div>
 		{% endif %}
-	
+
 		<div class="card" flex>
 			<paper-shadow z="1"></paper-shadow>
 			<div class="card-internal" vertical layout center>
-				<paper-input id="victim_id" label="Victim ID"></paper-input>
-				<paper-input id="zombie_id" label="Zombie ID"></paper-input>
+				<div>
+					<small>Enter AV codes in the victim field and the target's player id in the zombie field</small>
+				</div>
+				<paper-input id="victim_id" label="Victim ID" {% if victim %}value="{{ victim }}"{% endif %}></paper-input>
+				<paper-input id="zombie_id" label="Zombie ID" {% if zombie %}value="{{ zombie }}"{% endif %}></paper-input>
 				<paper-button id="submit_tag" label="Submit" raisedButton></paper-button>
 				<div style="margin-top: 5px;">
 					<small>Location: <span id="loc-status">NOT SENDING</span></small>
@@ -54,7 +57,7 @@
 
 {% block body_javascripts %}
 	{{ parent() }}
-	
+
 	<script>
 		$(function() {
 			$('#submit_tag').click(function() {
@@ -62,7 +65,7 @@
 				$('#zombie_id_hidden').val($('#zombie_id').val());
 				$('#tag_form').submit();
 			});
-			
+
 			navigator.geolocation.getCurrentPosition(function(pos) {
 				$('#latitude').val(pos.coords.latitude);
 				$('#longitude').val(pos.coords.longitude);

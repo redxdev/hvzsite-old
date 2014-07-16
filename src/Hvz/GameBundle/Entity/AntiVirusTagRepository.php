@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class AntiVirusTagRepository extends EntityRepository
 {
+    public function findOneByGameAndTag($game, $tag)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('av')
+                    ->from('HvzGameBundle:AntiVirusTag', 'av')
+                    ->where('av.game = :game')
+                    ->andWhere('av.tag = :tag')
+                    ->setParameter('game', $game)
+                    ->setParameter('tag', $tag)
+                    ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }
