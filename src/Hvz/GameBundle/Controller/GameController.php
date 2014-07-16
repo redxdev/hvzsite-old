@@ -45,7 +45,7 @@ class GameController extends Controller
 		}
 
 		$profileRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Profile');
-		
+
 		$humans = count($profileRepo->findActiveHumans($game));
 		$zombies = count($profileRepo->findActiveZombies($game));
 		$total = $humans + $zombies;
@@ -60,7 +60,7 @@ class GameController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Game:status.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("status", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate("status"),
     			'game' => array(
     				'humans' => $humans,
     				'zombies' => $zombies,
@@ -77,7 +77,7 @@ class GameController extends Controller
 	public function rulesAction()
 	{
 		$logger = $this->get('logger');
-	
+
 		$ruleEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Rule')->findAllOrderedByPosition();
 		$rules = array();
 		foreach($ruleEnts as $rule)
@@ -91,7 +91,7 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:rules.html.twig',
 			array(
-				"navigation" => \Hvz\GameBundle\HvzGameBundle::generateNavigation("rules", $this->get("router"), $this->get('security.context')),
+				"navigation" => $this->get('hvz.navigation')->generate("rules"),
 				"rules" => $rules
 			)
 		);
@@ -106,7 +106,7 @@ class GameController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Game:register_tag.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("register-tag", $this->get("router"), $this->get('security.context'))
+					'navigation' => $this->get('hvz.navigation')->generate("register-tag")
 				)
 			);
 
@@ -126,7 +126,7 @@ class GameController extends Controller
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
-						'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("register-tag", $this->get("router"), $this->get('security.context')),
+						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 						"errors" => array("There is no game currently running."),
 						"victim" => $victim,
 						"zombie" => $zombie
@@ -173,7 +173,7 @@ class GameController extends Controller
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
-						'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("register-tag", $this->get("router"), $this->get('security.context')),
+						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 						"errors" => $errors,
 						"victim" => $victim,
 						"zombie" => $zombie
@@ -204,7 +204,7 @@ class GameController extends Controller
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
-						'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("register-tag", $this->get("router"), $this->get('security.context')),
+						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 						"success" => $victimTag->getProfile()->getUser()->getFullname() . " has joined the horde, courtesy of " . $zombieProfile->getUser()->getFullname()
 					)
 				);
@@ -239,7 +239,7 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:players.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("players", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate("players"),
 				'players' => $players
 			)
 		);
@@ -267,7 +267,7 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:tags.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("tags", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate("tags"),
 				"tags" => $tags
 			)
 		);
@@ -349,7 +349,7 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:missions.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("missions", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate("missions"),
 				"missions" => $missions
 			)
 		);

@@ -47,7 +47,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:games.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'games' => $games
     		)
     	);
@@ -83,7 +83,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Created new game successfully.'
@@ -97,7 +97,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_game.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -121,7 +121,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown game id.'
@@ -148,7 +148,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Edited game successfully.'
@@ -162,7 +162,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_game.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -186,7 +186,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown game id.'
@@ -205,7 +205,7 @@ class AdminController extends Controller
 			'HvzGameBundle:Admin:message.html.twig',
 			array(
 				'message' => array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'type' => 'success',
 					'body' => 'Deleted game from the database.'
 				)
@@ -241,7 +241,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:users.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'users' => $users
     		)
     	);
@@ -265,7 +265,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown user id.'
@@ -293,7 +293,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Edited user successfully.'
@@ -307,7 +307,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_user.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -331,7 +331,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown user id.'
@@ -349,7 +349,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:message.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'message' => array(
 					'type' => 'success',
 					'body' => 'Deleted user from the database.'
@@ -375,7 +375,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown user id.'
@@ -398,7 +398,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'There is no current or upcoming game to create a profile for.'
@@ -415,7 +415,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'A profile already exists.'
@@ -496,7 +496,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:profiles.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'profiles' => $profiles
     		)
     	);
@@ -519,7 +519,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown profile id.'
@@ -542,7 +542,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:view_profile.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'profile' => array(
 					'id' => $profile->getId(),
 					'user' => $profile->getUser()->getFullname(),
@@ -574,7 +574,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown profile id.'
@@ -614,7 +614,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown profile id.'
@@ -646,7 +646,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Edited profile successfully.'
@@ -660,7 +660,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_profile.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView(),
 				'profile' => array(
 					'user' => $profile->getUser()->getFullname()
@@ -687,7 +687,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown profile id.'
@@ -705,7 +705,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:message.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'message' => array(
 					'type' => 'success',
 					'body' => 'Deleted profile from the database.'
@@ -752,7 +752,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:missions.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'missions' => $missions
     		)
     	);
@@ -776,7 +776,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown mission id.'
@@ -813,7 +813,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Edited mission successfully.'
@@ -827,7 +827,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_mission.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -873,7 +873,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Created mission successfully.'
@@ -887,7 +887,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_mission.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -911,7 +911,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown mission id.'
@@ -929,7 +929,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:message.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'message' => array(
 					'type' => 'success',
 					'body' => 'Deleted mission from the database.'
@@ -967,7 +967,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:news_posts.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'posts' => $posts
     		)
     	);
@@ -991,7 +991,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown post id.'
@@ -1023,7 +1023,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Edited post successfully.'
@@ -1037,7 +1037,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_post.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -1079,7 +1079,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'success',
 						'body' => 'Created post successfully.'
@@ -1093,7 +1093,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
     		'HvzGameBundle:Admin:edit_post.html.twig',
     		array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
     			'form' => $form->createView()
     		)
     	);
@@ -1117,7 +1117,7 @@ class AdminController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:message.html.twig',
 				array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'message' => array(
 						'type' => 'error',
 						'body' => 'Unknown post id.'
@@ -1135,7 +1135,7 @@ class AdminController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:message.html.twig',
 			array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'message' => array(
 					'type' => 'success',
 					'body' => 'Deleted post from the database.'
@@ -1171,7 +1171,7 @@ class AdminController extends Controller
         $content = $this->renderView(
             'HvzGameBundle:Admin:rules.html.twig',
             array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
                 'rules' => $rules
             )
         );
@@ -1195,7 +1195,7 @@ class AdminController extends Controller
             $content = $this->renderView(
                 'HvzGameBundle:Admin:message.html.twig',
                 array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
                     'message' => array(
                         'type' => 'error',
                         'body' => 'Unknown rule id.'
@@ -1223,7 +1223,7 @@ class AdminController extends Controller
             $content = $this->renderView(
                 'HvzGameBundle:Admin:message.html.twig',
                 array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
                     'message' => array(
                         'type' => 'success',
                         'body' => 'Edited rule successfully.'
@@ -1237,7 +1237,7 @@ class AdminController extends Controller
         $content = $this->renderView(
             'HvzGameBundle:Admin:edit_rule.html.twig',
             array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
                 'form' => $form->createView()
             )
         );
@@ -1275,7 +1275,7 @@ class AdminController extends Controller
             $content = $this->renderView(
                 'HvzGameBundle:Admin:message.html.twig',
                 array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
                     'message' => array(
                         'type' => 'success',
                         'body' => 'Created rule successfully.'
@@ -1289,7 +1289,7 @@ class AdminController extends Controller
         $content = $this->renderView(
             'HvzGameBundle:Admin:edit_rule.html.twig',
             array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
                 'form' => $form->createView()
             )
         );
@@ -1313,7 +1313,7 @@ class AdminController extends Controller
             $content = $this->renderView(
                 'HvzGameBundle:Admin:message.html.twig',
                 array(
-					'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+					'navigation' => $this->get('hvz.navigation')->generate(""),
                     'message' => array(
                         'type' => 'error',
                         'body' => 'Unknown rule id.'
@@ -1331,7 +1331,7 @@ class AdminController extends Controller
         $content = $this->renderView(
             'HvzGameBundle:Admin:message.html.twig',
             array(
-				'navigation' => \Hvz\GameBundle\HvzGameBundle::generateNavigation("", $this->get("router"), $this->get('security.context')),
+				'navigation' => $this->get('hvz.navigation')->generate(""),
                 'message' => array(
                     'type' => 'success',
                     'body' => 'Deleted rule from the database.'

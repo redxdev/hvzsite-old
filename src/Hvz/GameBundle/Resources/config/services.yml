@@ -13,3 +13,7 @@ services:
     hvz.tag_generator:
         class: Hvz\GameBundle\Services\TagGeneratorService
         arguments: ["@doctrine.orm.entity_manager"]
+
+    hvz.navigation:
+        class: Hvz\GameBundle\Services\NavigationService
+        arguments: ["@router", "@security.context"]

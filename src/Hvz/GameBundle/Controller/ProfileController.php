@@ -32,14 +32,14 @@ class ProfileController extends Controller
 		{
 			return $this->redirect($this->generateUrl('hvz_error_active'));
 		}
-		
+
 		$tagEnts = $profile->getIdTags();
 		$tagIds = array();
 		foreach($tagEnts as $id)
 		{
 			$tagIds[] = array("tag" => $id->getTag(), "active" => $id->getActive());
 		}
-		
+
 		$infectionEnts = $this->getDoctrine()->getRepository('HvzGameBundle:InfectionSpread')->findByZombieOrderedByTime($game, $profile);
 		$infections = array();
 		foreach($infectionEnts as $infection)
@@ -53,7 +53,7 @@ class ProfileController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Profile:index.html.twig',
 			array(
-				"navigation" => \Hvz\GameBundle\HvzGameBundle::generateNavigation("profile", $this->get("router"), $this->get('security.context')),
+				"navigation" => $this->get('hvz.navigation')->generate("profile"),
 				"profile" => array(
 					"team" => $profile->getTeam() == User::TEAM_HUMAN ? 'human' : 'zombie',
 					"tags" => $profile->getNumberTagged(),
@@ -67,7 +67,7 @@ class ProfileController extends Controller
 
 		return new Response($content);
 	}
-	
+
 	public function editClanAction(Request $request)
 	{
 		$securityContext = $this->get('security.context');
@@ -90,31 +90,31 @@ class ProfileController extends Controller
 		{
 			return $this->redirect($this->generateUrl('hvz_error_active'));
 		}
-		
+
 		$newClan = $request->request->get('clan');
-		
+
 		if($newClan == null)
 		{
 			$content = $this->renderView(
 				"HvzGameBundle:Profile:edit_clan.html.twig",
 				array (
-					"navigation" => \Hvz\GameBundle\HvzGameBundle::generateNavigation("profile", $this->get("router"), $this->get('security.context')),
+					"navigation" => $this->get('hvz.navigation')->generate("profile"),
 					"profile" => array(
 						"clan" => $profile->getClan()
 					)
 				)
 			);
-			
+
 			return new Response($content);
 		}
 		else
 		{
 			if($newClan == 'null')
 				$newClan = "";
-			
+
 			$profile->setClan($newClan);
 			$this->getDoctrine()->getManager()->flush();
-			
+
 			return $this->redirect($this->generateUrl('hvz_profile'));
 		}
 	}
