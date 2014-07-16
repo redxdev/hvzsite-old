@@ -35,9 +35,9 @@ class AntiVirusTag
      */
     private $active;
 
-    public function __construct()
+    public function __construct($tag)
     {
-        $this->tag = PlayerTag::generateTag();
+        $this->tag = $tag;
         $this->active = true;
     }
 
