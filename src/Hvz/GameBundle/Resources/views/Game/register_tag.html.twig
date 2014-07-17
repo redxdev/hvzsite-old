@@ -38,8 +38,8 @@
 				<div>
 					<small>Enter AV codes in the victim field and the target's player id in the zombie field</small>
 				</div>
-				<paper-input id="victim_id" label="Victim ID" {% if victim %}value="{{ victim }}"{% endif %}></paper-input>
-				<paper-input id="zombie_id" label="Zombie ID" {% if zombie %}value="{{ zombie }}"{% endif %}></paper-input>
+				<paper-input floatinglabel id="victim_id" label="Victim ID" {% if victim %}value="{{ victim }}"{% endif %}></paper-input>
+				<paper-input floatinglabel id="zombie_id" label="Zombie ID" {% if zombie %}value="{{ zombie }}"{% endif %}></paper-input>
 				<paper-button id="submit_tag" label="Submit" raisedButton></paper-button>
 				<div style="margin-top: 5px;">
 					<small>Location: <span id="loc-status">NOT SENDING</span></small>

@@ -3,7 +3,7 @@
 
 {% block components %}
 	{{ parent() }}
-	
+
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-radio-group/paper-radio-group.html') }}">
@@ -15,21 +15,19 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div class="card">
 		<paper-shadow z="1"></paper-shadow>
 		<div class="card-internal"  vertical layout center>
-			<p><strong>Mission Title:</strong></p>
-			<paper-input id="p-title" label="Title"></paper-input>
-			<p><strong>Body:</strong></p>
-			<paper-input multiline id="p-body" style="width: 100%;" label="Body"></paper-input>
-			<p><strong>Post Date:</strong> <small>year month day hour minute</small></p>
+			<paper-input floatinglabel id="p-title" label="Title"></paper-input>
+			<paper-input multiline floatinglabel id="p-body" style="width: 100%;" label="Body"></paper-input>
+			<p><strong>Post Date:</strong></p>
 			<div horizontal layout wrap>
-				<paper-input id="p-year" label="Year" style="width: 100px;" validate="^[0-9]*$"></paper-input>
-				<paper-input id="p-month" label="Month" style="width: 100px;" validate="^[0-9]*$"></paper-input>
-				<paper-input id="p-day" label="Day" style="width: 100px;" validate="^[0-9]*$"></paper-input>
-				<paper-input id="p-hour" label="Hour" style="width: 100px;" validate="^[0-9]*$"></paper-input>
-				<paper-input id="p-minute" label="Minute" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input floatinglabel id="p-year" label="Year" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input floatinglabel id="p-month" label="Month" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input floatinglabel id="p-day" label="Day" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input floatinglabel id="p-hour" label="Hour" style="width: 100px;" validate="^[0-9]*$"></paper-input>
+				<paper-input floatinglabel id="p-minute" label="Minute" style="width: 100px;" validate="^[0-9]*$"></paper-input>
 			</div>
 			<p><strong>Team:</strong></p>
 			<paper-radio-group id="p-team" selected="0">
@@ -48,9 +46,9 @@
 	<div id="internal-form">
 		{{ form(form) }}
 	</div>
-	
+
 	{{ parent() }}
-	
+
 	<script>
 		var gameSelect = {};
 		var rGameSelect = {};
@@ -63,7 +61,7 @@
 			$("#p-hour").val($("#form_postdate_time_hour").val());
 			$("#p-minute").val($("#form_postdate_time_minute").val());
 			$("#p-team").prop("selected", $("#form_team").val());
-			
+
 			var i = 0;
 			$("#form_game option").each(function() {
 				var e = $(this);
@@ -71,19 +69,19 @@
 					$("p-game").html() +
 					"<paper-radio-button label=\"" + e.html() + "\"></paper-radio-button>"
 				);
-				
+
 				gameSelect[e.val()] = i;
 				rGameSelect[i] = e.val();
 				i++;
 			});
-			
+
 			$("#p-game").prop("selected", gameSelect[$("#form_game").val()]);
 		});
-		
-		$(function() {		
+
+		$(function() {
 			$("#fake-submit").click(function() {
 				var error = false;
-				
+
 				if(error) {
 					alert("There are problems with your input.");
 				}
@@ -97,7 +95,7 @@
 					$("#form_postdate_time_minute").val($("#p-minute").val());
 					$("#form_team").val($("#p-team").prop("selected"));
 					$("#form_game").val(rGameSelect[$("#p-game").prop("selected")]);
-					
+
 					$("#form_save").click();
 				}
 			});
