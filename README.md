@@ -8,7 +8,8 @@ Requirements
 
   * Composer
   * PHP 5.3.3 or newer
-  * PDO
+  * PHP PDO
+  * PHP JSON
   * Recommended: APC 3.0.17+
 
 Installation
