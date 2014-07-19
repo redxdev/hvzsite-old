@@ -22,6 +22,11 @@ root directory of this project in a terminal, and run:
 
 The command should download all dependencies.
 
+Copy "src/Hvz/GameBundle/Services/OAuthSettings.php.dist" and fill out the
+information. You can set up OAuth access at
+https://console.developers.google.com, where you will need to set redirect URIs
+to "/auth/register/code" and "/auth/login/code".
+
 Next you need to install assets. On windows:
 
     php app/console assets:install

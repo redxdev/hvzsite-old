@@ -13,29 +13,14 @@ use Hvz\GameBundle\Entity\PlayerTag;
 
 use Hvz\GameBundle\Security\Authentication\Token\GoogleOAuthToken;
 
-require_once __DIR__ . '/../OAuth/Google_Client.php';
-require_once __DIR__ . '/../OAuth/contrib/Google_Oauth2Service.php';
+require_once __DIR__ . '/../../../../vendor/google/apiclient/src/Google/Service/OAuth2.php';
 
 class AuthController extends Controller
 {
-	const GOOGLE_APPLICATION_NAME = "Humans vz Zombies @ RIT";
-	const GOOGLE_CLIENT_ID = '532413261747.apps.googleusercontent.com';
-	const GOOGLE_CLIENT_SECRET = 'RvDjboS_cA1gD2MeNViMpCAz';
-
-	public static function getGoogleClient($uri)
-	{
-		$client = new \Google_Client();
-		$client->setClientId(AuthController::GOOGLE_CLIENT_ID);
-		$client->setClientSecret(AuthController::GOOGLE_CLIENT_SECRET);
-		$client->setApplicationName(AuthController::GOOGLE_APPLICATION_NAME);
-		$client->setScopes("https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile");
-		$client->setRedirectUri($uri);
-		return $client;
-	}
 
 	public function registerAction()
 	{
-		$client = $this->getGoogleClient($this->generateUrl('hvz_auth_register_code', array(), true));
+		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_register_code', array(), true));
 
 		return $this->redirect($client->createAuthUrl());
 	}
@@ -43,8 +28,8 @@ class AuthController extends Controller
 	public function registerCodeAction(Request $request)
 	{
 		$code = $request->query->get('code');
-		$client = $this->getGoogleClient($this->generateUrl('hvz_auth_register_code', array(), true));
-		$oauth = new \Google_Oauth2Service($client);
+		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_register_code', array(), true));
+		$oauth = new \Google_Service_Oauth2($client);
 		$client->authenticate($code);
 		if(!$client->getAccessToken())
 		{
@@ -125,7 +110,7 @@ class AuthController extends Controller
 
 	public function loginAction()
 	{
-		$client = $this->getGoogleClient($this->generateUrl('hvz_auth_login_code', array(), true));
+		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_login_code', array(), true));
 
 		return $this->redirect($client->createAuthUrl());
 	}
@@ -133,8 +118,8 @@ class AuthController extends Controller
 	public function loginCodeAction(Request $request)
 	{
 		$code = $request->query->get('code');
-		$client = $this->getGoogleClient($this->generateUrl('hvz_auth_login_code', array(), true));
-		$oauth = new \Google_Oauth2Service($client);
+		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_login_code', array(), true));
+		$oauth = new \Google_Service_Oauth2($client);
 		$client->authenticate($code);
 		if(!$client->getAccessToken())
 		{
@@ -187,7 +172,7 @@ class AuthController extends Controller
 			return $this->redirect($this->generateUrl('hvz_error_active'));
 		}
 
-		$token = new GoogleOAuthToken($user, $client->getAccessToken(), $client->getRedirectUri(), 'user_area', $user->getRoles());
+		$token = new GoogleOAuthToken($user, $client->getAccessToken(), $this->generateUrl('hvz_auth_login_code', array(), true), 'user_area', $user->getRoles());
 		$this->get('security.context')->setToken($token);
 
 		$loginEvent = new InteractiveLoginEvent($this->getRequest(), $token);

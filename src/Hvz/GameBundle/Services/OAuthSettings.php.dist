@@ -1,0 +1,25 @@
+<?php
+
+namespace Hvz\GameBundle\Services;
+
+class OAuthSettings
+{
+	const GOOGLE_APPLICATION_NAME = "Humans vz Zombies @ RIT";
+	const GOOGLE_CLIENT_ID = 'REPLACE ME';
+	const GOOGLE_CLIENT_SECRET = 'REPLACE ME';
+
+	public function getApplicationName()
+	{
+		return GOOGLE_APPLICATION_NAME;
+	}
+
+	public function getClientId()
+	{
+		return GOOGLE_CLIENT_ID;
+	}
+
+	public function getClientSecret()
+	{
+		return GOOGLE_CLIENT_SECRET;
+	}
+}

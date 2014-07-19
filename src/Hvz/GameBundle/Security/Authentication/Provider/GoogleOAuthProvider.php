@@ -11,24 +11,25 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Hvz\GameBundle\Security\Authentication\Token\GoogleOAuthToken;
 use Hvz\GameBundle\Controller\AuthController;
 
-require_once __DIR__ . '/../../../OAuth/Google_Client.php';
-require_once __DIR__ . '/../../../OAuth/contrib/Google_Oauth2Service.php';
+require_once __DIR__ . '/../../../../../../vendor/google/apiclient/src/Google/Service/OAuth2.php';
 
 class GoogleOAuthProvider implements AuthenticationProviderInterface
 {
     private $userProvider;
+    private $googleAuth;
 
-    public function __construct(UserProviderInterface $userProvider)
+    public function __construct(UserProviderInterface $userProvider, $googleAuth)
     {
         $this->userProvider = $userProvider;
+        $this->googleAuth = $googleAuth;
     }
 
     public function authenticate(TokenInterface $token)
     {
         $user = $this->userProvider->loadUserByUsername($token->getUsername());
 
-        $client = AuthController::getGoogleClient($token->getRedirectUri());
-        $oauth = new \Google_Oauth2Service($client);
+        $client = $this->googleAuth->createClient($token->getRedirectUri());
+        $oauth = new \Google_Service_Oauth2($client);
         $client->setAccessToken($token->getAccessToken());
 		$userInfo = $oauth->userinfo->get();
 
@@ -37,7 +38,7 @@ class GoogleOAuthProvider implements AuthenticationProviderInterface
         }
 
         throw new AuthenticationException('Google OAuth authentication failed.');
-        
+
         return $token;
     }
 
