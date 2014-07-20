@@ -17,6 +17,7 @@ class BadgeRegistry
 		$this->registerBadges();
 	}
 
+	// used to add auto badges
 	public function handleInfection($profile)
 	{
 		$badges = $profile->getBadges();
@@ -29,6 +30,20 @@ class BadgeRegistry
 			}
 		}
 
+		$profile->setBadges($badges);
+		$entityManager->flush();
+	}
+
+	// used to add manual badges
+	public function addBadge($profile, $id)
+	{
+		if(!array_key_exists($id, $manualRegistry))
+		{
+			throw new InvalidArgumentException("Unknown badge id " . $id);
+		}
+
+		$badges = $profile->getBadges();
+		$badges[$id] = true;
 		$profile->setBadges($badges);
 		$entityManager->flush();
 	}
