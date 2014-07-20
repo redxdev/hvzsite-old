@@ -74,6 +74,13 @@ class Profile
 	private $clan = "";
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="badges", type="array")
+     */
+    private $badges;
+
+    /**
      * Constructor
      */
     public function __construct($tag)
@@ -287,5 +294,28 @@ class Profile
     public function getClan()
     {
         return $this->clan;
+    }
+
+    /**
+     * Set badges
+     *
+     * @param array $badges
+     * @return Profile
+     */
+    public function setBadges($badges)
+    {
+        $this->badges = $badges;
+
+        return $this;
+    }
+
+    /**
+     * Get badges
+     *
+     * @return array
+     */
+    public function getBadges()
+    {
+        return $this->badges;
     }
 }
