@@ -7,6 +7,7 @@ Requirements
 ============
 
   * Composer
+  * Bower
   * PHP 5.3.3 or newer
   * PHP PDO
   * PHP JSON
@@ -20,7 +21,14 @@ root directory of this project in a terminal, and run:
 
     composer install
 
-The command should download all dependencies.
+The command should download all backend dependencies.
+
+Next, make sure you have [Bower](http://bower.io/) installed. In the root
+directory of this project run:
+
+    bower install
+
+This command should download all frontend dependencies.
 
 Copy "src/Hvz/GameBundle/Services/OAuthSettings.php.dist" and fill out the
 information. You can set up OAuth access at
