@@ -3,19 +3,19 @@
 
 {% block components %}
 	{{ parent() }}
-	
+
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 {% endblock %}
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div vertical layout>
 		<div class="card" flex>
 			<paper-shadow z="1"></paper-shadow>
 			<div class="card-internal" vertical layout center>
-				<paper-input id="clan" label="Clan" value="{{ profile.clan }}"></paper-input>
+				<paper-input id="clan" floatingLabel label="Clan" value="{{ profile.clan }}"></paper-input>
 				<paper-button id="submit_clan" label="Submit" raisedButton></paper-button>
 				<form id="clan_form" method="post" action="{{ path('hvz_profile_submit_clan') }}">
 					<input type="hidden" id="clan_hidden" name="clan">
@@ -27,7 +27,7 @@
 
 {% block body_javascripts %}
 	{{ parent() }}
-	
+
 	<script>
 		$(function() {
 			$('#submit_clan').click(function() {

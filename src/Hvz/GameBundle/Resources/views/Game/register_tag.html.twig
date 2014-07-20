@@ -45,6 +45,7 @@
 					<small>Location: <span id="loc-status">NOT SENDING</span></small>
 				</div>
 				<form id="tag_form" method="post" action="{{ path('hvz_register_tag_submit') }}">
+					<input type="hidden" name="_token" value="{{ csrf_token('hvz_register_tag') }}">
 					<input type="hidden" id="victim_id_hidden" name="victim">
 					<input type="hidden" id="zombie_id_hidden" name="zombie">
 					<input type="hidden" id="latitude" name="latitude">
@@ -60,6 +61,11 @@
 
 	<script>
 		$(function() {
+			$(function() {
+				$("#latitude").val(null);
+				$("#longitude").val(null);
+			});
+
 			$('#submit_tag').click(function() {
 				$('#victim_id_hidden').val($('#victim_id').val());
 				$('#zombie_id_hidden').val($('#zombie_id').val());

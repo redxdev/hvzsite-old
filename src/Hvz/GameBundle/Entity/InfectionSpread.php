@@ -33,18 +33,18 @@ class InfectionSpread
      * @ORM\JoinColumn(name="zombie_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $zombie;
-	
+
 	/**
 	 * @var float
 	 *
-	 * @ORM\Column(name="latitude", type="float")
+	 * @ORM\Column(name="latitude", type="float", nullable=true)
 	 */
 	private $latitude = -1;
-	
+
 	/**
 	 * @var float
 	 *
-	 * @ORM\Column(name="longitude", type="float")
+	 * @ORM\Column(name="longitude", type="float", nullable=true)
 	 */
 	private $longitude = -1;
 
@@ -68,7 +68,7 @@ class InfectionSpread
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -84,14 +84,14 @@ class InfectionSpread
     public function setTime($time)
     {
         $this->time = $time;
-    
+
         return $this;
     }
 
     /**
      * Get time
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTime()
     {
@@ -107,14 +107,14 @@ class InfectionSpread
     public function setZombie(\Hvz\GameBundle\Entity\Profile $zombie = null)
     {
         $this->zombie = $zombie;
-    
+
         return $this;
     }
 
     /**
      * Get zombie
      *
-     * @return \Hvz\GameBundle\Entity\user 
+     * @return \Hvz\GameBundle\Entity\user
      */
     public function getZombie()
     {
@@ -130,14 +130,14 @@ class InfectionSpread
     public function setVictim(\Hvz\GameBundle\Entity\Profile $victim = null)
     {
         $this->victim = $victim;
-    
+
         return $this;
     }
 
     /**
      * Get victim
      *
-     * @return \Hvz\GameBundle\Entity\user 
+     * @return \Hvz\GameBundle\Entity\user
      */
     public function getVictim()
     {
@@ -153,14 +153,14 @@ class InfectionSpread
     public function setGame(\Hvz\GameBundle\Entity\Game $game = null)
     {
         $this->game = $game;
-    
+
         return $this;
     }
 
     /**
      * Get game
      *
-     * @return \Hvz\GameBundle\Entity\Game 
+     * @return \Hvz\GameBundle\Entity\Game
      */
     public function getGame()
     {
@@ -176,14 +176,14 @@ class InfectionSpread
     public function setLatitude($latitude)
     {
         $this->latitude = $latitude;
-    
+
         return $this;
     }
 
     /**
      * Get latitude
      *
-     * @return float 
+     * @return float
      */
     public function getLatitude()
     {
@@ -199,14 +199,14 @@ class InfectionSpread
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
-    
+
         return $this;
     }
 
     /**
      * Get longitude
      *
-     * @return float 
+     * @return float
      */
     public function getLongitude()
     {

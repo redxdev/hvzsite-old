@@ -114,11 +114,28 @@ class GameController extends Controller
 		}
 		else if($request->getMethod() == "POST")
 		{
+			$csrf = $this->get('form.csrf_provider');
 
+			$token = $request->get('_token');
 			$victim = $request->get('victim');
 			$zombie = $request->get('zombie');
-			$latitude = $request->get('latitude') or -1;
-			$longitude = $request->get('longitude') or -1;
+			$latitude = $request->get('latitude') or null;
+			$longitude = $request->get('longitude') or null;
+
+			if(!$csrf->isCsrfTokenValid('hvz_register_tag', $token))
+			{
+				$content = $this->renderView(
+					'HvzGameBundle:Game:register_tag.html.twig',
+					array(
+						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+						"errors" => array("Invalid CSRF token. Try resubmitting!"),
+						"victim" => $victim,
+						"zombie" => $zombie
+					)
+				);
+
+				return new Response($content);
+			}
 
 			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 			if($game == null)
