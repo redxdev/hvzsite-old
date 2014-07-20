@@ -55,35 +55,51 @@ class NavigationService
 				"link" => $this->router->generate('hvz_missions'));
 		}
 
-		if($this->securityContext->isGranted("ROLE_ADMIN"))
+		if($this->securityContext->isGranted("ROLE_MOD"))
 		{
-			$navigation["admin"] = array(
-				array(
+			$navigation["admin"] = array();
+
+			if($this->securityContext->isGranted("ROLE_ADMIN"))
+			{
+				$navigation["admin"][] = array(
 					"id" => "games",
 					"icon" => "",
 					"label" => "Games",
-					"link" => $this->router->generate('hvz_admin_games')),
-				array(
-					"id" => "users",
-					"icon" => "",
-					"label" => "Users",
-					"link" => $this->router->generate('hvz_admin_users')),
-				array(
-					"id" => "profiles",
-					"icon" => "",
-					"label" => "Profiles",
-					"link" => $this->router->generate('hvz_admin_profiles')),
-				array(
+					"link" => $this->router->generate('hvz_admin_games')
+				);
+			}
+
+
+			$navigation["admin"][] = array(
+				"id" => "users",
+				"icon" => "",
+				"label" => "Users",
+				"link" => $this->router->generate('hvz_admin_users')
+			);
+
+			$navigation["admin"][] = array(
+				"id" => "profiles",
+				"icon" => "",
+				"label" => "Profiles",
+				"link" => $this->router->generate('hvz_admin_profiles')
+			);
+
+			if($this->securityContext->isGranted("ROLE_ADMIN"))
+			{
+				$navigation["admin"][] = array(
 					"id" => "missions",
 					"icon" => "",
 					"label" => "Missions",
-					"link" => $this->router->generate('hvz_admin_missions')),
-				array(
+					"link" => $this->router->generate('hvz_admin_missions')
+				);
+
+				$navigation["admin"][] = array(
 					"id" => "rules",
 					"icon" => "",
 					"label" => "Rules",
-					"link" => $this->router->generate('hvz_admin_rules'))
-			);
+					"link" => $this->router->generate('hvz_admin_rules')
+				);
+			}
 		}
 
 		foreach($navigation["links"] as $k => $v)

@@ -6,7 +6,7 @@
 
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-input/paper-input.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-checkbox/paper-checkbox.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-radio-group/paper-radio-group.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -21,7 +21,12 @@
 		<div class="card-internal" vertical layout center>
 			<paper-input floatingLabel id="p-fullname" label="Full Name"></paper-input>
 			<paper-input floatingLabel id="p-email" label="Email"></paper-input>
-			<paper-input floatingLabel id="p-role" label="Role"></paper-input>
+			<p><strong>Role:</strong></p>
+			<paper-radio-group id="p-role" selected="0">
+				<paper-radio-button label="ROLE_USER"></paper-radio-button>
+				<paper-radio-button label="ROLE_MOD"></paper-radio-button>
+				<paper-radio-button label="ROLE_ADMIN"></paper-radio-button>
+			</paper-radio-group>
 			<paper-button id="fake-submit" label="Submit" raisedButton></paper-button>
 		</div>
 	</div>
@@ -38,7 +43,23 @@
 		document.addEventListener('polymer-ready', function() {
 			$("#p-fullname").val($("#form_fullname").val());
 			$("#p-email").val($("#form_email").val());
-			$("#p-role").val($("#form_roles_0").val());
+
+			var selected = -1;
+			switch($("#form_roles_0").val()) {
+				case "ROLE_USER":
+					selected = 0;
+					break;
+
+				case "ROLE_MOD":
+					selected = 1;
+					break;
+
+				case "ROLE_ADMIN":
+					selected = 2;
+					break;
+			}
+
+			$("#p-role").prop("selected", selected)
 		});
 
 		$(function() {
@@ -51,7 +72,25 @@
 				else {
 					$("#form_fullname").val($("#p-fullname").val());
 					$("#form_email").val($("#p-email").val());
-					$("#form_roles_0").val($("#p-role").val());
+
+					var role = null;
+					switch($("#p-role").prop("selected")) {
+						case 0:
+							role = "ROLE_USER";
+							break;
+
+						case 1:
+							role = "ROLE_MOD";
+							break;
+
+						case 2:
+							role = "ROLE_ADMIN";
+							break;
+					}
+
+					if(role !== null) {
+						$("#form_roles_0").val(role);
+					}
 
 					$("#form_save").click();
 				}
