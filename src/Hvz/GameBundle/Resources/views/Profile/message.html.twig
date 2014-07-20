@@ -1,0 +1,11 @@
+{# src/Hvz/GameBundle/Resources/views/Profile/message.html.twig #}
+{% extends 'HvzGameBundle::page.html.twig' %}
+
+{% block content %}
+	{{ parent() }}
+
+	<div class="card card-{{ message.type }}" horizontal layout center center-justified>
+		<paper-shadow z="1"></paper-shadow>
+		{{ message.body | raw }}
+	</div>
+{% endblock %}

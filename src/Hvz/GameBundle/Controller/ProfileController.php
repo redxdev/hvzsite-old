@@ -109,6 +109,25 @@ class ProfileController extends Controller
 		}
 		else
 		{
+			$csrf = $this->get('form.csrf_provider');
+			$token = $request->get('_token');
+
+			if(!$csrf->isCsrfTokenValid('hvz_edit_clan', $token))
+			{
+				$content = $this->renderView(
+					'HvzGameBundle:Profile:message.html.twig',
+					array(
+						'navigation' => $this->get('hvz.navigation')->generate(""),
+						'message' => array(
+							'type' => 'error',
+							'body' => 'Invalid CSRF token. Try resubmitting!'
+						)
+					)
+				);
+
+				return new Response($content);
+			}
+
 			if($newClan == 'null')
 				$newClan = "";
 

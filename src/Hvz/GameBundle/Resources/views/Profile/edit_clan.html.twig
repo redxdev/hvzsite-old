@@ -18,6 +18,7 @@
 				<paper-input id="clan" floatingLabel label="Clan" value="{{ profile.clan }}"></paper-input>
 				<paper-button id="submit_clan" label="Submit" raisedButton></paper-button>
 				<form id="clan_form" method="post" action="{{ path('hvz_profile_submit_clan') }}">
+					<input type="hidden" name="_token" value="{{ csrf_token('hvz_edit_clan') }}">
 					<input type="hidden" id="clan_hidden" name="clan">
 				</form>
 			</div>
