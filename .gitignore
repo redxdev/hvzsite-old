@@ -13,6 +13,9 @@
 /bin/
 /vendor/
 
+# Managed by Bower
+/src/Hvz/GameBundle/Resources/public/bower_components/
+
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
