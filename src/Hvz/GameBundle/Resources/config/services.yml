@@ -15,8 +15,8 @@ services:
         class: Hvz\GameBundle\Services\NavigationService
         arguments: ["@router", "@security.context"]
 
-    hvz.badges:
-        class: Hvz\GameBundle\Services\BadgeService
+    hvz.badge_registry:
+        class: Hvz\GameBundle\Services\BadgeRegistry
         arguments: ["@doctrine.orm.entity_manager"]
 
     hvz.oauth.settings:
