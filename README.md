@@ -70,6 +70,26 @@ column to the following:
 This will mark your account as an administrator. Once done, log out of the
 website and log back in. You should now have access to the administration panel.
 
+User roles and permissions
+==========================
+
+Currently, there are three user roles implemented:
+
+* ROLE_USER
+* ROLE_MOD
+* ROLE_ADMIN
+
+By default, anyone signing up is set to **ROLE_USER**. This simply allows them to
+participate in the game.
+
+Administrators of the game should be set as **ROLE_ADMIN**,
+which allows them access to all functions in the admin panel.
+
+Finally, **ROLE_MOD** should be given to those that are helping the administrators
+but should not have full access. They only are able to view user accounts and
+profiles, generate new profiles, and edit profiles. They cannot change game settings,
+missions, rules, or edit user accounts.
+
 License
 =======
 
