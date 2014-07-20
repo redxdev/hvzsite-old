@@ -72,6 +72,7 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Auth:message.html.twig',
 				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						'navigation' => $this->get('hvz.navigation')->generate(""),
 						"type" => "error",
