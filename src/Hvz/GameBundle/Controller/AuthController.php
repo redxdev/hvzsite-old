@@ -13,7 +13,7 @@ use Hvz\GameBundle\Entity\PlayerTag;
 
 use Hvz\GameBundle\Security\Authentication\Token\GoogleOAuthToken;
 
-require_once __DIR__ . '/../../../../vendor/google/apiclient/src/Google/Service/OAuth2.php';
+require_once __DIR__ . '/../../../../vendor/google/apiclient/src/Google/Service/Oauth2.php';
 
 class AuthController extends Controller
 {

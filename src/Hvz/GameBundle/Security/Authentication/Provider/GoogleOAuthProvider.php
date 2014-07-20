@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Hvz\GameBundle\Security\Authentication\Token\GoogleOAuthToken;
 use Hvz\GameBundle\Controller\AuthController;
 
-require_once __DIR__ . '/../../../../../../vendor/google/apiclient/src/Google/Service/OAuth2.php';
+require_once __DIR__ . '/../../../../../../vendor/google/apiclient/src/Google/Service/Oauth2.php';
 
 class GoogleOAuthProvider implements AuthenticationProviderInterface
 {
