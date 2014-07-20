@@ -59,16 +59,12 @@ class NavigationService
 		{
 			$navigation["admin"] = array();
 
-			if($this->securityContext->isGranted("ROLE_ADMIN"))
-			{
-				$navigation["admin"][] = array(
-					"id" => "games",
-					"icon" => "",
-					"label" => "Games",
-					"link" => $this->router->generate('hvz_admin_games')
-				);
-			}
-
+			$navigation["admin"][] = array(
+				"id" => "games",
+				"icon" => "",
+				"label" => "Games",
+				"link" => $this->router->generate('hvz_admin_games')
+			);
 
 			$navigation["admin"][] = array(
 				"id" => "users",
