@@ -19,7 +19,6 @@
     "paper-button": "Polymer/paper-button#>=0.3.0 <1.0.0",
     "paper-checkbox": "Polymer/paper-checkbox#>=0.3.0 <1.0.0",
     "paper-dialog": "Polymer/paper-dialog#>=0.3.0 <1.0.0",
-    "paper-elements": "Polymer/paper-elements#~0.3.3",
-    "polymer-ui-dropdown": "Polymer/polymer-ui-dropdown#~0.3.0"
+    "paper-elements": "Polymer/paper-elements#~0.3.3"
   }
 }
