@@ -21,7 +21,8 @@ root directory of this project in a terminal, and run:
 
     composer install
 
-The command should download all backend dependencies.
+The command should download all backend dependencies and walk you through
+setting up the database.
 
 Next, make sure you have [Bower](http://bower.io/) installed. In the root
 directory of this project run:
@@ -46,10 +47,7 @@ On Mac and Linux:
 If you do not use the symlink option, you will have to install assets every time
 you change anything in the public resources directories.
 
-Configure the database, mailer, and secret by editing
-"app/config/parameters.yml" (copying from "parameters.yml.dist" if needed).
-
-Once the database has been configured, run:
+Finally, initialize the database schema by running:
 
     php app/console doctrine:schema:update --force
 
