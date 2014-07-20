@@ -4,12 +4,12 @@
 {% block components %}
 	{{ parent() }}
 
-	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 {% endblock %}
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div class="card">
 		<paper-shadow z="1"></paper-shadow>
 		<div class="card-internal">
@@ -19,7 +19,7 @@
 			{% endfor %}
 		</div>
 	</div>
-	
+
 	{% for rule in rules %}
 		<div class="card">
 			<paper-shadow z="1"></paper-shadow>

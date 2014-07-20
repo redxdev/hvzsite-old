@@ -3,7 +3,7 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div class="card card-{{ message.type }}" horizontal layout center center-justified>
 		<paper-shadow z="1"></paper-shadow>
 		{{ message.body | raw }}

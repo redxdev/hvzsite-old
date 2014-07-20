@@ -17,13 +17,13 @@
 	<title>{{ title | default('Humans vs Zombies') }}</title>
 
 	{% block javascripts %}
-		<script src="{{ asset('bundles/hvzgame/components/platform/platform.js') }}"></script>
+		<script src="{{ asset('bundles/hvzgame/bower_components/platform/platform.js') }}"></script>
 	{% endblock %}
 
 	{% block components %}
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
-		<link rel="import" href="{{ asset('bundles/hvzgame/components/core-icons/core-icons.html') }}">
+		<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-icons/core-icons.html') }}">
 	{% endblock components %}
 
 	{% block stylesheets %}

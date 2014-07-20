@@ -3,7 +3,7 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	{% for tag in tags if tag.zombie != null %}
 		<div class="card">
 			<paper-shadow z="1"></paper-shadow>

@@ -3,8 +3,8 @@
 
 {% block components %}
 	{{ parent() }}
-	
-	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -13,7 +13,7 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div class="card" vertical layout>
 		<paper-shadow z="1"></paper-shadow>
 		<div horizontal layout justified wrap>
@@ -40,7 +40,7 @@
 		</ul>
 		<a href="{{ path('hvz_admin_profile_add_tag', {'id': profile.id}) }}"><paper-button label="New ID Tag" raisedButton></paper-button></a>
 	</div>
-	
+
 	{% for profile in profiles %}
 		<div class="card card-{{ profile.team }}" horizontal layout justified wrap>
 			<paper-shadow z="1"></paper-shadow>

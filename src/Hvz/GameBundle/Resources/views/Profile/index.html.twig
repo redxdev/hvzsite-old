@@ -3,8 +3,8 @@
 
 {% block components %}
 	{{ parent() }}
-	
-	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
+
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -13,7 +13,7 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div horizontal layout wrap>
 		<div class="card card-section card-{{ profile.team }}" vertical layout flex>
 			<paper-shadow z="1"></paper-shadow>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	{% if profile.team == 'zombie' %}
 		<div horizontal layout wrap>
 			<div class="card card-section card-timer player-count" vertical layout center center-justified flex>

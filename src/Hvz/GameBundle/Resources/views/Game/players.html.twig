@@ -3,7 +3,7 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	
+
 	<style>
 		div.player-info {
 			margin-left: 10px;
@@ -13,9 +13,9 @@
 
 {% block components %}
 	{{ parent() }}
-	
-	<link rel="import" href="{{ asset('bundles/hvzgame/components/paper-button/paper-button.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/components/core-icon/core-icon.html') }}">
+
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-icon/core-icon.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -24,13 +24,13 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	<div horizontal layout center center-justified>
 		<core-icon icon="filter"></core-icon>
 		<a href="{{ path('hvz_players') }}"><paper-button label="Team"></paper-button></a>
 		<a href="{{ path('hvz_players', {'sort': 'clan'}) }}"><paper-button label="Clan"></paper-button></a>
 	</div>
-	
+
 	{% for player in players %}
 		<div class="card {% if player.team == 'human' %}card-human{% else %}card-zombie{% endif %}" horizontal layout>
 			<paper-shadow z="1"></paper-shadow>
