@@ -3,7 +3,7 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	{% if game.time is defined and game.time is not null %}
 		<div class="card card-timer">
 			<paper-shadow z="1"></paper-shadow>
@@ -39,9 +39,9 @@
 
 {% block body_javascripts %}
 	{{ parent() }}
-	
+
 	<script src="{{ asset('bundles/hvzgame/js/jquery.countdown.min.js') }}"></script>
-	
+
 	{% if game.time is defined and game.time is not null %}
 		<script type="text/javascript" src="{{ asset('bundles/hvzgame/js/jquery.countdown.min.js') }}"></script>
 
