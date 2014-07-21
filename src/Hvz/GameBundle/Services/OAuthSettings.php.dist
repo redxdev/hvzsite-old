@@ -10,16 +10,16 @@ class OAuthSettings
 
 	public function getApplicationName()
 	{
-		return GOOGLE_APPLICATION_NAME;
+		return OAuthSettings::GOOGLE_APPLICATION_NAME;
 	}
 
 	public function getClientId()
 	{
-		return GOOGLE_CLIENT_ID;
+		return OAuthSettings::GOOGLE_CLIENT_ID;
 	}
 
 	public function getClientSecret()
 	{
-		return GOOGLE_CLIENT_SECRET;
+		return OAuthSettings::GOOGLE_CLIENT_SECRET;
 	}
 }

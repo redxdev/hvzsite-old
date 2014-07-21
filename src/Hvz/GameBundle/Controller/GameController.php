@@ -200,6 +200,8 @@ class GameController extends Controller
 					$zombieProfile->setTeam(User::TEAM_HUMAN);
 					$av->setActive(false);
 
+					$this->get('hvz.badge_registry')->addBadge($zombieProfile, 'used-av', false);
+
 					$this->getDoctrine()->getManager()->flush();
 
 					$content = $this->renderView(
@@ -268,6 +270,8 @@ class GameController extends Controller
 				$victimTag->setActive(false);
 
 				$zombieProfile->setNumberTagged($zombieProfile->getNumberTagged() + 1);
+
+				$this->get('hvz.infection_listener')->onInfection($victimTag->getProfile(), $zombie);
 
 				$em->flush();
 

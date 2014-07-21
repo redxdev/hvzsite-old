@@ -6,9 +6,7 @@ class BadgeRegistry
 {
 	private $entityManager;
 
-	private $manualRegistry = array();
-
-	private $autoRegistry = array();
+	private $registry = array();
 
 	public function __construct($entityManager)
 	{
@@ -17,27 +15,9 @@ class BadgeRegistry
 		$this->registerBadges();
 	}
 
-	// used to add auto badges
-	public function handleInfection($profile)
+	public function addBadge($profile, $id, $flush = true)
 	{
-		$badges = $profile->getBadges();
-
-		foreach($autoRegistry as $badge)
-		{
-			if($badge['function']($profile))
-			{
-				$badges[$badge['id']] = true;
-			}
-		}
-
-		$profile->setBadges($badges);
-		$entityManager->flush();
-	}
-
-	// used to add manual badges
-	public function addBadge($profile, $id)
-	{
-		if(!array_key_exists($id, $manualRegistry))
+		if(!array_key_exists($id, $this->registry))
 		{
 			throw new InvalidArgumentException("Unknown badge id " . $id);
 		}
@@ -45,7 +25,26 @@ class BadgeRegistry
 		$badges = $profile->getBadges();
 		$badges[$id] = true;
 		$profile->setBadges($badges);
-		$entityManager->flush();
+
+		if($flush)
+			$this->entityManager->flush();
+	}
+
+	public function getBadge($id)
+	{
+		return $this->registry[$id];
+	}
+
+	public function getBadges($profile)
+	{
+		$pb = $profile->getBadges();
+		$badges = array();
+		foreach($pb as $id)
+		{
+			$badges[] = getBadge($id);
+		}
+
+		return $badges;
 	}
 
 	/**
@@ -53,52 +52,32 @@ class BadgeRegistry
 	 * @param name human-readable name
 	 * @param description human-readable description
 	 * @param imgPath path relative to public/images/badges
-	 * @param auto if true this badge will automatically be applied to players
-	 * @param function the auto function
 	 */
-	public function registerBadge($id, $name, $description, $imgPath, $auto = false, $function = null)
+	public function registerBadge($id, $name, $description, $imgPath)
 	{
-		if($auto)
-		{
-			$this->autoRegistry[$id] = array(
-				'name' => $name,
-				'image' => $imgPath,
-				'function' => $function
-			);
-		}
-		else
-		{
-			$this->manualRegistry[$id] = array(
-				'name' => $name,
-				'image' => $imgPath,
-			);
-		}
+		$this->registry[$id] = array(
+			'name' => $name,
+			'image' => $imgPath,
+			'description' => $description
+		);
 	}
 
 	public function registerBadges()
 	{
-		// double kill badge
-		registerBadge(
-			'kill-2x',
-			'Double Kill',
-			'Killed two humans within one hour',
-			'test1.gif',
-			true,
-			function($profile) {
-				$qb = $qb = $this->getEntityManager()->createQueryBuilder();
-				$query = $qb->select('count(s.id)')
-							->from('HvzGameBundle:InfectionSpread', 's')
-							->where('s.zombie = :zombie')
-							->setParameter('zombie', $profile)
-							->getQuery();
+		// infection badge
+		$this->registerBadge(
+			'infected',
+			'Infected',
+			'Died in the zombie apocalypse',
+			'test1.gif'
+		);
 
-				if($query->getSingleScalarResult() >= 2)
-				{
-					return true;
-				}
-
-				return false;
-			}
+		// used an AV
+		$this->registerBadge(
+			'used-av',
+			'Used AV',
+			'Used an AV code to become human again',
+			'test1.gif'
 		);
 	}
 }
