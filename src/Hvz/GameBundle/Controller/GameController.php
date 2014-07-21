@@ -271,7 +271,8 @@ class GameController extends Controller
 
 				$zombieProfile->setNumberTagged($zombieProfile->getNumberTagged() + 1);
 
-				$this->get('hvz.infection_listener')->onInfection($victimTag->getProfile(), $zombie);
+				$badgeReg = $this->get('hvz.badge_registry');
+				$badgeReg->addBadge($victimTag->getProfile(), 'infected', false);
 
 				$em->flush();
 
@@ -299,14 +300,19 @@ class GameController extends Controller
 		else
 			$playerEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByCustom($game, $sortBy);
 
+		$badgeReg = $this->get('hvz.badge_registry');
+
 		$players = array();
 		foreach($playerEnts as $player)
 		{
+			$badges = $badgeReg->getBadges($player);
+
 			$players[] = array(
 				'fullname' => $player->getUser()->getFullname(),
 				'team' => ($player->getTeam() == User::TEAM_HUMAN ? 'human' : 'zombie'),
 				'tags' => $player->getNumberTagged(),
-				'clan' => $player->getClan()
+				'clan' => $player->getClan(),
+				'badges' => $badges
 			);
 		}
 

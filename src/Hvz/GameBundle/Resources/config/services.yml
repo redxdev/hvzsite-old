@@ -19,10 +19,6 @@ services:
         class: Hvz\GameBundle\Services\BadgeRegistry
         arguments: ["@doctrine.orm.entity_manager"]
 
-    hvz.infection_listener:
-        class: Hvz\GameBundle\Services\InfectionListener
-        arguments: ["@doctrine.orm.entity_manager", "@hvz.badge_registry"]
-
     hvz.oauth.settings:
         class: Hvz\GameBundle\Services\OAuthSettings
         arguments: [""]

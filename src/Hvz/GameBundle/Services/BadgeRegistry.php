@@ -23,7 +23,7 @@ class BadgeRegistry
 		}
 
 		$badges = $profile->getBadges();
-		$badges[$id] = true;
+		$badges[] = $id;
 		$profile->setBadges($badges);
 
 		if($flush)
@@ -38,10 +38,13 @@ class BadgeRegistry
 	public function getBadges($profile)
 	{
 		$pb = $profile->getBadges();
+		if($pb == null)
+			return array();
+
 		$badges = array();
 		foreach($pb as $id)
 		{
-			$badges[] = getBadge($id);
+			$badges[] = $this->getBadge($id);
 		}
 
 		return $badges;

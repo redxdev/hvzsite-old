@@ -163,26 +163,6 @@ hvz_admin_mission_delete:
     requirements:
         id: \d+
 
-hvz_admin_posts:
-    pattern: /admin/posts
-    defaults: { _controller: HvzGameBundle:Admin:posts }
-
-hvz_admin_post_edit:
-    pattern: /admin/post/{id}/edit
-    defaults: { _controller: HvzGameBundle:Admin:postEdit }
-    requirements:
-        id: \d+
-
-hvz_admin_post_create:
-    pattern: /admin/post/create
-    defaults: { _controller: HvzGameBundle:Admin:postCreate }
-
-hvz_admin_post_delete:
-    pattern: /admin/post/{id}/delete
-    defaults: { _controller: HvzGameBundle:Admin:postDelete }
-    requirements:
-        id: \d+
-
 hvz_admin_rules:
     pattern: /admin/rules
     defaults: { _controller: HvzGameBundle:Admin:rules }
