@@ -27,6 +27,7 @@
 					<a href="{{ path('hvz_admin_rule_edit', {'id': rule.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
 					<a href="{{ path('hvz_admin_rule_delete', {'id': rule.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
 				</div>
+			</div>
 			<div style="margin-top: 20px;">
 				{{ rule.body | raw | nl2br }}
 			</div>
