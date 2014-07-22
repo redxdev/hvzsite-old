@@ -16,6 +16,7 @@
 
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-icon/core-icon.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-tooltip/core-tooltip.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -46,11 +47,13 @@
 					<p><strong>Tags: </strong> {{ player.tags }}</p>
 					<p><strong>Clan:</strong> {{ player.clan | default('none') }}</p>
 				</div>
-				<div class="player-info card-section" horizontal layout wrap>
+				<div class="card-section" horizontal layout wrap>
 					{% for badge in player.badges %}
-						<img src="{{ asset('bundles/hvzgame/images/badges/' ~ badge.image) }}"
-							alt="{{ badge.name }} badge" title="{{ badge.name }}"
-							width="50px" height="50px">
+						<core-tooltip label="{{ badge.name }}">
+							<img src="{{ asset('bundles/hvzgame/images/badges/' ~ badge.image) }}"
+								alt="{{ badge.name }} badge"
+								width="50" height="50">
+						</core-tooltip>
 					{% endfor %}
 				</div>
 			</div>
