@@ -82,7 +82,7 @@ class BadgeRegistry
 			'infected',
 			'Infected',
 			'Died in the zombie apocalypse',
-			'test1.gif'
+			'infected.png'
 		);
 
 		// used an AV
@@ -90,7 +90,7 @@ class BadgeRegistry
 			'used-av',
 			'Used AV',
 			'Used an AV code to become human again',
-			'test1.gif'
+			'antivirus.png'
 		);
 	}
 }
