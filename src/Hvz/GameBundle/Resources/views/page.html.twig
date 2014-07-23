@@ -59,7 +59,7 @@
 	</core-scaffold>
 
 	{% for toast in app.session.flashbag.get('page.toast') %}
-		<paper-toast id="page-toast-{{ loop.index0 }}" text="{{ toast }}">
+		<paper-toast id="page-toast-{{ loop.index0 }}" text="{{ toast }}" opened="true" duration="4500">
 		</paper-toast>
 	{% endfor %}
 {% endblock %}
@@ -103,11 +103,5 @@
 				});
 			{% endif %}
 		});
-
-		{% for toast in app.session.flashbag.get('page.toast') %}
-			window.addEventListener('polymer-ready', function() {
-				document.querySelector('#page-toast-{{ loop.index0 }}').show();
-			});
-		{% endfor %}
 	</script>
 {% endblock %}

@@ -181,23 +181,12 @@ class AuthController extends Controller
 
 		//$client->revokeToken();
 
-		return $this->redirect($this->generateUrl('hvz_auth_login_message'));
-	}
-
-	public function loginMessageAction()
-	{
-		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
-			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-				"message" => array(
-					"type" => "success",
-					"body" => "You have been successfully logged in."
-				)
-			)
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"You have been successfully logged in."
 		);
 
-		return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_index'));
 	}
 
 	public function logoutAction()
@@ -205,23 +194,12 @@ class AuthController extends Controller
 		$this->get('security.context')->setToken(null);
 		$this->get('request')->getSession()->invalidate();
 
-		return $this->redirect($this->generateUrl('hvz_auth_logout_message'));
-	}
-
-	public function logoutMessageAction()
-	{
-		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
-			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-				"message" => array(
-					"type" => "success",
-					"body" => "You have been sucessfully logged out."
-				)
-			)
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"You have been successfully logged out."
 		);
 
-		return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_index'));
 	}
 
 	public function authErrorAction()

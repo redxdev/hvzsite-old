@@ -128,7 +128,7 @@ class GameController extends Controller
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
 						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
-						"errors" => array("Invalid CSRF token. Try resubmitting!"),
+						"errors" => array("Invalid CSRF token: Try resubmitting the form."),
 						"victim" => $victim,
 						"zombie" => $zombie
 					)
@@ -204,15 +204,12 @@ class GameController extends Controller
 
 					$this->getDoctrine()->getManager()->flush();
 
-					$content = $this->renderView(
-						'HvzGameBundle:Game:register_tag.html.twig',
-						array(
-							'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
-							"success" => $zombieProfile->getUser()->getFullname() . " has taken an antivirus, and has become human once again!"
-						)
+					$this->get('session')->getFlashBag()->add(
+						'page.toast',
+						$zombieProfile->getUser()->getFullname() . " has taken an antivirus, and has become human once again!"
 					);
 
-					return new Response($content);
+					return $this->redirect($this->generateUrl('hvz_register_tag'));
 				}
 			}
 
@@ -276,15 +273,12 @@ class GameController extends Controller
 
 				$em->flush();
 
-				$content = $this->renderView(
-					'HvzGameBundle:Game:register_tag.html.twig',
-					array(
-						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
-						"success" => $victimTag->getProfile()->getUser()->getFullname() . " has joined the horde, courtesy of " . $zombieProfile->getUser()->getFullname()
-					)
+				$this->get('session')->getFlashBag()->add(
+					'page.toast',
+					$victimTag->getProfile()->getUser()->getFullname() . " has joined the horde, courtesy of " . $zombieProfile->getUser()->getFullname()
 				);
 
-				return new Response($content);
+				return $this->redirect($this->generateUrl('hvz_register_tag'));
 			}
 		}
 	}

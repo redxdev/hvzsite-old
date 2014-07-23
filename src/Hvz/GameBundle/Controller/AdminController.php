@@ -97,18 +97,12 @@ class AdminController extends Controller
 			$em->persist($game);
 			$em->flush();
 
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Created new game successfully.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Created new game successfully."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
 		$content = $this->renderView(
@@ -135,18 +129,12 @@ class AdminController extends Controller
 
 		if($game == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown game id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown game id"
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
 		$form = $this->createFormBuilder($game)
@@ -162,18 +150,12 @@ class AdminController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Edited game successfully.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Edited game successfully."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
 		$content = $this->renderView(
@@ -199,18 +181,12 @@ class AdminController extends Controller
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findOneById($id);
 		if($game == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown game id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown game id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
 		$tagGen = $this->get('hvz.tag_generator');
@@ -221,6 +197,11 @@ class AdminController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($newTag);
 		$em->flush();
+
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Added new AV successfully."
+		);
 
 		return $this->redirect($this->generateUrl('hvz_admin_games'));
 	}
@@ -238,36 +219,24 @@ class AdminController extends Controller
 
 		if($game == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown game id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown game id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($game);
 		$em->flush();
 
-		$content = $this->renderView(
-			'HvzGameBundle:Admin:message.html.twig',
-			array(
-				'message' => array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'type' => 'success',
-					'body' => 'Deleted game from the database.'
-				)
-			)
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Deleted game successfully."
 		);
 
-		return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_admin_games'));
 	}
 
 	public function usersAction()
@@ -317,18 +286,12 @@ class AdminController extends Controller
 
 		if($user == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown user id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown user id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$form = $this->createFormBuilder($user)
@@ -345,18 +308,12 @@ class AdminController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Edited user successfully.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Edited user successfully."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$content = $this->renderView(
@@ -383,36 +340,24 @@ class AdminController extends Controller
 
 		if($user == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown user id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown user id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($user);
 		$em->flush();
 
-		$content = $this->renderView(
-			'HvzGameBundle:Admin:message.html.twig',
-			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-				'message' => array(
-					'type' => 'success',
-					'body' => 'Deleted user from the database.'
-				)
-			)
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Deleted user successfully."
 		);
 
-		return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_admin_users'));
 	}
 
 	public function profileGenerateAction($id)
@@ -427,18 +372,12 @@ class AdminController extends Controller
 		$user = $this->getDoctrine()->getRepository('HvzGameBundle:User')->findOneById($id);
 		if($user == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown user id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown user id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$gameRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Game');
@@ -450,35 +389,23 @@ class AdminController extends Controller
 
 		if($game == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'There is no current or upcoming game to create a profile for.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"There is no upcoming or current game to generate a profile for."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findByGameAndUser($game, $user);
 		if($profile != null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'A profile already exists.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"A profile for this user already exists."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$em = $this->getDoctrine()->getManager();
@@ -571,18 +498,12 @@ class AdminController extends Controller
 		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findOneById($id);
 		if($profile == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown profile id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$idTags = array();
@@ -626,18 +547,12 @@ class AdminController extends Controller
 		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findOneById($id);
 		if($profile == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown profile id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$tagGen = $this->get('hvz.tag_generator');
@@ -649,6 +564,11 @@ class AdminController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($newTag);
 		$em->flush();
+
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Added new tag successfully."
+		);
 
 		return $this->redirect($this->generateUrl('hvz_admin_profile_view', array('id' => $id)));
 	}
@@ -666,18 +586,12 @@ class AdminController extends Controller
 
 		if($profile == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown profile id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$form = $this->createFormBuilder($profile)
@@ -698,18 +612,12 @@ class AdminController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Edited profile successfully.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Edited profile successfully."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$content = $this->renderView(
@@ -739,36 +647,24 @@ class AdminController extends Controller
 
 		if($profile == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown profile id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($profile);
 		$em->flush();
 
-		$content = $this->renderView(
-			'HvzGameBundle:Admin:message.html.twig',
-			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-				'message' => array(
-					'type' => 'success',
-					'body' => 'Deleted profile from the database.'
-				)
-			)
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Deleted profile successfully."
 		);
 
-		return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 	}
 
 	public function missionsAction($game = null)
@@ -828,18 +724,12 @@ class AdminController extends Controller
 
 		if($mission == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown mission id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown mission id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_missions'));
 		}
 
 		$form = $this->createFormBuilder($mission)
@@ -865,18 +755,12 @@ class AdminController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Edited mission successfully.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Edited mission successfully."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_missions'));
 		}
 
 		$content = $this->renderView(
@@ -925,18 +809,12 @@ class AdminController extends Controller
 			$em->persist($mission);
 			$em->flush();
 
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Created mission successfully.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Created mission successfully."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_missions'));
 		}
 
 		$content = $this->renderView(
@@ -963,242 +841,24 @@ class AdminController extends Controller
 
 		if($mission == null)
 		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown mission id.'
-					)
-				)
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown mission id."
 			);
 
-			return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_missions'));
 		}
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($mission);
 		$em->flush();
 
-		$content = $this->renderView(
-			'HvzGameBundle:Admin:message.html.twig',
-			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-				'message' => array(
-					'type' => 'success',
-					'body' => 'Deleted mission from the database.'
-				)
-			)
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Deleted mission successfully."
 		);
 
-		return new Response($content);
-	}
-
-	public function postsAction($game = null)
-	{
-		$securityContext = $this->get('security.context');
-
-		if(!$securityContext->isGranted("ROLE_ADMIN"))
-		{
-			return $this->redirect($this->generateUrl('hvz_error_403'));
-		}
-
-		$postRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Post');
-		$postEnts = $postRepo->findAllOrderedByDate();
-		$posts = array();
-		foreach($postEnts as $post)
-		{
-			$posts[] = array(
-				'id' => $post->getId(),
-				'title' => $post->getTitle(),
-				'subtitle' => $post->getSubtitle(),
-				'user' => $post->getUser()->getFullname(),
-				'postdate' => $post->getPostdate()->format('Y D M j h:i:s A'),
-				'body' => $post->getBody()
-			);
-		}
-
-		$content = $this->renderView(
-    		'HvzGameBundle:Admin:news_posts.html.twig',
-    		array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-    			'posts' => $posts
-    		)
-    	);
-
-    	return new Response($content);
-	}
-
-	public function postEditAction(Request $request, $id)
-	{
-		$securityContext = $this->get('security.context');
-
-		if(!$securityContext->isGranted("ROLE_ADMIN"))
-		{
-			return $this->redirect($this->generateUrl('hvz_error_403'));
-		}
-
-		$post = $this->getDoctrine()->getRepository('HvzGameBundle:Post')->findOneById($id);
-
-		if($post == null)
-		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown post id.'
-					)
-				)
-			);
-
-			return new Response($content);
-		}
-
-		$form = $this->createFormBuilder($post)
-			->add('title', 'text')
-			->add('subtitle', 'text', array('required' => false))
-			->add('user', 'entity', array(
-				'class' => 'HvzGameBundle:User',
-				'property' => 'fullname'
-			))
-			->add('body', 'textarea')
-			->add('save', 'submit')
-			->getForm();
-
-		$form->handleRequest($request);
-
-		if($form->isValid())
-		{
-			$em = $this->getDoctrine()->getManager();
-			$em->flush();
-
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Edited post successfully.'
-					)
-				)
-			);
-
-			return new Response($content);
-		}
-
-		$content = $this->renderView(
-    		'HvzGameBundle:Admin:edit_post.html.twig',
-    		array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-    			'form' => $form->createView()
-    		)
-    	);
-
-    	return new Response($content);
-	}
-
-	public function postCreateAction(Request $request)
-	{
-		$securityContext = $this->get('security.context');
-
-		if(!$securityContext->isGranted("ROLE_ADMIN"))
-		{
-			return $this->redirect($this->generateUrl('hvz_error_403'));
-		}
-
-		$post = new Post();
-		$post->setUser($securityContext->getToken()->getUser());
-
-		$form = $this->createFormBuilder($post)
-			->add('title', 'text')
-			->add('subtitle', 'text', array('required' => false))
-			->add('user', 'entity', array(
-				'class' => 'HvzGameBundle:User',
-				'property' => 'fullname'
-			))
-			->add('body', 'textarea')
-			->add('save', 'submit')
-			->getForm();
-
-		$form->handleRequest($request);
-
-		if($form->isValid())
-		{
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($post);
-			$em->flush();
-
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'success',
-						'body' => 'Created post successfully.'
-					)
-				)
-			);
-
-			return new Response($content);
-		}
-
-		$content = $this->renderView(
-    		'HvzGameBundle:Admin:edit_post.html.twig',
-    		array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-    			'form' => $form->createView()
-    		)
-    	);
-
-    	return new Response($content);
-	}
-
-	public function postDeleteAction($id)
-	{
-		$securityContext = $this->get('security.context');
-
-		if(!$securityContext->isGranted("ROLE_ADMIN"))
-		{
-			return $this->redirect($this->generateUrl('hvz_error_403'));
-		}
-
-		$post = $this->getDoctrine()->getRepository('HvzGameBundle:Post')->findOneById($id);
-
-		if($post == null)
-		{
-			$content = $this->renderView(
-				'HvzGameBundle:Admin:message.html.twig',
-				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-					'message' => array(
-						'type' => 'error',
-						'body' => 'Unknown post id.'
-					)
-				)
-			);
-
-			return new Response($content);
-		}
-
-		$em = $this->getDoctrine()->getManager();
-		$em->remove($post);
-		$em->flush();
-
-		$content = $this->renderView(
-			'HvzGameBundle:Admin:message.html.twig',
-			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-				'message' => array(
-					'type' => 'success',
-					'body' => 'Deleted post from the database.'
-				)
-			)
-		);
-
-		return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_admin_missions'));
 	}
 
     public function rulesAction()
@@ -1247,18 +907,12 @@ class AdminController extends Controller
 
         if($rule == null)
         {
-            $content = $this->renderView(
-                'HvzGameBundle:Admin:message.html.twig',
-                array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-                    'message' => array(
-                        'type' => 'error',
-                        'body' => 'Unknown rule id.'
-                    )
-                )
-            );
+            $this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown ruleset id."
+			);
 
-            return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_rules'));
         }
 
         $form = $this->createFormBuilder($rule)
@@ -1275,18 +929,12 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $content = $this->renderView(
-                'HvzGameBundle:Admin:message.html.twig',
-                array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-                    'message' => array(
-                        'type' => 'success',
-                        'body' => 'Edited rule successfully.'
-                    )
-                )
-            );
+            $this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Edited ruleset successfully."
+			);
 
-            return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_rules'));
         }
 
         $content = $this->renderView(
@@ -1327,18 +975,12 @@ class AdminController extends Controller
             $em->persist($rule);
             $em->flush();
 
-            $content = $this->renderView(
-                'HvzGameBundle:Admin:message.html.twig',
-                array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-                    'message' => array(
-                        'type' => 'success',
-                        'body' => 'Created rule successfully.'
-                    )
-                )
-            );
+            $this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Created ruleset successfully."
+			);
 
-            return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_rules'));
         }
 
         $content = $this->renderView(
@@ -1365,35 +1007,23 @@ class AdminController extends Controller
 
         if($rule == null)
         {
-            $content = $this->renderView(
-                'HvzGameBundle:Admin:message.html.twig',
-                array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
-                    'message' => array(
-                        'type' => 'error',
-                        'body' => 'Unknown rule id.'
-                    )
-                )
-            );
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown ruleset id."
+			);
 
-            return new Response($content);
+			return $this->redirect($this->generateUrl('hvz_admin_rules'));
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($rule);
         $em->flush();
 
-        $content = $this->renderView(
-            'HvzGameBundle:Admin:message.html.twig',
-            array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
-                'message' => array(
-                    'type' => 'success',
-                    'body' => 'Deleted rule from the database.'
-                )
-            )
-        );
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Deleted ruleset successfully."
+		);
 
-        return new Response($content);
+		return $this->redirect($this->generateUrl('hvz_admin_rules'));
     }
 }
