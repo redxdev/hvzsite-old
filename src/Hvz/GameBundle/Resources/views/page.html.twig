@@ -58,7 +58,7 @@
 		</div>
 	</core-scaffold>
 
-	{% for toast in app.session.flashbang.get('page.toast') %}
+	{% for toast in app.session.flashbag.get('page.toast') %}
 		<paper-toast id="page-toast-{{ loop.index0 }}" text="{{ toast }}">
 		</paper-toast>
 	{% endfor %}
@@ -104,7 +104,7 @@
 			{% endif %}
 		});
 
-		{% for toast in app.session.flashbang.get('page.toast') %}
+		{% for toast in app.session.flashbag.get('page.toast') %}
 			window.addEventListener('polymer-ready', function() {
 				document.querySelector('#page-toast-{{ loop.index0 }}').show();
 			});
