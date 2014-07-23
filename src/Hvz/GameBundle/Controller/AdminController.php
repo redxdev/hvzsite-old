@@ -515,6 +515,8 @@ class AdminController extends Controller
 			);
 		}
 
+		$badges = $this->get('hvz.badge_registry')->getBadges($profile);
+
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:view_profile.html.twig',
 			array(
@@ -527,7 +529,8 @@ class AdminController extends Controller
 					'team' => $profile->getTeam() == User::TEAM_HUMAN ? 'human' : 'zombie',
 					'player_id' => $profile->getTagId(),
 					'id_tags' => $idTags,
-					'clan' => $profile->getClan()
+					'clan' => $profile->getClan(),
+					'badges' => $badges
 				)
 			)
 		);
@@ -571,6 +574,80 @@ class AdminController extends Controller
 		);
 
 		return $this->redirect($this->generateUrl('hvz_admin_profile_view', array('id' => $id)));
+	}
+
+	public function profileGiveBadgeAction($id, $badge = null)
+	{
+		$securityContext = $this->get('security.context');
+
+		if(!$securityContext->isGranted("ROLE_MOD"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findOneById($id);
+
+		if($profile == null)
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
+		}
+
+		$badgeReg = $this->get('hvz.badge_registry');
+
+		if($badge == null)
+		{
+			$badges = array();
+			$registry = $badgeReg->getRegistry();
+			foreach($registry as $k => $badge)
+			{
+				$badges[] = array(
+					'id' => $k,
+					'name' => $badge['name'],
+					'image' => $badge['image'],
+					'description' => $badge['description']
+				);
+			}
+
+			$content = $this->renderView(
+				'HvzGameBundle:Admin:give_badge.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					'profile' => array(
+						'id' => $id,
+						'user' => $profile->getUser()->getFullname()
+					),
+					'badges' => $badges
+				)
+			);
+
+			return new Response($content);
+		}
+		else
+		{
+			if(!$badgeReg->badgeExists($badge))
+			{
+				$this->get('session')->getFlashBag()->add(
+					'page.toast',
+					"Unknown badge id."
+				);
+
+				return $this->redirect($this->generateUrl('hvz_admin_profile_give_badge', array('id' => $id)));
+			}
+
+			$badgeReg->addBadge($profile, $badge, true);
+
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Gave badge successfully."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_profile_view', array('id' => $id)));
+		}
 	}
 
 	public function profileEditAction(Request $request, $id)

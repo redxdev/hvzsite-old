@@ -125,6 +125,18 @@ hvz_admin_profile_add_tag:
     requirements:
         id: \d+
 
+hvz_admin_profile_give_badge:
+    pattern: /admin/profile/{id}/badge/give
+    defaults: { _controller: HvzGameBundle:Admin:profileGiveBadge }
+    requirements:
+        id: \d+
+
+hvz_admin_profile_give_badge_submit:
+    pattern: /admin/profile/{id}/badge/give/{badge}
+    defaults: { _controller: HvzGameBundle:Admin:profileGiveBadge }
+    requirements:
+        id: \d+
+
 hvz_admin_profile_edit:
     pattern: /admin/profile/{id}/edit
     defaults: { _controller: HvzGameBundle:Admin:profileEdit }

@@ -50,6 +50,16 @@ class BadgeRegistry
 		return $badges;
 	}
 
+	public function badgeExists($id)
+	{
+		return array_key_exists($id, $this->registry);
+	}
+
+	public function getRegistry()
+	{
+		return $this->registry;
+	}
+
 	/**
 	 * @param id badge id
 	 * @param name human-readable name
