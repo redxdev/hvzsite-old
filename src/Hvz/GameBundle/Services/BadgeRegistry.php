@@ -92,5 +92,13 @@ class BadgeRegistry
 			'Used an AV code to become human again',
 			'antivirus.png'
 		);
+
+		// caught a human between 6 and 8 AM
+		$this->registerBadge(
+			'early-bird',
+			'Early Bird',
+			'Caught a human between 6 and 8 AM',
+			'earlybird.png'
+		);
 	}
 }

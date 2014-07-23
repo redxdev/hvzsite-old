@@ -269,7 +269,7 @@ class GameController extends Controller
 				$zombieProfile->setNumberTagged($zombieProfile->getNumberTagged() + 1);
 
 				$badgeReg = $this->get('hvz.badge_registry');
-				$badgeReg->addBadge($victimTag->getProfile(), 'infected', false);
+				$this->applyBadges($victimTag->getProfile(), $zombieProfile, $badgeReg);
 
 				$em->flush();
 
@@ -280,6 +280,18 @@ class GameController extends Controller
 
 				return $this->redirect($this->generateUrl('hvz_register_tag'));
 			}
+		}
+	}
+
+	protected function applyBadges($victim, $zombie, $badgeReg)
+	{
+		$badgeReg->addBadge($victim, 'infected', false);
+
+		$now = new \DateTime();
+		$hour = intval($now->format('G'));
+		if($hour >= 6 && $hour < 8)
+		{
+			$badgeReg->addBadge($zombie, 'early-bird', false);
 		}
 	}
 

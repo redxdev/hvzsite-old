@@ -60,7 +60,8 @@ class ProfileController extends Controller
 					"player_id" => $profile->getTagId(),
 					"id_tags" => $tagIds,
 					"infections" => $infections,
-					"clan" => $profile->getClan()
+					"clan" => $profile->getClan(),
+					'badges' => $this->get('hvz.badge_registry')->getBadges($profile)
 				)
 			)
 		);

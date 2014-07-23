@@ -5,6 +5,7 @@
 	{{ parent() }}
 
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-tooltip/core-tooltip.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -18,11 +19,27 @@
 		<div class="card card-section card-{{ profile.team }}" vertical layout flex>
 			<paper-shadow z="1"></paper-shadow>
 			<div class="card-internal">
-				<h3 class="header" style="color: black;">{{ app.user.fullname }}</h3>
-				<p><strong>Email:</strong> {{ app.user.email }}</p>
-				<p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
-				<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
-				<p><a href="{{ path('hvz_profile_edit_clan') }}"><paper-button label="Edit Clan"></paper-button></a></p>
+				<div>
+					<h3 class="header" style="color: black;">{{ app.user.fullname }}</h3>
+					<p><strong>Email:</strong> {{ app.user.email }}</p>
+					<p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
+					<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
+					<p><a href="{{ path('hvz_profile_edit_clan') }}"><paper-button label="Edit Clan"></paper-button></a></p>
+				</div>
+				<div horizontal layout>
+					{% for badge in profile.badges %}
+						<core-tooltip class="badge">
+							<div>
+								<img src="{{ asset('bundles/hvzgame/images/badges/' ~ badge.image) }}"
+									alt="{{ badge.name }} badge">
+							</div>
+							<div tip>
+								<p>{{ badge.name }}</p>
+								<p>{{ badge.description }}</p>
+							</div>
+						</core-tooltip>
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 		<div class="card card-section card-heading" vertical layout flex>
