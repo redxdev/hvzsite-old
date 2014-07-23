@@ -3,6 +3,7 @@
 namespace Hvz\GameBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Profile
@@ -79,6 +80,15 @@ class Profile
      * @ORM\Column(name="badges", type="array")
      */
     private $badges;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar_path", length=255, nullable=true)
+     */
+    private $avatarPath;
+
+    private $avatarFile;
 
     /**
      * Constructor
@@ -317,5 +327,82 @@ class Profile
     public function getBadges()
     {
         return $this->badges;
+    }
+
+    /**
+     * Set avatarPath
+     *
+     * @param string $avatarPath
+     * @return Profile
+     */
+    public function setAvatarPath($avatarPath)
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarPath
+     *
+     * @return string
+     */
+    public function getAvatarPath()
+    {
+        return $this->avatarPath;
+    }
+
+    public function getAbsoluteAvatarPath()
+    {
+        return null === $this->avatarPath ? null : $this->getAvatarUploadRootDir() . '/' . $this->avatarPath;
+    }
+
+    public function getWebAvatarPath()
+    {
+        return null === $this->avatarPath ? null : $this->getAvatarUploadDir() . '/' . $this->avatarPath;
+    }
+
+    public function getAvatarUploadRootDir()
+    {
+        return __DIR__ . '/../../../../web/' . $this->getAvatarUploadDir();
+    }
+
+    public function getAvatarUploadDir()
+    {
+        return 'uploads/avatars';
+    }
+
+    public function setAvatarFile(UploadedFile $file)
+    {
+        $this->avatarFile = $file;
+    }
+
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    public function uploadAvatar()
+    {
+        if(null === $this->getAvatarFile())
+        {
+            return;
+        }
+
+        $filename = null;
+        while (true) {
+            $filename = uniqid('hvz_avatar', true) . '.jpg';
+            if(!file_exists($this->getAvatarUploadRootDir() . '/' . $filename))
+                break;
+        }
+
+        $this->getAvatarFile()->move(
+            $this->getAvatarUploadRootDir(),
+            $filename
+        );
+
+        $this->avatarPath = $filename;
+
+        $this->avatarFile = null;
     }
 }

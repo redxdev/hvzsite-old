@@ -35,12 +35,15 @@
 	{% for player in players %}
 		<div class="card {% if player.team == 'human' %}card-human{% else %}card-zombie{% endif %}" horizontal layout>
 			<paper-shadow z="1"></paper-shadow>
-			<paper-ripple fit></paper-ripple>
 			<div class="card-internal" horizontal layout>
 				<div class="card" style="width: 100px; height: 100px;" vertical layout center center-justified>
 					<paper-shadow z="2"></paper-shadow>
 					<div class="card-internal">
-						<img src="{{ player.avatar | default('holder.js/100x100') }}" alt="avatar" width="100px" height="100px">
+						{% if player.avatar %}
+							<img src="{{ asset(player.avatar) }}" alt="avatar" class="avatar">
+						{% else %}
+							<img src="holder.js/100x100" alt="avatar" class="avatar">
+						{% endif %}
 					</div>
 				</div>
 				<div class="player-info card-section">

@@ -143,6 +143,18 @@ hvz_admin_profile_edit:
     requirements:
         id: \d+
 
+hvz_admin_profile_avatar_change:
+    pattern: /admin/profile/{id}/avatar/change
+    defaults: { _controller: HvzGameBundle:Admin:profileChangeAvatar }
+    requirements:
+        id: \d+
+
+hvz_admin_profile_avatar_submit:
+    pattern: /admin/profile/{id}/avatar/submit
+    defaults: { _controller: HvzGameBundle:Admin:profileSubmitAvatar }
+    requirements:
+        id: \d+
+
 hvz_admin_profile_delete:
     pattern: /admin/profile/{id}/delete
     defaults: { _controller: HvzGameBundle:Admin:profileDelete }

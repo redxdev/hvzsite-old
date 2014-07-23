@@ -530,7 +530,8 @@ class AdminController extends Controller
 					'player_id' => $profile->getTagId(),
 					'id_tags' => $idTags,
 					'clan' => $profile->getClan(),
-					'badges' => $badges
+					'badges' => $badges,
+					'avatar' => $profile->getWebAvatarPath()
 				)
 			)
 		);
@@ -709,6 +710,92 @@ class AdminController extends Controller
     	);
 
     	return new Response($content);
+	}
+
+	public function profileChangeAvatarAction(Request $request, $id)
+	{
+		$securityContext = $this->get('security.context');
+
+		if(!$securityContext->isGranted("ROLE_MOD"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findOneById($id);
+
+		if($profile == null)
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
+		}
+
+		$content = $this->renderView(
+			'HvzGameBundle:Admin:edit_avatar.html.twig',
+			array(
+				'navigation' => $this->get('hvz.navigation')->generate(""),
+				'profile' => array(
+					'user' => $profile->getUser()->getFullname(),
+					'id' => $id
+				)
+			)
+		);
+
+		return new Response($content);
+	}
+
+	public function profileSubmitAvatarAction(Request $request, $id)
+	{
+		$securityContext = $this->get('security.context');
+
+		if(!$securityContext->isGranted("ROLE_MOD"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findOneById($id);
+
+		if($profile == null)
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Unknown profile id."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
+		}
+
+		$form = $this->createFormBuilder($profile, array('csrf_protection' => false))
+					->add('avatarFile', 'file')
+					->getForm();
+
+		$form->handleRequest($request);
+
+		if($form->isValid())
+		{
+			$em = $this->getDoctrine()->getManager();
+
+			$profile->uploadAvatar();
+
+			$em->flush();
+
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Changed avatar successfully."
+			);
+
+			return new Response($this->generateUrl('hvz_admin_profile_view', array('id' => $id)));
+		}
+
+		$this->get('session')->getFlashBag()->add(
+			'page.toast',
+			"Error changing avatar."
+		);
+
+		return new Response($this->generateUrl('hvz_admin_profile_avatar_change', array('id' => $id)));
 	}
 
 	public function profileDeleteAction($id)

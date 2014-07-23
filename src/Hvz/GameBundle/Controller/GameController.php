@@ -306,7 +306,8 @@ class GameController extends Controller
 				'team' => ($player->getTeam() == User::TEAM_HUMAN ? 'human' : 'zombie'),
 				'tags' => $player->getNumberTagged(),
 				'clan' => $player->getClan(),
-				'badges' => $badges
+				'badges' => $badges,
+				'avatar' => $player->getWebAvatarPath()
 			);
 		}
 

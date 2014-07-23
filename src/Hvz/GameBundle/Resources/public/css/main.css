@@ -111,3 +111,8 @@ core-toolbar {
 	margin-left: 2px;
 	margin-right: 2px;
 }
+
+.avatar {
+	width: 100px;
+	height: 100px;
+}
