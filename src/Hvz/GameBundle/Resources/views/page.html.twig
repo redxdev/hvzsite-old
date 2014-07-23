@@ -91,7 +91,7 @@
 				});
 
 				$("#menu-logout").click(function() {
-					window.location = "{{ path('hvz_auth_logout') }}";
+					window.location = "{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}";
 				});
 			{% else %}
 				$("#menu-login").click(function() {

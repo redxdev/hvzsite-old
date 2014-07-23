@@ -214,7 +214,7 @@ hvz_auth_login_code:
     defaults: { _controller: HvzGameBundle:Auth:loginCode }
 
 hvz_auth_logout:
-    pattern: /auth/logout
+    pattern: /auth/logout/{token}
     defaults: { _controller: HvzGameBundle:Auth:logout }
 
 hvz_error_403:

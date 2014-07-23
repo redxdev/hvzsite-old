@@ -189,8 +189,25 @@ class AuthController extends Controller
 		return $this->redirect($this->generateUrl('hvz_index'));
 	}
 
-	public function logoutAction()
+	public function logoutAction($token)
 	{
+		$csrf = $this->get('form.csrf_provider');
+		if(!$csrf->isCsrfTokenValid('hvz_auth_logout', $token))
+		{
+			$content = $this->renderView(
+				'HvzGameBundle:Auth:message.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					"message" => array(
+						"type" => "error",
+						"body" => "Invalid CSRF token: Try logging out again."
+					)
+				)
+			);
+
+			return new Response($content);
+		}
+
 		$this->get('security.context')->setToken(null);
 		$this->get('request')->getSession()->invalidate();
 
