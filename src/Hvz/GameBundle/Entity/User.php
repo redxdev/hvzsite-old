@@ -49,6 +49,13 @@ class User implements UserInterface, EquatableInterface, \Serializable
     private $fullname;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="signup_date", type="date")
+     */
+     private $signupDate;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="roles", type="array")
@@ -63,6 +70,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function __construct()
     {
         $this->roles = array("ROLE_USER");
+        $this->signupDate = new \DateTime();
     }
 
     public function eraseCredentials()
@@ -96,7 +104,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -117,7 +125,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -138,7 +146,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {
@@ -159,7 +167,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -175,14 +183,14 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -198,14 +206,14 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function setRoles($roles)
     {
         $this->roles = $roles;
-    
+
         return $this;
     }
 
     /**
      * Get roles
      *
-     * @return array 
+     * @return array
      */
     public function getRoles()
     {
@@ -221,14 +229,14 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function setFullname($fullname)
     {
         $this->fullname = $fullname;
-    
+
         return $this;
     }
 
     /**
      * Get fullname
      *
-     * @return string 
+     * @return string
      */
     public function getFullname()
     {
@@ -244,7 +252,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function addProfile(\Hvz\GameBundle\Entity\Profile $profiles)
     {
         $this->profiles[] = $profiles;
-    
+
         return $this;
     }
 
@@ -261,10 +269,33 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * Get profiles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProfiles()
     {
         return $this->profiles;
+    }
+
+    /**
+     * Set signupDate
+     *
+     * @param \DateTime $signupDate
+     * @return User
+     */
+    public function setSignupDate($signupDate)
+    {
+        $this->signupDate = $signupDate;
+
+        return $this;
+    }
+
+    /**
+     * Get signupDate
+     *
+     * @return \DateTime
+     */
+    public function getSignupDate()
+    {
+        return $this->signupDate;
     }
 }
