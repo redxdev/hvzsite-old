@@ -29,10 +29,9 @@
 			</div>
 			<div class="card-section" horizontal layout wrap>
 				{% for badge in profile.badges %}
-					<core-tooltip label="{{ badge.name }}">
+					<core-tooltip class="badge" label="{{ badge.name }}">
 						<img src="{{ asset('bundles/hvzgame/images/badges/' ~ badge.image) }}"
-							alt="{{ badge.name }} badge"
-							width="32" height="32">
+							alt="{{ badge.name }} badge">
 					</core-tooltip>
 				{% endfor %}
 			</div>

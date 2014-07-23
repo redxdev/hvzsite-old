@@ -104,3 +104,10 @@ core-toolbar {
 	color: #eceff1;
 	fill: #eceff1;
 }
+
+.badge {
+	width: 32px;
+	height: 32px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
