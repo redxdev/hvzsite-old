@@ -100,5 +100,13 @@ class BadgeRegistry
 			'Caught a human between 6 and 8 AM',
 			'earlybird.png'
 		);
+
+		// died between 11 PM and midnight
+		$this->registerBadge(
+			'mission-aint-over',
+			'Mission ain\'t Over',
+			'Died between 11 PM and Midnight',
+			'mission-aint-over.png'
+		);
 	}
 }

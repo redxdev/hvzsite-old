@@ -293,6 +293,10 @@ class GameController extends Controller
 		{
 			$badgeReg->addBadge($zombie, 'early-bird', false);
 		}
+		else if($hour >= 23)
+		{
+			$badgeReg->addBadge($victim, 'mission-aint-over', false);
+		}
 	}
 
 	public function playersAction(Request $request)
