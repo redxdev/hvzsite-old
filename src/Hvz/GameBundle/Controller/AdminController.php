@@ -768,6 +768,8 @@ class AdminController extends Controller
 			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
+		$oldAvatarPath = $profile->getAbsoluteAvatarPath();
+
 		$form = $this->createFormBuilder($profile, array('csrf_protection' => false))
 					->add('avatarFile', 'file')
 					->getForm();
@@ -781,6 +783,11 @@ class AdminController extends Controller
 			$profile->uploadAvatar();
 
 			$em->flush();
+
+			if($oldAvatarPath != null)
+			{
+				@unlink($oldAvatarPath);
+			}
 
 			$this->get('session')->getFlashBag()->add(
 				'page.toast',
@@ -822,6 +829,11 @@ class AdminController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($profile);
 		$em->flush();
+
+		if($profile->getAbsoluteAvatarPath() != null)
+		{
+			@unlink($profile->getAbsoluteAvatarPath());
+		}
 
 		$this->get('session')->getFlashBag()->add(
 			'page.toast',
