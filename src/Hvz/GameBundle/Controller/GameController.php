@@ -288,7 +288,10 @@ class GameController extends Controller
 		$badgeReg->addBadge($victim, 'infected', false);
 
 		$now = new \DateTime();
+
 		$hour = intval($now->format('G'));
+		$day = intval($now->format('w'));
+
 		if($hour >= 6 && $hour < 8)
 		{
 			$badgeReg->addBadge($zombie, 'early-bird', false);
@@ -296,6 +299,11 @@ class GameController extends Controller
 		else if($hour >= 23)
 		{
 			$badgeReg->addBadge($victim, 'mission-aint-over', false);
+		}
+
+		if($day == 0)
+		{
+			$badgeReg->addBadge($victim, 'bad-start', false);
 		}
 	}
 

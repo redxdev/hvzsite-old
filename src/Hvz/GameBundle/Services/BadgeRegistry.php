@@ -116,5 +116,13 @@ class BadgeRegistry
 			'Received a twinkie from a moderator',
 			'twinkie.png'
 		);
+
+		// died on sunday night
+		$this->registerBadge(
+			'bad-start',
+			'Bad Start',
+			'Died on Sunday night',
+			'badstart.png'
+		);
 	}
 }
