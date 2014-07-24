@@ -108,5 +108,13 @@ class BadgeRegistry
 			'Died between 11 PM and Midnight',
 			'mission-aint-over.png'
 		);
+
+		// got a twinkie from a moderator
+		$this->registerBadge(
+			'twinkie',
+			'Twinkie!',
+			'Received a twinkie from a moderator',
+			'twinkie.png'
+		);
 	}
 }
