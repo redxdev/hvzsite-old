@@ -60,6 +60,13 @@ class InfectionSpread
      */
     private $game;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="killstreaks", type="array")
+     */
+    private $killstreaks = array();
+
     public function __construct()
     {
         $this->time = date_create("now");
@@ -211,5 +218,28 @@ class InfectionSpread
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * Set killstreaks
+     *
+     * @param array $killstreaks
+     * @return InfectionSpread
+     */
+    public function setKillstreaks($killstreaks)
+    {
+        $this->killstreaks = $killstreaks;
+
+        return $this;
+    }
+
+    /**
+     * Get killstreaks
+     *
+     * @return array
+     */
+    public function getKillstreaks()
+    {
+        return $this->killstreaks;
     }
 }

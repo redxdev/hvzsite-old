@@ -269,7 +269,7 @@ class GameController extends Controller
 				$zombieProfile->setNumberTagged($zombieProfile->getNumberTagged() + 1);
 
 				$badgeReg = $this->get('hvz.badge_registry');
-				$this->applyBadges($victimTag->getProfile(), $zombieProfile, $badgeReg);
+				$this->applyBadges($victimTag->getProfile(), $zombieProfile, $badgeReg, $infection);
 
 				$em->flush();
 
@@ -283,7 +283,7 @@ class GameController extends Controller
 		}
 	}
 
-	protected function applyBadges($victim, $zombie, $badgeReg)
+	protected function applyBadges($victim, $zombie, $badgeReg, $infection)
 	{
 		$badgeReg->addBadge($victim, 'infected', false);
 
@@ -308,6 +308,39 @@ class GameController extends Controller
 		else if($day >= 4)
 		{
 			$badgeReg->addBadge($victim, 'so-close', false);
+		}
+
+		$recentKills = $this->getDoctrine()->getRepository('HvzGameBundle:InfectionSpread')
+											->findForKillstreak($zombie);
+		$recentKills[] = $infection;
+
+		$this->applyKillstreak($recentKills, 2, 'streak-2', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 3, 'streak-3', $zombie, $badgeReg);
+	}
+
+	public function applyKillstreak($recent, $streak, $badge, $zombie, $badgeReg)
+	{
+		$available = array();
+		foreach($recent as $infection)
+		{
+			if(!array_key_exists($streak, $infection->getKillstreaks()))
+				$available[] = $infection;
+		}
+
+		if(count($available) >= $streak)
+		{
+			$badgeReg->addBadge($zombie, $badge, false);
+
+			foreach($available as $infection)
+			{
+				$streaks = $infection->getKillstreaks();
+				for($i = $streak; $i > 1; $i--)
+				{
+					$streaks[$i] = true;
+				}
+
+				$infection->setKillstreaks($streaks);
+			}
 		}
 	}
 

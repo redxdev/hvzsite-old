@@ -134,5 +134,18 @@ class BadgeRegistry
 		);
 
 		// killstreaks
+		$this->registerBadge(
+			'streak-2',
+			'Double Kill',
+			'2 kills within an hour',
+			'killstreak-2x.png'
+		);
+
+		$this->registerBadge(
+			'streak-3',
+			'Triple Kill',
+			'3 kills within an hour',
+			'killstreak-3x.png'
+		);
 	}
 }
