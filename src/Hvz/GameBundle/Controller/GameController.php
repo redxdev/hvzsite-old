@@ -316,6 +316,13 @@ class GameController extends Controller
 
 		$this->applyKillstreak($recentKills, 2, 'streak-2', $zombie, $badgeReg);
 		$this->applyKillstreak($recentKills, 3, 'streak-3', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 4, 'streak-4', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 5, 'streak-5', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 6, 'streak-6', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 7, 'streak-7', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 8, 'streak-8', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 9, 'streak-9', $zombie, $badgeReg);
+		$this->applyKillstreak($recentKills, 10, 'streak-10', $zombie, $badgeReg);
 	}
 
 	public function applyKillstreak($recent, $streak, $badge, $zombie, $badgeReg)

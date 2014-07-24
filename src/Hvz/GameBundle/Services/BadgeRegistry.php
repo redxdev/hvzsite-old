@@ -138,14 +138,63 @@ class BadgeRegistry
 			'streak-2',
 			'Double Kill',
 			'2 kills within an hour',
-			'killstreak-2x.png'
+			'streak-2.png'
 		);
 
 		$this->registerBadge(
 			'streak-3',
 			'Triple Kill',
 			'3 kills within an hour',
-			'killstreak-3x.png'
+			'streak-3.png'
+		);
+
+		$this->registerBadge(
+			'streak-4',
+			'Overkill',
+			'4 kills within an hour',
+			'streak-4.png'
+		);
+
+		$this->registerBadge(
+			'streak-5',
+			'Killtacular',
+			'5 kills within an hour',
+			'streak-5.png'
+		);
+
+		$this->registerBadge(
+			'streak-6',
+			'Killtrocity',
+			'6 kills within an hour',
+			'streak-6.png'
+		);
+
+		$this->registerBadge(
+			'streak-7',
+			'Killmanjaro',
+			'7 kills within an hour',
+			'streak-7.png'
+		);
+
+		$this->registerBadge(
+			'streak-8',
+			'Killtastrophy',
+			'8 kills within an hour',
+			'streak-8.png'
+		);
+
+		$this->registerBadge(
+			'streak-9',
+			'Killpocalypse',
+			'9 kills within an hour',
+			'streak-9.png'
+		);
+
+		$this->registerBadge(
+			'streak-10',
+			'Killionare',
+			'10 kills within an hour',
+			'streak-10.png'
 		);
 	}
 }
