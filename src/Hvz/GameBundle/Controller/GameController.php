@@ -305,6 +305,10 @@ class GameController extends Controller
 		{
 			$badgeReg->addBadge($victim, 'bad-start', false);
 		}
+		else if($day >= 4)
+		{
+			$badgeReg->addBadge($victim, 'so-close', false);
+		}
 	}
 
 	public function playersAction(Request $request)

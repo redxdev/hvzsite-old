@@ -124,5 +124,15 @@ class BadgeRegistry
 			'Died on Sunday night',
 			'badstart.png'
 		);
+
+		// died from thursday onward
+		$this->registerBadge(
+			'so-close',
+			'So Close',
+			'Died from Thursday onward',
+			'close.png'
+		);
+
+		// killstreaks
 	}
 }
