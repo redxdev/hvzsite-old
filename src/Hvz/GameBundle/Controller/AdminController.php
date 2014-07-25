@@ -486,6 +486,46 @@ class AdminController extends Controller
     	return new Response($content);
 	}
 
+	public function profilesPrintAction($game)
+	{
+		$securityContext = $this->get('security.context');
+
+		if(!$securityContext->isGranted("ROLE_MOD"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$profileEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByNumberTaggedAndTeam($game);
+
+		$profiles = array();
+		foreach($profileEnts as $profile)
+		{
+			$tags = array();
+			foreach($profile->getIdTags() as $tag)
+			{
+				$tags[] = $tag->getTag();
+				if(count($tags) >= 2)
+					break;
+			}
+
+			$profiles[] = array(
+				'tagid' => $profile->getTagId(),
+				'user' => $profile->getUser()->getFullname(),
+				'avatar' => $profile->getWebAvatarPath(),
+				'tags' => $tags
+			);
+		}
+
+		$content = $this->renderView(
+			'HvzGameBundle:Admin:print.html.twig',
+			array(
+				'profiles' => $profiles
+			)
+		);
+
+		return new Response($content);
+	}
+
 	public function profileViewAction($id)
 	{
 		$securityContext = $this->get('security.context');

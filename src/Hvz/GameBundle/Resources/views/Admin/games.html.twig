@@ -40,6 +40,7 @@
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}"><paper-button label="Profiles" raisedButton></paper-button></a>
 					<a href="{{ path('hvz_admin_missions_by_game', {'game': game.id}) }}"><paper-button label="Missions" raisedButton></paper-button></a>
+					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id}) }}"><paper-button label="Print IDs" raisedButton></paper-button></a>
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>

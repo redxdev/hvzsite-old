@@ -1,0 +1,42 @@
+{# src/Hvz/GameBundle/Resources/views/Admin/print.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>HvZ Player Cards</title>
+
+	<link rel="stylesheet" href="{{ asset('bundles/hvzgame/css/print.css') }}">
+</head>
+<body>
+	{% for profile in profiles %}
+		<div class="card">
+			<div class="top">
+				<div class="avatar">
+					{% if profile.avatar %}
+						<img src="{{ asset(profile.avatar) }}" alt="avatar">
+					{% else %}
+						<img src="holder.js/100x100" alt="avatar">
+					{% endif %}
+				</div>
+				<div class="info">
+					<p class="name">{{ profile.user }}</p>
+					<p>ID: {{ profile.tagid }}</p>
+				</div>
+			</div>
+			<div class="bottom">
+				{% for tag in profile.tags %}
+					{% if loop.index < 3 %}
+						<hr>
+						<p>Tag #{{ loop.index }}: {{ tag }}</p>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+
+		{% if loop.index is divisibleby(2) %}
+			<br style="clear:both">
+		{% endif %}
+	{% endfor %}
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
+</body>
+</html>

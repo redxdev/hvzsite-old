@@ -101,6 +101,10 @@ hvz_admin_profiles:
     pattern: /admin/profiles
     defaults: { _controller: HvzGameBundle:Admin:profiles }
 
+hvz_admin_profiles_print:
+    pattern: /admin/profiles/game/{game}/print
+    defaults: { _controller: HvzGameBundle:Admin:profilesPrint }
+
 hvz_admin_profiles_by_game:
     pattern: /admin/profiles/game/{game}
     defaults: { _controller: HvzGameBundle:Admin:profiles }
