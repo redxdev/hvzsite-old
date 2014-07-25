@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="{{ asset('bundles/hvzgame/css/print.css') }}">
 </head>
 <body>
+	<div class="card-spacer"></div>
 	{% for profile in profiles %}
 		<div class="card">
 			<div class="top">
@@ -38,9 +39,9 @@
 
 		{% if loop.index is divisibleby(8) %}
 			<div class="card-spacer"></div>
+			<div class="card-spacer"></div>
 		{% endif %}
 	{% endfor %}
-
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
 </body>
