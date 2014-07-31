@@ -5,6 +5,8 @@
 	{{ parent() }}
 
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog-transition.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -32,8 +34,33 @@
 			<div class="card-section" vertical layout flex>
 				<a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}"><paper-button label="View" raisedButton></paper-button></a>
 				<a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}"><paper-button label="Delete" raisedButton></paper-button></a>
+				<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}')">
+					<paper-button label="Delete" raisedButton></paper-button>
+				</a>
 			</div>
 		</div>
 	{% endfor %}
+{% endblock %}
+
+{% block body_javascripts %}
+	<paper-dialog id="delete-dialog" heading="Delete" transition="paper-dialog-transition-center">
+		<p>Are you sure you want to delete the profile for <span id="delete-id">ERROR</span></p>
+
+		<paper-button label="Cancel" affirmative></paper-button>
+		<paper-button id="delete-button" label="Delete" affirmative autofocus></paper-button>
+	</paper-dialog>
+
+	{{ parent() }}
+
+	<script>
+		function showDeleteDialog(profile, path) {
+			$("#delete-id").html(profile);
+			$("#delete-button").click(function() {
+				window.location = path;
+			});
+
+			var dialog = document.querySelector('#delete-dialog');
+			dialog.toggle();
+		}
+	</script>
 {% endblock %}
