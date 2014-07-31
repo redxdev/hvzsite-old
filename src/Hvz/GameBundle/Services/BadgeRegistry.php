@@ -133,6 +133,14 @@ class BadgeRegistry
 			'close.png'
 		);
 
+		// got extracted
+		$this->registerBadge(
+			'extraction',
+			'Extraction',
+			'Escaped safely from the horde!',
+			'extraction.png'
+		);
+
 		// killstreaks
 		$this->registerBadge(
 			'streak-2',
