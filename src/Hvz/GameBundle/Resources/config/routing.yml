@@ -211,11 +211,6 @@ hvz_admin_rule_delete:
     requirements:
         id: \d+
 
-hvz_admin_registration_api:
-    pattern: /admin/registration/{game}/api
-    defaults: { _controller: HvzGameBundle:Admin:registrationApi }
-    requirements:
-        game: \d+
 
 # Auth Controller
 hvz_auth_register:

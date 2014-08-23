@@ -4,7 +4,6 @@ namespace Hvz\GameBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use Hvz\GameBundle\Entity\Game;
@@ -1243,63 +1242,4 @@ class AdminController extends Controller
 
 		return $this->redirect($this->generateUrl('hvz_admin_rules'));
     }
-
-	public function registrationApiAction($game)
-	{
-		$securityContext = $this->get('security.context');
-
-		if(!$securityContext->isGranted("ROLE_MOD"))
-		{
-			return new JsonResponse(array(
-				'status' => 'error',
-				'message' => '403 error: are you logged in?'
-			));
-		}
-
-		$profileRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Profile');
-		$profileEnts = $profileRepo->findByGame($game);
-
-		$profiles = array();
-		foreach($profileEnts as $profile)
-		{
-			if($profile->getActive())
-				continue;
-
-			$profiles[] = array(
-				'id' => $profile->getId(),
-				'user' => $profile->getUser()->getFullname()
-			);
-		}
-
-		$userRepo = $this->getDoctrine()->getRepository('HvzGameBundle:User');
-		$userEnts = $userRepo->findAll();
-		$users = array();
-		foreach($userEnts as $user)
-		{
-			$hasProfile = false;
-			foreach($user->getProfiles() as $profile)
-			{
-				if($profile->getGame()->getId() == $game)
-				{
-					$hasProfile = true;
-					break;
-				}
-			}
-
-			if($hasProfile)
-				continue;
-
-			$users[] = array(
-				'id' => $user->getId(),
-				'fullname' => $user->getFullname(),
-				'email' => $user->getEmail(),
-				'generate' => $this->generateUrl('hvz_admin_profile_generate', array('id' => $user->getId()))
-			);
-		}
-
-		return new JsonResponse(array(
-			'users' => $users,
-			'profiles' => $profiles
-		));
-	}
 }
