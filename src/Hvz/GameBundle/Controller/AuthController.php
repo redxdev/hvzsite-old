@@ -142,7 +142,7 @@ class AuthController extends Controller
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
-						"body" => "Access to your google account was denied. Try registering again!"
+						"body" => "Access to your google account was denied. Try logging in again!"
 					)
 				)
 			);
