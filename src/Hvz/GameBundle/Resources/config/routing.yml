@@ -186,7 +186,7 @@ hvz_admin_mission_create:
     defaults: { _controller: HvzGameBundle:Admin:missionCreate }
 
 hvz_admin_mission_delete:
-    pattern: /admin/mission/{id}/delete
+    pattern: /admin/mission/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:missionDelete }
     requirements:
         id: \d+
