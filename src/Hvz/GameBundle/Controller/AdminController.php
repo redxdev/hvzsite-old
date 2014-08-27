@@ -169,13 +169,24 @@ class AdminController extends Controller
     	return new Response($content);
 	}
 
-	public function gameAddAntiVirusAction($id)
+	public function gameAddAntiVirusAction($id, $token)
 	{
 		$securityContext = $this->get('security.context');
 
 		if(!$securityContext->isGranted("ROLE_ADMIN"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$csrf = $this->get('form.csrf_provider');
+		if(!$csrf->isCsrfTokenValid('hvz_add_antivirus', $token))
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Invalid CSRF token. Please try again."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findOneById($id);

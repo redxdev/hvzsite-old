@@ -54,7 +54,7 @@ hvz_admin_games:
     defaults: { _controller: HvzGameBundle:Admin:games }
 
 hvz_admin_game_add_antivirus:
-    pattern: /admin/game/{id}/av/add
+    pattern: /admin/game/{id}/av/add/{token}
     defaults: { _controller: HvzGameBundle:Admin:gameAddAntiVirus }
     requirements:
         id: \d+
