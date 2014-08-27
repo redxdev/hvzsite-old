@@ -46,7 +46,7 @@
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-					<a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id}) }}')">
+					<a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id, 'token': csrf_token('hvz_game_delete')}) }}')">
 						<paper-button label="Delete" raisedButton></paper-button>
 					</a>
 				</div>

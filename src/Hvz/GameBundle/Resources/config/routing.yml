@@ -70,7 +70,7 @@ hvz_admin_game_edit:
         id: \d+
 
 hvz_admin_game_delete:
-    pattern: /admin/game/{id}/delete
+    pattern: /admin/game/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:gameDelete }
     requirements:
         id: \d+
