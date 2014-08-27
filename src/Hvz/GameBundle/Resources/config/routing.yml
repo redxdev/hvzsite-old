@@ -92,7 +92,7 @@ hvz_admin_user_delete:
         id: \d+
 
 hvz_admin_profile_generate:
-    pattern: /admin/profile/generate/{id}
+    pattern: /admin/profile/generate/{id}/{token}
     defaults: { _controller: HvzGameBundle:Admin:profileGenerate }
     requirements:
         id: \d+
