@@ -889,13 +889,24 @@ class AdminController extends Controller
 		return new Response($this->generateUrl('hvz_admin_profile_avatar_change', array('id' => $id)));
 	}
 
-	public function profileDeleteAction($id)
+	public function profileDeleteAction($id, $token)
 	{
 		$securityContext = $this->get('security.context');
 
 		if(!$securityContext->isGranted("ROLE_MOD"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$csrf = $this->get('form.csrf_provider');
+		if(!$csrf->isCsrfTokenValid('hvz_profile_delete', $token))
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Invalid CSRF token. Please try again."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findOneById($id);

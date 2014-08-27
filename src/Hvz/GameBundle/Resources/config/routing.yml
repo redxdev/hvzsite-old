@@ -160,7 +160,7 @@ hvz_admin_profile_avatar_submit:
         id: \d+
 
 hvz_admin_profile_delete:
-    pattern: /admin/profile/{id}/delete
+    pattern: /admin/profile/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:profileDelete }
     requirements:
         id: \d+

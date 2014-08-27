@@ -34,7 +34,7 @@
 			<div class="card-section" vertical layout flex>
 				<a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}"><paper-button label="View" raisedButton></paper-button></a>
 				<a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}')">
+				<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id, 'token': csrf_token('hvz_profile_delete')}) }}')">
 					<paper-button label="Delete" raisedButton></paper-button>
 				</a>
 			</div>
