@@ -37,7 +37,7 @@
 							<li>{% if not av.active %}<strike>{% endif %}{{ av.id }}{% if not av.active %}</strike>{% endif %}</li>
 						{% endfor %}
 					</ul>
-					<a href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id, 'token': csrf_token('hvz_add_antivirus') }) }}"><paper-button label="Generate AV"></paper-button></a>
+					<a href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id, 'token': csrf_token('hvz_antivirus_generate') }) }}"><paper-button label="Generate AV"></paper-button></a>
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}"><paper-button label="Profiles" raisedButton></paper-button></a>

@@ -86,7 +86,7 @@ hvz_admin_user_edit:
         id: \d+
 
 hvz_admin_user_delete:
-    pattern: /admin/user/{id}/delete
+    pattern: /admin/user/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:userDelete }
     requirements:
         id: \d+

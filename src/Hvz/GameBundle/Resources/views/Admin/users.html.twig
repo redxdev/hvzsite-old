@@ -32,7 +32,7 @@
 			</div>
 			<div class="card-section" vertical layout flex>
 				<a href="{{ path('hvz_admin_user_edit', {'id': user.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="#" onclick="showDeleteDialog('{{ user.fullname | e('js') }}', '{{ path('hvz_admin_user_delete', {'id': user.id}) }}')">
+				<a href="#" onclick="showDeleteDialog('{{ user.fullname | e('js') }}', '{{ path('hvz_admin_user_delete', {'id': user.id, 'token': csrf_token('hvz_user_delete')}) }}')">
 					<paper-button label="Delete" raisedButton></paper-button>
 				</a>
 			</div>

@@ -179,7 +179,7 @@ class AdminController extends Controller
 		}
 
 		$csrf = $this->get('form.csrf_provider');
-		if(!$csrf->isCsrfTokenValid('hvz_add_antivirus', $token))
+		if(!$csrf->isCsrfTokenValid('hvz_antivirus_generate', $token))
 		{
 			$this->get('session')->getFlashBag()->add(
 				'page.toast',
@@ -349,13 +349,24 @@ class AdminController extends Controller
     	return new Response($content);
 	}
 
-	public function userDeleteAction($id)
+	public function userDeleteAction($id, $token)
 	{
 		$securityContext = $this->get('security.context');
 
 		if(!$securityContext->isGranted("ROLE_ADMIN"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$csrf = $this->get('form.csrf_provider');
+		if(!$csrf->isCsrfTokenValid('hvz_user_delete', $token))
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Invalid CSRF token. Please try again."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$user = $this->getDoctrine()->getRepository('HvzGameBundle:User')->findOneById($id);
