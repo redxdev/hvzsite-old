@@ -1276,7 +1276,7 @@ class AdminController extends Controller
         return new Response($content);
     }
 
-    public function ruleDeleteAction($id)
+    public function ruleDeleteAction($id, $token)
     {
         $securityContext = $this->get('security.context');
 
@@ -1284,6 +1284,17 @@ class AdminController extends Controller
         {
             return $this->redirect($this->generateUrl('hvz_error_403'));
         }
+
+		$csrf = $this->get('form.csrf_provider');
+		if(!$csrf->isCsrfTokenValid('hvz_rule_delete', $token))
+		{
+			$this->get('session')->getFlashBag()->add(
+				'page.toast',
+				"Invalid CSRF token. Please try again."
+			);
+
+			return $this->redirect($this->generateUrl('hvz_admin_rules'));
+		}
 
         $rule = $this->getDoctrine()->getRepository('HvzGameBundle:Rule')->findOneById($id);
 

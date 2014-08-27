@@ -206,7 +206,7 @@ hvz_admin_rule_create:
     defaults: { _controller: HvzGameBundle:Admin:ruleCreate }
 
 hvz_admin_rule_delete:
-    pattern: /admin/rule/{id}/delete
+    pattern: /admin/rule/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:ruleDelete }
     requirements:
         id: \d+
