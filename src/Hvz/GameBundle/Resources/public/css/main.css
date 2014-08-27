@@ -28,6 +28,7 @@ small.light {
 	background-color: #fff;
 	border-radius: 2px;
 	overflow: hidden;
+	position: relative;
 }
 
 div.card-internal {
