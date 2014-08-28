@@ -17,6 +17,10 @@ core-scaffold {
 	left: 0;
 }
 
+core-item {
+	width: 300px;
+}
+
 small.light {
 	color: #607d8b;
 }
