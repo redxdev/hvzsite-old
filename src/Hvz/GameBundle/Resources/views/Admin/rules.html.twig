@@ -27,7 +27,7 @@
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_rule_edit', {'id': rule.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-					<a href="#" onclick="showDeleteDialog('{{ rule.title | e('js') }}', '{{ path('hvz_admin_rule_delete', {'id': rule.id}) }}')">
+					<a href="#" onclick="showDeleteDialog('{{ rule.title | e('js') }}', '{{ path('hvz_admin_rule_delete', {'id': rule.id, 'token': csrf_token('hvz_rule_delete')}) }}')">
 						<paper-button label="Delete" raisedButton></paper-button>
 					</a>
 				</div>

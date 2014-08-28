@@ -90,6 +90,15 @@ but should not have full access. They only are able to view user accounts and
 profiles, generate new profiles, and edit profiles. They cannot change game settings,
 missions, rules, or edit user accounts.
 
+Final notes
+===========
+
+If you edit anything in src/HvzGameBundle/Resources/public, you will have to run the following:
+
+    php app/console assets:install
+
+If your system supports it, you can add `--symlink` to the end of that to symlink all files, though if you create or delete a file you will have to run the command again.
+
 License
 =======
 

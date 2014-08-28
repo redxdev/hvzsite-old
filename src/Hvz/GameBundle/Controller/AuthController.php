@@ -27,6 +27,22 @@ class AuthController extends Controller
 
 	public function registerCodeAction(Request $request)
 	{
+		if($request->query->get('error') == 'access_denied')
+		{
+			$content = $this->renderView(
+				'HvzGameBundle:Auth:message.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					"message" => array(
+						"type" => "error",
+						"body" => "Access to your google account was denied. Try registering again!"
+					)
+				)
+			);
+
+			return new Response($content);
+		}
+
 		$code = $request->query->get('code');
 		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_register_code', array(), true));
 		$oauth = new \Google_Service_Oauth2($client);
@@ -118,6 +134,22 @@ class AuthController extends Controller
 
 	public function loginCodeAction(Request $request)
 	{
+		if($request->query->get('error') == 'access_denied')
+		{
+			$content = $this->renderView(
+				'HvzGameBundle:Auth:message.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					"message" => array(
+						"type" => "error",
+						"body" => "Access to your google account was denied. Try logging in again!"
+					)
+				)
+			);
+
+			return new Response($content);
+		}
+
 		$code = $request->query->get('code');
 		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_login_code', array(), true));
 		$oauth = new \Google_Service_Oauth2($client);

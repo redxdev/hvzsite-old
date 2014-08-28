@@ -54,7 +54,7 @@ hvz_admin_games:
     defaults: { _controller: HvzGameBundle:Admin:games }
 
 hvz_admin_game_add_antivirus:
-    pattern: /admin/game/{id}/av/add
+    pattern: /admin/game/{id}/av/add/{token}
     defaults: { _controller: HvzGameBundle:Admin:gameAddAntiVirus }
     requirements:
         id: \d+
@@ -70,7 +70,7 @@ hvz_admin_game_edit:
         id: \d+
 
 hvz_admin_game_delete:
-    pattern: /admin/game/{id}/delete
+    pattern: /admin/game/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:gameDelete }
     requirements:
         id: \d+
@@ -86,13 +86,13 @@ hvz_admin_user_edit:
         id: \d+
 
 hvz_admin_user_delete:
-    pattern: /admin/user/{id}/delete
+    pattern: /admin/user/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:userDelete }
     requirements:
         id: \d+
 
 hvz_admin_profile_generate:
-    pattern: /admin/profile/generate/{id}
+    pattern: /admin/profile/generate/{id}/{token}
     defaults: { _controller: HvzGameBundle:Admin:profileGenerate }
     requirements:
         id: \d+
@@ -160,7 +160,7 @@ hvz_admin_profile_avatar_submit:
         id: \d+
 
 hvz_admin_profile_delete:
-    pattern: /admin/profile/{id}/delete
+    pattern: /admin/profile/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:profileDelete }
     requirements:
         id: \d+
@@ -186,7 +186,7 @@ hvz_admin_mission_create:
     defaults: { _controller: HvzGameBundle:Admin:missionCreate }
 
 hvz_admin_mission_delete:
-    pattern: /admin/mission/{id}/delete
+    pattern: /admin/mission/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:missionDelete }
     requirements:
         id: \d+
@@ -206,7 +206,7 @@ hvz_admin_rule_create:
     defaults: { _controller: HvzGameBundle:Admin:ruleCreate }
 
 hvz_admin_rule_delete:
-    pattern: /admin/rule/{id}/delete
+    pattern: /admin/rule/{id}/delete/{token}
     defaults: { _controller: HvzGameBundle:Admin:ruleDelete }
     requirements:
         id: \d+

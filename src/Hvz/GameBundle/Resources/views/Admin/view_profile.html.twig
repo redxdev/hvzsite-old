@@ -59,7 +59,7 @@
 				<p><a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a></p>
 				<p><a href="{{ path('hvz_admin_profile_give_badge', {'id': profile.id}) }}"><paper-button label="Give Badge" raisedButton></paper-button></a></p>
 				<p>
-					<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}','{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}')">
+					<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}','{{ path('hvz_admin_profile_delete', {'id': profile.id, 'token': csrf_token('hvz_profile_delete')}) }}')">
 						<paper-button label="Delete" raisedButton></paper-button>
 					</a>
 				</p>
