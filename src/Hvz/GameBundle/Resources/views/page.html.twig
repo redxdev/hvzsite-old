@@ -22,7 +22,7 @@
 			<core-menu theme="core-light-theme" selected="{{ navigation.selected }}">
 				{% for link in navigation.links %}
 					<core-item id="menu-{{ link.id }}" icon="{{ link.icon }}" label="{{ link.label }}">
-						<a href="{{ link.link }}"></a>
+						<a href="{{ link.link }}" target="_self"></a>
 					</core-item>
 				{% endfor %}
 
@@ -30,7 +30,7 @@
 					<core-submenu icon="settings" label="Administration">
 						{% for link in navigation.admin %}
 							<core-item id="menu-admin-{{ link.id }}" icon="{{ link.icon }}" label="{{ link.label }}">
-								<a href="{{ link.link }}"></a>
+								<a href="{{ link.link }}" target="_self"></a>
 							</core-item>
 						{% endfor %}
 					</core-submenu>
@@ -39,19 +39,19 @@
 				{% if app.user %}
 					<core-submenu icon="account-box" label="{{ app.user.fullname | escape }}">
 						<core-item id="menu-profile" label="Profile">
-							<a href="{{ path('hvz_profile') }}"></a>
+							<a href="{{ path('hvz_profile') }}" target="_self"></a>
 						</core-item>
 						<core-item id="menu-logout" label="Logout">
-							<a href="{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}"></a>
+							<a href="{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}" target="_self"></a>
 						</core-item>
 					</core-submenu>
 				{% else %}
 					<core-submenu icon="account-box" label="Account">
 						<core-item id="menu-login" label="Login">
-							<a href="{{ path('hvz_auth_login') }}"></a>
+							<a href="{{ path('hvz_auth_login') }}" target="_self"></a>
 						</core-item>
 						<core-item id="menu-register" label="Register">
-							<a href="{{ path('hvz_auth_register') }}"></a>
+							<a href="{{ path('hvz_auth_register') }}" target="_self"></a>
 						</core-item>
 					</core-submenu>
 				{% endif %}
