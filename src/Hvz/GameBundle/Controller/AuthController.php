@@ -13,6 +13,8 @@ use Hvz\GameBundle\Entity\PlayerTag;
 
 use Hvz\GameBundle\Security\Authentication\Token\GoogleOAuthToken;
 
+use Hvz\GameBundle\Services\ActionLogService;
+
 require_once __DIR__ . '/../../../../vendor/google/apiclient/src/Google/Service/Oauth2.php';
 
 class AuthController extends Controller
@@ -105,6 +107,15 @@ class AuthController extends Controller
 		$user = new User();
 		$user->setEmail($email);
 		$user->setFullname($userInfo['given_name'] . " " . $userInfo['family_name']);
+
+		$actlog = $this->get('hvz.action_log');
+		$actlog->recordAction(
+			ActionLogService::TYPE_AUTH,
+			'email:' . $email,
+			'registered',
+			false
+		);
+
 		$em->persist($user);
 
 		$em->flush();

@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Hvz\GameBundle\Entity\User;
 use Hvz\GameBundle\Entity\InfectionSpread;
 
+use Hvz\GameBundle\Services\ActionLogService;
+
 class GameController extends Controller
 {
 	public function statusAction()
@@ -114,6 +116,7 @@ class GameController extends Controller
 		}
 		else if($request->getMethod() == "POST")
 		{
+			$actlog = $this->get('hvz.action_log');
 			$session = $this->get('session');
 			$csrf = $this->get('form.csrf_provider');
 
@@ -228,6 +231,11 @@ class GameController extends Controller
 
 					$this->get('hvz.badge_registry')->addBadge($zombieProfile, 'used-av', false);
 
+					$actlog->recordAction(
+						ActionLogService::TYPE_GAME,
+						'email:' . $zombieProfile->getUser()->getEmail(),
+						'antivirus used: ' . $av->getTag(), false);
+
 					$this->getDoctrine()->getManager()->flush();
 
 					$this->get('session')->getFlashBag()->add(
@@ -304,6 +312,19 @@ class GameController extends Controller
 
 				$badgeReg = $this->get('hvz.badge_registry');
 				$this->applyBadges($victimTag->getProfile(), $zombieProfile, $badgeReg, $infection);
+
+				$actlog->recordAction(
+					ActionLogService::TYPE_GAME,
+					'email:' . $zombieProfile->getUser()->getEmail(),
+					'zombified player email:' . $victimTag->getProfile()->getUser()->getEmail(),
+					false
+				);
+				$actlog->recordAction(
+					ActionLogService::TYPE_GAME,
+					'email:' . $victimTag->getProfile()->getUser()->getEmail(),
+					'zombified by player email:' . $zombieProfile->getUser()->getEmail(),
+					false
+				);
 
 				$em->flush();
 

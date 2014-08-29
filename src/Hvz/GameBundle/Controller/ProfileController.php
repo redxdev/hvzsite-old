@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Hvz\GameBundle\Entity\User;
 
+use Hvz\GameBundle\Services\ActionLogService;
+
 class ProfileController extends Controller
 {
 	public function indexAction()
@@ -110,6 +112,7 @@ class ProfileController extends Controller
 		}
 		else
 		{
+			$actlog = $this->get('hvz.action_log');
 			$csrf = $this->get('form.csrf_provider');
 			$token = $request->get('_token');
 
@@ -127,6 +130,14 @@ class ProfileController extends Controller
 				$newClan = "";
 
 			$profile->setClan($newClan);
+
+			$actlog->recordAction(
+				ActionLogService::TYPE_PROFILE,
+				'email:' . $profile->getUser()->getEmail(),
+				'changed clan:' . $newClan,
+				false
+			);
+
 			$this->getDoctrine()->getManager()->flush();
 
 			$this->get('session')->getFlashBag()->add(

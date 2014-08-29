@@ -31,7 +31,7 @@ class ActionLog
     /**
      * @var string
      *
-     * @ORM\Column(name="user", type="string", length=255)
+     * @ORM\Column(name="user", type="text")
      */
     private $user;
 
@@ -42,6 +42,17 @@ class ActionLog
      */
     private $action;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="time", type="datetime")
+     */
+    private $time;
+
+    public function __construct()
+    {
+        $this->time = new \DateTime();
+    }
 
     /**
      * Get id
@@ -120,5 +131,28 @@ class ActionLog
     public function getAction()
     {
         return $this->action;
+    }
+
+    /**
+     * Set time
+     *
+     * @param \DateTime $time
+     * @return ActionLog
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return \DateTime
+     */
+    public function getTime()
+    {
+        return $this->time;
     }
 }
