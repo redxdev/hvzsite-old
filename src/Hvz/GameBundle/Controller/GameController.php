@@ -114,6 +114,7 @@ class GameController extends Controller
 		}
 		else if($request->getMethod() == "POST")
 		{
+			$session = $this->get('session');
 			$csrf = $this->get('form.csrf_provider');
 
 			$token = $request->get('_token');
@@ -121,6 +122,31 @@ class GameController extends Controller
 			$zombie = $request->get('zombie');
 			$latitude = $request->get('latitude') or null;
 			$longitude = $request->get('longitude') or null;
+
+			$failedTagCount = $session->get('hvz_tag_failures', 0);
+			$lastFailDate = $session->get('hvz_tag_failure_date', new \DateTime());
+			$timeDiff = (new \DateTime())->diff($lastFailDate);
+
+			if($timeDiff->h > 2) {
+				$failedTagCount = 0;
+			}
+
+			if($failedTagCount >= 5)
+			{
+				$content = $this->renderView(
+					'HvzGameBundle:Game:register_tag.html.twig',
+					array(
+						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+						"errors" => array("You have submitted invalid tags too many times. You must wait ~" . (120 - $timeDiff->i) . " minutes before trying again."),
+						"victim" => $victim,
+						"zombie" => $zombie
+					)
+				);
+
+				return new Response($content);
+			}
+
+
 
 			if(!$csrf->isCsrfTokenValid('hvz_register_tag', $token))
 			{
@@ -213,16 +239,20 @@ class GameController extends Controller
 				}
 			}
 
+			$addFail = false;
+
 			if(!$victimTag || $victimTag->getActive() == false || $victimTag->getProfile()->getActive() == false || $victimTag->getProfile()->getGame() != $game)
 			{
 				$showError = true;
 				$errors[] = "Unknown victim tag";
+				$addFail = true;
 			}
 
 			if(!$zombieProfile || $zombieProfile->getActive() == false || $zombieProfile->getGame() != $game)
 			{
 				$showError = true;
 				$errors[] = "Unknown zombie tag";
+				$addFail = true;
 			}
 
 			if(!$showError && $victimTag->getProfile()->getTeam() != User::TEAM_HUMAN)
@@ -239,6 +269,10 @@ class GameController extends Controller
 
 			if($showError)
 			{
+				$failedTagCount++;
+				$session->set('hvz_tag_failures', $failedTagCount);
+				$session->set('hvz_tag_failure_date', new \DateTime());
+
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
