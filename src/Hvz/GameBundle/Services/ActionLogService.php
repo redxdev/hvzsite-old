@@ -6,8 +6,10 @@ use Hvz\GameBundle\Entity\ActionLog;
 
 class ActionLogService
 {
-	const TYPE_USER = "user";
+	const TYPE_GAME = "game";
 	const TYPE_ADMIN = "admin";
+	const TYPE_AUTH = "auth";
+	const TYPE_PROFILE = "profile";
 
 	private $entityManager;
 
