@@ -259,7 +259,7 @@ class AuthController extends Controller
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
 					"type" => "error",
-					"body" => "<strong>Error 403</strong>: Access denied. Do you have permission to view that page?"
+					"body" => "<strong>Error 403</strong> Access denied. Do you have permission to view that page?"
 				)
 			)
 		);
