@@ -192,7 +192,7 @@ class AuthController extends Controller
 			return new Response($content);
 		}
 
-		$isAdmin = in_array("ROLE_ADMIN", $user->getRoles()) || in_array("ROLE_SUPER_ADMIN", $user->getRoles());
+		$isAdmin = in_array("ROLE_MOD", $user->getRoles()) || in_array("ROLE_ADMIN", $user->getRoles());
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 		if(!$isAdmin && !$game)
 		{
