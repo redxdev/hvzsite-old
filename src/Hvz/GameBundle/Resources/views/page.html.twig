@@ -21,14 +21,14 @@
 			<core-toolbar>HvZ</core-toolbar>
 			<core-menu theme="core-light-theme" selected="{{ navigation.selected }}">
 				{% for link in navigation.links %}
-					<core-item id="menu-{{ link.id }}" icon="{{ link.icon }}" label="{{ link.label }}" onclick="javascript:void(0);window.location='{{ link.link | e('js') }}'">
+					<core-item id="menu-{{ link.id }}" icon="{{ link.icon }}" label="{{ link.label }}" onclick="window.location='{{ link.link | e('js') }}'">
 					</core-item>
 				{% endfor %}
 
 				{% if navigation.admin is not null %}
 					<core-submenu icon="settings" label="Administration">
 						{% for link in navigation.admin %}
-							<core-item id="menu-admin-{{ link.id }}" icon="{{ link.icon }}" label="{{ link.label }}" onclick="javascript:void(0);window.location='{{ link.link | e('js') }}'">
+							<core-item id="menu-admin-{{ link.id }}" icon="{{ link.icon }}" label="{{ link.label }}" onclick="window.location='{{ link.link | e('js') }}'">
 							</core-item>
 						{% endfor %}
 					</core-submenu>
@@ -36,16 +36,16 @@
 
 				{% if app.user %}
 					<core-submenu icon="account-box" label="{{ app.user.fullname | escape }}">
-						<core-item id="menu-profile" label="Profile" onclick="javascript:void(0);window.location='{{ path('hvz_profile') | e('js') }}'">
+						<core-item id="menu-profile" label="Profile" onclick="window.location='{{ path('hvz_profile') | e('js') }}'">
 						</core-item>
-						<core-item id="menu-logout" label="Logout" onclick="javascript:void(0);window.location='{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) | e('js') }}'">
+						<core-item id="menu-logout" label="Logout" onclick="window.location='{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) | e('js') }}'">
 						</core-item>
 					</core-submenu>
 				{% else %}
 					<core-submenu icon="account-box" label="Account">
-						<core-item id="menu-login" label="Login" onclick="javascript:void(0);window.location='{{ path('hvz_auth_login') | e('js') }}'">
+						<core-item id="menu-login" label="Login" onclick="window.location='{{ path('hvz_auth_login') | e('js') }}'">
 						</core-item>
-						<core-item id="menu-register" label="Register" onclick="javascript:void(0);window.location='{{ path('hvz_auth_register') | e('js') }}'">
+						<core-item id="menu-register" label="Register" onclick="window.location='{{ path('hvz_auth_register') | e('js') }}'">
 						</core-item>
 					</core-submenu>
 				{% endif %}
