@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ActionLog
  *
- * @ORM\Table()
+ * @ORM\Table(name="action_log")
  * @ORM\Entity(repositoryClass="Hvz\GameBundle\Entity\ActionLogRepository")
  */
 class ActionLog
@@ -46,7 +46,7 @@ class ActionLog
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +69,7 @@ class ActionLog
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -92,7 +92,7 @@ class ActionLog
     /**
      * Get user
      *
-     * @return string 
+     * @return string
      */
     public function getUser()
     {
@@ -115,7 +115,7 @@ class ActionLog
     /**
      * Get action
      *
-     * @return string 
+     * @return string
      */
     public function getAction()
     {
