@@ -15,6 +15,8 @@ use Hvz\GameBundle\Entity\Post;
 use Hvz\GameBundle\Entity\Rule;
 use Hvz\GameBundle\Entity\AntiVirusTag;
 
+use Hvz\GameBundle\Services\ActionLogService;
+
 class AdminController extends Controller
 {
 	public function gamesAction()
@@ -93,8 +95,17 @@ class AdminController extends Controller
 
 		if($form->isValid())
 		{
+			$actlog = $this->get('hvz.action_log');
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($game);
+
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'created new game',
+				false
+			);
+
 			$em->flush();
 
 			$this->get('session')->getFlashBag()->add(
@@ -147,7 +158,16 @@ class AdminController extends Controller
 
 		if($form->isValid())
 		{
+			$actlog = $this->get('hvz.action_log');
 			$em = $this->getDoctrine()->getManager();
+
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'edited game: ' . $id,
+				false
+			);
+
 			$em->flush();
 
 			$this->get('session')->getFlashBag()->add(
@@ -205,8 +225,17 @@ class AdminController extends Controller
 		$newTag = new AntiVirusTag($tagGen->generate());
 		$newTag->setGame($game);
 
+		$actlog = $this->get('hvz.action_log');
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($newTag);
+
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'added antivirus to game ' . $id . ': ' . $newTag->getTag(),
+			false
+		);
+
 		$em->flush();
 
 		$this->get('session')->getFlashBag()->add(
@@ -249,8 +278,17 @@ class AdminController extends Controller
 			return $this->redirect($this->generateUrl('hvz_admin_games'));
 		}
 
+		$actlog = $this->get('hvz.action_log');
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($game);
+
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'deleted game: ' . $id,
+			false
+		);
+
 		$em->flush();
 
 		$this->get('session')->getFlashBag()->add(
@@ -327,7 +365,16 @@ class AdminController extends Controller
 
 		if($form->isValid())
 		{
+			$actlog = $this->get('hvz.action_log');
 			$em = $this->getDoctrine()->getManager();
+
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'edited user: email:' . $user->getEmail(),
+				false
+			);
+
 			$em->flush();
 
 			$this->get('session')->getFlashBag()->add(
@@ -381,8 +428,18 @@ class AdminController extends Controller
 			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
+		$actlog = $this->get('hvz.action_log');
 		$em = $this->getDoctrine()->getManager();
+
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'deleted user: email:' . $user->getEmail(),
+			false
+		);
+
 		$em->remove($user);
+
 		$em->flush();
 
 		$this->get('session')->getFlashBag()->add(
@@ -452,6 +509,7 @@ class AdminController extends Controller
 			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
+		$actlog = $this->get('hvz.action_log');
 		$em = $this->getDoctrine()->getManager();
 		$tagGen = $this->get('hvz.tag_generator');
 
@@ -472,6 +530,14 @@ class AdminController extends Controller
 		$em->persist($profile);
 		$em->persist($tag1);
 		$em->persist($tag2);
+
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'generated profile:' . $user->getEmail() . ':' . $game->getId(),
+			false
+		);
+
 		$em->flush();
 
 		return $this->redirect($this->generateUrl('hvz_admin_profile_view', array('id' => $profile->getId())));
@@ -649,8 +715,18 @@ class AdminController extends Controller
 		$newTag->setProfile($profile);
 		$profile->addIdTag($newTag);
 
+		$actlog = $this->get('hvz.action_log');
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($newTag);
+
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'generated tag for profile ' . $profile->getUser()->getEmail() . ':' . $profile->getGame()->getId() . ': '
+				. $newTag->getTag(),
+			false
+		);
+
 		$em->flush();
 
 		$this->get('session')->getFlashBag()->add(
@@ -726,6 +802,15 @@ class AdminController extends Controller
 
 			$badgeReg->addBadge($profile, $badge, true);
 
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'added badge to profile ' . $profile->getUser()->getEmail() . ':' . $profile->getGame()->getId()
+					. ': ' . $badge,
+				true
+			);
+
 			$this->get('session')->getFlashBag()->add(
 				'page.toast',
 				"Gave badge successfully."
@@ -772,6 +857,15 @@ class AdminController extends Controller
 		if($form->isValid())
 		{
 			$em = $this->getDoctrine()->getManager();
+
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'edited profile: ' . $profile->getUser()->getEmail() . ':' . $profile->getGame()->getId(),
+				false
+			);
+
 			$em->flush();
 
 			$this->get('session')->getFlashBag()->add(
@@ -866,6 +960,14 @@ class AdminController extends Controller
 
 			$profile->uploadAvatar();
 
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'changed avatar: ' . $profile->getUser()->getEmail() . ':' . $profile->getGame()->getId(),
+				false
+			);
+
 			$em->flush();
 
 			if($oldAvatarPath != null)
@@ -923,6 +1025,15 @@ class AdminController extends Controller
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($profile);
+
+		$actlog = $this->get('hvz.action_log');
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'deleted profile: ' . $profile->getUser()->getEmail() . ':' . $profile->getGame()->getId(),
+			false
+		);
+
 		$em->flush();
 
 		if($profile->getAbsoluteAvatarPath() != null)
@@ -1024,6 +1135,15 @@ class AdminController extends Controller
 		if($form->isValid())
 		{
 			$em = $this->getDoctrine()->getManager();
+
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'edited mission: ' . $mission->getId(),
+				false
+			);
+
 			$em->flush();
 
 			$this->get('session')->getFlashBag()->add(
@@ -1078,6 +1198,15 @@ class AdminController extends Controller
 		{
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($mission);
+
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'created mission',
+				false
+			);
+
 			$em->flush();
 
 			$this->get('session')->getFlashBag()->add(
@@ -1132,7 +1261,17 @@ class AdminController extends Controller
 		}
 
 		$em = $this->getDoctrine()->getManager();
+
+		$actlog = $this->get('hvz.action_log');
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'deleted mission: ' . $mission->getId(),
+			false
+		);
+
 		$em->remove($mission);
+
 		$em->flush();
 
 		$this->get('session')->getFlashBag()->add(
@@ -1209,6 +1348,15 @@ class AdminController extends Controller
         if($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
+
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'edited ruleset: ' . $rule->getId(),
+				false
+			);
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add(
@@ -1255,6 +1403,15 @@ class AdminController extends Controller
         {
             $em = $this->getDoctrine()->getManager();
             $em->persist($rule);
+
+			$actlog = $this->get('hvz.action_log');
+			$actlog->recordAction(
+				ActionLogService::TYPE_ADMIN,
+				'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+				'created ruleset',
+				false
+			);
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add(
@@ -1309,7 +1466,17 @@ class AdminController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
+
+		$actlog = $this->get('hvz.action_log');
+		$actlog->recordAction(
+			ActionLogService::TYPE_ADMIN,
+			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
+			'deleted ruleset: ' . $rule->getId(),
+			false
+		);
+
         $em->remove($rule);
+
         $em->flush();
 
 		$this->get('session')->getFlashBag()->add(
