@@ -409,6 +409,10 @@ class GameController extends Controller
 	public function playersAction(Request $request)
 	{
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+
+		if($game == null)
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+
 		$sortBy = $request->get('sort');
 		if($game == null)
 			$playerEnts = array();
