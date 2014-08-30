@@ -83,7 +83,7 @@ class ProfileRepository extends EntityRepository
 	public function findActiveOrderedByCustom($game, $sortBy)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$query = $qb->select('p, -p.clan as HIDDEN tmpClan')
+		$query = $qb->select('p, p.clan as HIDDEN tmpClan')
 					->from('HvzGameBundle:Profile', 'p')
 					->where('p.active = true')
 					->andWhere('p.game = :game')
