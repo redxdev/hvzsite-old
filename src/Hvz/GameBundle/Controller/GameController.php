@@ -539,7 +539,6 @@ class GameController extends Controller
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
 
-
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 		if($game == null)
 		{

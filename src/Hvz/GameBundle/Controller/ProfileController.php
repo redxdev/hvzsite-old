@@ -25,6 +25,11 @@ class ProfileController extends Controller
 
 		if($game == null)
 		{
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+		}
+
+		if($game == null)
+		{
 			return $this->redirect($this->generateUrl('hvz_error_active'));
 		}
 
@@ -81,6 +86,11 @@ class ProfileController extends Controller
 		}
 
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+
+		if($game == null)
+		{
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+		}
 
 		if($game == null)
 		{
