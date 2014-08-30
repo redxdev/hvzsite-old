@@ -35,7 +35,7 @@
 	{% for player in players %}
 		<div class="card {% if player.team == 'human' %}card-human{% else %}card-zombie{% endif %}" horizontal layout>
 			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal" horizontal layout>
+			<div class="card-internal" horizontal layout wrap>
 				<div class="card" style="width: 100px; height: 100px;" vertical layout center center-justified>
 					<paper-shadow z="2"></paper-shadow>
 					<div class="card-internal">
