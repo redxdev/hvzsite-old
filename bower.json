@@ -20,6 +20,7 @@
     "paper-checkbox": "Polymer/paper-checkbox",
     "paper-dialog": "Polymer/paper-dialog",
     "paper-elements": "Polymer/paper-elements",
-    "core-tooltip": "Polymer/core-tooltip"
+    "core-tooltip": "Polymer/core-tooltip",
+    "polymer": "Polymer/polymer"
   }
 }
