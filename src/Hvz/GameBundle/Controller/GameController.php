@@ -473,41 +473,41 @@ class GameController extends Controller
 		return new Response($content);
 	}
 
-    public function graphAction()
+	// restricted to admins only for now, since it only kind of works
+    public function mapAction()
     {
-        $game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
-        if($game == null)
-            $tagEnts = array();
-        else
-            $tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findByGameOrderedByTime($game);
-        $hasParent = array();
-        $graph = array();
-        foreach($tagEnts as $tag)
-        {
-            if(!array_key_exists($tag->getZombie()->getId(), $hasParent))
-            {
-                $hasParent[$tag->getZombie()->getId()] = true;
-                $graph[$tag->getZombie()->getId()] = array(
-                    "name" => $tag->getZombie()->getUser()->getFullname(),
-                    "parent" => "null"
-                );
-            }
+		$securityContext = $this->get('security.context');
 
-            $graph[$tag->getVictim()->getId()] = array(
-                "name" => $tag->getVictim()->getUser()->getFullname(),
-                "parent" => $tag->getZombie()->getUser()->getFullname()
-            );
-        }
+		if(!$securityContext->isGranted("ROLE_MOD"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
 
-        $content = $this->renderView(
-            'HvzGameBundle:Game:graph.html.twig',
-            array(
-                "graph" => $graph,
-                "game_running" => $game != null
-            )
-        );
+		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+		if($game == null)
+			$tagEnts = array();
+		else
+			$tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findByGameOrderedByTime($game);
+		$tags = array();
+		foreach($tagEnts as $tag)
+		{
+			$tags[] = array(
+				"victim" => $tag->getVictim()->getUser()->getFullname(),
+				"zombie" => $tag->getZombie()->getUser()->getFullname(),
+				"time" => $tag->getTime()->format("l h:i:s A"),
+				"latitude" => $tag->getLatitude(),
+				"longitude" => $tag->getLongitude()
+			);
+		}
 
-        return new Response($content);
+		$content = $this->renderView(
+			'HvzGameBundle:Game:map.html.twig',
+			array(
+				'tags' => $tags
+			)
+		);
+
+		return new Response($content);
     }
 
 	public function missionsAction()

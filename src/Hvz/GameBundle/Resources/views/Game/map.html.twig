@@ -1,0 +1,33 @@
+{# src/Hvz/GameBundle/Resources/views/Game/map.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="description" content="{{ description | default('') }}">
+	<meta name="author" content="{{ author | default('') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="shortcut icon" type="image/png" href="{{ asset('bundles/hvzgame/images/favicon.png') }}">
+
+	<title>{{ title | default('Humans vs Zombies') }}</title>
+
+	<script src="{{ asset('bundles/hvzgame/bower_components/platform/platform.js') }}"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/google-map/google-map.html') }}">
+</head>
+<body fullbleed>
+	<google-map latitude="43.0856756" longitude="-77.6705275" zoom="16" fit>
+		{% for tag in tags %}
+			<google-map-marker latitude="{{ tag.latitude }}" longitude="{{ tag.longitude }}" draggable="false"
+								title="{{ tag.victim }} was tagged by {{ tag.zombie }} on {{ tag.time }}">
+			</google-map-marker>
+		{% endfor %}
+	</google-map>
+</body>
+</html>

@@ -10,7 +10,7 @@
 
 {% block content %}
 	{{ parent() }}
-	
+
 	{% if errors is defined and errors is not null %}
 		<div class="card card-error" flex>
 			<paper-shadow z="1"></paper-shadow>
@@ -67,7 +67,7 @@
 				$('#latitude').val(pos.coords.latitude);
 				$('#longitude').val(pos.coords.longitude);
 				$('#loc-status').html("OK");
-			});
+			}, function() {}, {enableHighAccuracy: true, timeout: Infinity, maximumAge: 0});
 		});
 	</script>
 {% endblock %}
