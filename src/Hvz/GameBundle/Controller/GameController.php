@@ -539,7 +539,7 @@ class GameController extends Controller
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 		if($game == null)
 		{
-			return $this->redirect($this->generateUrl('hvz_error_active'));
+			return $this->redirect($this->generateUrl('hvz_error_game'));
 		}
 
 		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findByGameAndUser($game, $securityContext->getToken()->getUser());
@@ -565,6 +565,22 @@ class GameController extends Controller
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate("missions"),
 				"missions" => $missions
+			)
+		);
+
+		return new Response($content);
+	}
+
+	public function gameErrorAction()
+	{
+		$content = $this->renderView(
+			'HvzGameBundle:Auth:message.html.twig',
+			array(
+				'navigation' => $this->get('hvz.navigation')->generate(""),
+				"message" => array(
+					"type" => "error",
+					"body" => "The game hasn't started yet, so you can't view this page!"
+				)
 			)
 		);
 

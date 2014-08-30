@@ -33,6 +33,10 @@ hvz_missions:
     pattern: /missions
     defaults: { _controller: HvzGameBundle:Game:missions }
 
+hvz_error_game:
+    pattern: /error/game
+    defaults: { _controller: HvzGameBundle:Game:gameError }
+
 
 # Profile Controller
 hvz_profile:
