@@ -24,8 +24,8 @@
 <body fullbleed>
 	<google-map latitude="43.0856756" longitude="-77.6705275" zoom="16" fit>
 		{% for tag in tags %}
-			<google-map-marker latitude="{{ tag.latitude }}" longitude="{{ tag.longitude }}" draggable="false"
-								title="{{ tag.victim }} was tagged by {{ tag.zombie }} on {{ tag.time }}">
+			<google-map-marker latitude="{{ tag.latitude }}" longitude="{{ tag.longitude }}" draggable="false">
+				{{ tag.victim }} was tagged by {{ tag.zombie }} on {{ tag.time }}
 			</google-map-marker>
 		{% endfor %}
 	</google-map>

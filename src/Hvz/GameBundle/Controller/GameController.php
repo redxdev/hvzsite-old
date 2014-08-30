@@ -474,7 +474,7 @@ class GameController extends Controller
 	}
 
 	// restricted to admins only for now, since it only kind of works
-    public function mapAction()
+    public function mapAction($mode)
     {
 		$securityContext = $this->get('security.context');
 
@@ -487,10 +487,26 @@ class GameController extends Controller
 		if($game == null)
 			$tagEnts = array();
 		else
-			$tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findByGameOrderedByTime($game);
+		{
+			switch($mode)
+			{
+				default:
+				case 'all':
+					$tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findByGameOrderedByTime($game);
+					break;
+
+				case 'yesterday':
+					$tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findPreviousDay($game);
+					break;
+			}
+		}
+
 		$tags = array();
 		foreach($tagEnts as $tag)
 		{
+			if($tag->getLatitude() == 0 && $tag->getLongitude() == 0)
+				continue;
+
 			$tags[] = array(
 				"victim" => $tag->getVictim()->getUser()->getFullname(),
 				"zombie" => $tag->getZombie()->getUser()->getFullname(),

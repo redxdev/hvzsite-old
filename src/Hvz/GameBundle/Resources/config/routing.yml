@@ -26,8 +26,8 @@ hvz_tags:
     defaults: { _controller: HvzGameBundle:Game:tags }
 
 hvz_map:
-    pattern: /map
-    defaults: { _controller: HvzGameBundle:Game:map }
+    pattern: /map/{mode}
+    defaults: { _controller: HvzGameBundle:Game:map, mode: "all" }
 
 hvz_missions:
     pattern: /missions
