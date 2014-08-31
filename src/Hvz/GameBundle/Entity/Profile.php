@@ -37,7 +37,7 @@ class Profile
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creation_date", type="datetime")
+     * @ORM\Column(name="creation_date", type="date")
      */
     private $creationDate;
 
