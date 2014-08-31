@@ -172,7 +172,7 @@ class ProfileController extends Controller
 		$preview = $request->query->get('preview', 0) != 1;
 		$today = $request->query->get('today', 0) == 1;
 
-		if(!$securityContext->isGranted("ROLE_MOD"))
+		if(!$securityContext->isGranted("ROLE_ADMIN"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
@@ -273,7 +273,7 @@ class ProfileController extends Controller
 	{
 		$securityContext = $this->get('security.context');
 
-		if(!$securityContext->isGranted("ROLE_MOD"))
+		if(!$securityContext->isGranted("ROLE_ADMIN"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
@@ -321,7 +321,7 @@ class ProfileController extends Controller
 	{
 		$securityContext = $this->get('security.context');
 
-		if(!$securityContext->isGranted("ROLE_MOD"))
+		if(!$securityContext->isGranted("ROLE_ADMIN"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
@@ -575,7 +575,7 @@ class ProfileController extends Controller
 	{
 		$securityContext = $this->get('security.context');
 
-		if(!$securityContext->isGranted("ROLE_MOD"))
+		if(!$securityContext->isGranted("ROLE_ADMIN"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
