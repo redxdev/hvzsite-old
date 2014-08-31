@@ -114,4 +114,25 @@ class ProfileRepository extends EntityRepository
 
 		return $query->getOneOrNullResult();
 	}
+
+	public function findActiveCreatedToday($game)
+	{
+		$start = new \DateTime();
+		$start->modify('today');
+
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('p')
+					->from('HvzGameBundle:Profile', 'p')
+					->where('p.active = true')
+					->andWhere('p.creationDate BETWEEN :start AND :end')
+					->andWhere('p.game = :game')
+					->orderBy('p.numberTagged', 'DESC')
+					->orderBy('p.team', 'DESC')
+					->setParameter('game', $game)
+					->setParameter('start', $start)
+					->setParameter('end', new \DateTime())
+					->getQuery();
+
+		return $query->getResult();
+	}
 }

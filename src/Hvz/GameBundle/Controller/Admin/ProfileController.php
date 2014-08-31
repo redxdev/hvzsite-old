@@ -170,13 +170,22 @@ class ProfileController extends Controller
 		$securityContext = $this->get('security.context');
 
 		$preview = $request->query->get('preview', 0) != 1;
+		$today = $request->query->get('today', 0) == 1;
 
 		if(!$securityContext->isGranted("ROLE_MOD"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
 
-		$profileEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByNumberTaggedAndTeam($game);
+		$profileEnts = array();
+		if($today)
+		{
+			$profileEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveCreatedToday($game);
+		}
+		else
+		{
+			$profileEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByNumberTaggedAndTeam($game);
+		}
 
 		$profiles = array();
 		foreach($profileEnts as $profile)
