@@ -27,7 +27,9 @@
 				<p><strong>Access:</strong> {{ user.access }}</p>
 			</div>
 			<div class="card-section" vertical layout flex>
-				<a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}"><paper-button label="{{ user.profiles }} Profiles"></paper-button></a>
+				<a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}">
+					<paper-button label="{{ user.profiles }} Profile{% if user.profiles != 1 %}s{% endif%}"></paper-button>
+				</a>
 				<a href="{{ path('hvz_admin_profile_generate', {'id': user.id, 'token': csrf_token('hvz_profile_generate')}) }}"><paper-button label="Generate Profile"></a>
 			</div>
 			<div class="card-section" vertical layout flex>
