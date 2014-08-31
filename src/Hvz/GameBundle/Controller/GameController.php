@@ -226,6 +226,23 @@ class GameController extends Controller
 						return new Response($content);
 					}
 
+					$now = new \DateTime();
+					$hour = intval($now->format('G'));
+					if($hour >= 17)
+					{
+						$content = $this->renderView(
+							'HvzGameBundle:Game:register_tag.html.twig',
+							array(
+								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+								"errors" => array("AVs must be used before 5PM"),
+								"victim" => $victim,
+								"zombie" => $zombie
+							)
+						);
+
+						return new Response($content);
+					}
+
 					$zombieProfile->setTeam(User::TEAM_HUMAN);
 					$av->setActive(false);
 
