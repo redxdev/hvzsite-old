@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="{{ asset('bundles/hvzgame/css/print.css') }}">
 </head>
 <body>
-	<div class="card-spacer-half"></div>
 	{% for profile in profiles %}
 		<div class="card">
 			<div class="top">
@@ -38,7 +37,6 @@
 		{% endif %}
 
 		{% if loop.index is divisibleby(8) %}
-			<div class="card-spacer"></div>
 			<div class="card-spacer"></div>
 		{% endif %}
 	{% endfor %}
