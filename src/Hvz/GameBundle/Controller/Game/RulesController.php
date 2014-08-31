@@ -1,6 +1,6 @@
 <?php
 
-namespace Hvz\GameBundle\Controller;
+namespace Hvz\GameBundle\Controller\Game;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
