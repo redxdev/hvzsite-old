@@ -49,7 +49,7 @@
 					<a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id, 'token': csrf_token('hvz_game_delete')}) }}')">
 						<paper-button label="Delete" raisedButton></paper-button>
 					</a>
-				</div>
+					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'preview': 1}) }}"><paper-button label="Preview IDs" raisedButton></paper-button></a>				</div>
 			</div>
 		</div>
 	{% endfor %}

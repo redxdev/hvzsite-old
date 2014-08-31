@@ -596,9 +596,11 @@ class AdminController extends Controller
     	return new Response($content);
 	}
 
-	public function profilesPrintAction($game)
+	public function profilesPrintAction(Request $request, $game)
 	{
 		$securityContext = $this->get('security.context');
+
+		$preview = $request->query->get('preview', 0) != 1;
 
 		if(!$securityContext->isGranted("ROLE_MOD"))
 		{
@@ -613,13 +615,13 @@ class AdminController extends Controller
 			$tags = array();
 			foreach($profile->getIdTags() as $tag)
 			{
-				$tags[] = $tag->getTag();
+				$tags[] = $preview == true ? $tag->getTag() : '';
 				if(count($tags) >= 2)
 					break;
 			}
 
 			$profiles[] = array(
-				'tagid' => $profile->getTagId(),
+				'tagid' => $preview == true ? $profile->getTagId() : '',
 				'user' => $profile->getUser()->getFullname(),
 				'avatar' => $profile->getWebAvatarPath(),
 				'tags' => $tags
