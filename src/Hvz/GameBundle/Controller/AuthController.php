@@ -32,7 +32,7 @@ class AuthController extends Controller
 		if($request->query->get('error') == 'access_denied')
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -52,7 +52,7 @@ class AuthController extends Controller
 		if(!$client->getAccessToken())
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -72,7 +72,7 @@ class AuthController extends Controller
 		if($userRepo->findOneByEmail($email))
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -88,7 +88,7 @@ class AuthController extends Controller
 		if(!isset($userInfo['hd']) || ($userInfo['hd'] != 'g.rit.edu' && $userInfo['hd'] != 'rit.edu'))
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -123,7 +123,7 @@ class AuthController extends Controller
 		$client->revokeToken();
 
 		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
+			'HvzGameBundle::message.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
@@ -148,7 +148,7 @@ class AuthController extends Controller
 		if($request->query->get('error') == 'access_denied')
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -168,7 +168,7 @@ class AuthController extends Controller
 		if(!$client->getAccessToken())
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -190,7 +190,7 @@ class AuthController extends Controller
 		if(!$user)
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -238,7 +238,7 @@ class AuthController extends Controller
 		if(!$csrf->isCsrfTokenValid('hvz_auth_logout', $token))
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -265,7 +265,7 @@ class AuthController extends Controller
 	public function authErrorAction()
 	{
 		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
+			'HvzGameBundle::message.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
@@ -281,7 +281,7 @@ class AuthController extends Controller
 	public function activeErrorAction()
 	{
 		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
+			'HvzGameBundle::message.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(

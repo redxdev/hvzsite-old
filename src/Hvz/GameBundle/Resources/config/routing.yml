@@ -1,41 +1,46 @@
-# Game Controller
+# Status Controller
 hvz_index:
     pattern: /
-    defaults: { _controller: HvzGameBundle:Game:status }
+    defaults: { _controller: HvzGameBundle:Status:index }
 
+hvz_error_game:
+    pattern: /error/game
+    defaults: { _controller: HvzGameBundle:Status:gameError }
+
+# Rules Controller
 hvz_rules:
     pattern: /rules
-    defaults: { _controller: HvzGameBundle:Game:rules }
+    defaults: { _controller: HvzGameBundle:Rules:index }
 
+# Register Tag Controller
 hvz_register_tag:
     pattern: /register_tag
-    defaults: { _controller: HvzGameBundle:Game:registerTag }
+    defaults: { _controller: HvzGameBundle:RegisterTag:index }
     methods: [GET]
 
 hvz_register_tag_submit:
     pattern: /register_tag
-    defaults: { _controller: HvzGameBundle:Game:registerTag }
+    defaults: { _controller: HvzGameBundle:RegisterTag:index }
     methods: [POST]
 
+# Players Controller
 hvz_players:
     pattern: /players
-    defaults: { _controller: HvzGameBundle:Game:players }
+    defaults: { _controller: HvzGameBundle:Players:index }
 
 hvz_tags:
     pattern: /tags
-    defaults: { _controller: HvzGameBundle:Game:tags }
+    defaults: { _controller: HvzGameBundle:Players:tags }
 
+# Map Controller
 hvz_map:
     pattern: /map/{mode}
-    defaults: { _controller: HvzGameBundle:Game:map, mode: "all" }
+    defaults: { _controller: HvzGameBundle:Map:index, mode: "all" }
 
+# Missions Controller
 hvz_missions:
     pattern: /missions
-    defaults: { _controller: HvzGameBundle:Game:missions }
-
-hvz_error_game:
-    pattern: /error/game
-    defaults: { _controller: HvzGameBundle:Game:gameError }
+    defaults: { _controller: HvzGameBundle:Missions:index }
 
 
 # Profile Controller
