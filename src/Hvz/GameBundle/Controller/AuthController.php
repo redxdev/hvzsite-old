@@ -205,6 +205,8 @@ class AuthController extends Controller
 
 		$isAdmin = in_array("ROLE_MOD", $user->getRoles()) || in_array("ROLE_ADMIN", $user->getRoles());
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+		if(!$game)
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
 		if(!$isAdmin && !$game)
 		{
 			return $this->redirect($this->generateUrl('hvz_error_active'));
