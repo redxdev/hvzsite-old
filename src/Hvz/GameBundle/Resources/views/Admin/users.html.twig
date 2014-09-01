@@ -17,17 +17,19 @@
 {% block content %}
 	{{ parent() }}
 
-	<div class="card">
-		<paper-shadow z="1"></paper-shadow>
-		<div class="card-internal">
-			<form id="search_form" action="{{ path('hvz_admin_users_search') }}" method="get">
-				<input type="hidden" id="search_term_hidden" name="term">
-			</form>
+	<div horizontal layout center center-justified>
+		<div class="card">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal">
+				<form id="search_form" action="{{ path('hvz_admin_users_search') }}" method="get">
+					<input type="hidden" id="search_term_hidden" name="term">
+				</form>
 
-			<div horizontal layout center wrap center-justified>
-				<paper-input label="Search" floatingLabel id="search_term"></paper-input>
-				<div>
-					<paper-button label="Search" raisedButton onclick="search()"></paper-button>
+				<div horizontal layout center wrap center-justified>
+					<paper-input label="Search" floatingLabel id="search_term"></paper-input>
+					<div>
+						<paper-button label="Search" raisedButton onclick="search()"></paper-button>
+					</div>
 				</div>
 			</div>
 		</div>
