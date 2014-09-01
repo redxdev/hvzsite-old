@@ -144,7 +144,7 @@ class ProfileController extends Controller
 			$actlog->recordAction(
 				ActionLogService::TYPE_PROFILE,
 				'email:' . $profile->getUser()->getEmail(),
-				'changed clan:' . $newClan,
+				'changed clan: ' . $newClan,
 				false
 			);
 
