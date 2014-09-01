@@ -18,12 +18,13 @@ class PlayersController extends Controller
 			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
 
 		$sortBy = $request->get('sort');
+		$playerEnts = array();
 		if($game == null)
 			$playerEnts = array();
 		else if($sortBy == null)
 			$playerEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByNumberTaggedAndTeam($game);
-		else
-			$playerEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByCustom($game, $sortBy);
+		else if($sortBy == 'clan')
+			$playerEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByClan($game);
 
 		$badgeReg = $this->get('hvz.badge_registry');
 

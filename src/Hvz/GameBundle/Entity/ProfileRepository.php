@@ -80,25 +80,30 @@ class ProfileRepository extends EntityRepository
 		return $query->getResult();
 	}
 
-	public function findActiveOrderedByCustom($game, $sortBy)
+	public function findActiveOrderedByClan($game)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('p, p.clan as HIDDEN tmpClan')
 					->from('HvzGameBundle:Profile', 'p')
 					->where('p.active = true')
 					->andWhere('p.game = :game')
+					->orderBy('tmpClan', 'ASC')
 					->setParameter('game', $game);
-
-		switch($sortBy)
-		{
-			case "clan":
-				$query->orderBy('tmpClan', 'ASC');
-				break;
-		}
 
 		$query = $query->getQuery();
 
-		return $query->getResult();
+		$results = $query->getResult();
+		$nulls = array();
+		$clans = array();
+		foreach($results as $profile)
+		{
+			if($profile->getClan() == NULL)
+				$nulls[] = $profile;
+			else
+				$clans[] = $profile;
+		}
+
+		return array_merge($clans, $nulls);
 	}
 
 	public function findOneByGameAndTagId($game, $tag)
