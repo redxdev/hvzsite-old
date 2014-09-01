@@ -7,6 +7,7 @@
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog-transition.html') }}">
+		<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-input/paper-input.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -15,6 +16,22 @@
 
 {% block content %}
 	{{ parent() }}
+
+	<div class="card">
+		<paper-shadow z="1"></paper-shadow>
+		<div class="card-internal">
+			<form id="search_form" action="{{ path('hvz_admin_users_search') }}" method="get">
+				<input type="hidden" id="search_term_hidden" name="term">
+			</form>
+
+			<div horizontal layout center wrap center-justified>
+				<paper-input label="Search" floatingLabel id="search_term"></paper-input>
+				<div>
+					<paper-button label="Search" raisedButton onclick="search()"></paper-button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	{% for user in users %}
 		<div class="card" horizontal layout justified wrap>
@@ -40,6 +57,20 @@
 			</div>
 		</div>
 	{% endfor %}
+
+	{% if previous_page is defined or next_page is defined %}
+		<div class="card">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal" horizontal layout center wrap center-justified>
+				{% if previous_page is defined and previous_page != -1 %}
+					<a href="{{ path('hvz_admin_users', {'page': previous_page}) }}"><paper-button label="<<" raisedButton></paper-button></a>
+				{% endif %}
+				{% if next_page is defined and next_page != -1 %}
+					<a href="{{ path('hvz_admin_users', {'page': next_page}) }}"><paper-button label=">>" raisedButton></paper-button></a>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block body_javascripts %}
@@ -61,6 +92,11 @@
 
 			var dialog = document.querySelector('#delete-dialog');
 			dialog.toggle();
+		}
+
+		function search() {
+			$("#search_term_hidden").val($("#search_term").val());
+			$("#search_form").submit();
 		}
 	</script>
 {% endblock %}

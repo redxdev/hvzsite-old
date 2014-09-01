@@ -19,7 +19,7 @@ use Hvz\GameBundle\Services\ActionLogService;
 
 class UserController extends Controller
 {
-	public function indexAction()
+	public function indexAction($page = 0)
 	{
 		$securityContext = $this->get('security.context');
 
@@ -29,7 +29,51 @@ class UserController extends Controller
 		}
 
 		$userRepo = $this->getDoctrine()->getRepository('HvzGameBundle:User');
-		$userEnts = $userRepo->findAll();
+		$userEnts = $userRepo->findByPage($page, 10);
+		$users = array();
+		foreach($userEnts as $user)
+		{
+			$users[] = array(
+				'id' => $user->getId(),
+				'fullname' => $user->getFullname(),
+				'email' => $user->getEmail(),
+				'access' => implode(' ', $user->getRoles()),
+				'profiles' => count($user->getProfiles())
+			);
+		}
+
+		$count = $userRepo->findCount();
+
+		$content = $this->renderView(
+			'HvzGameBundle:Admin:users.html.twig',
+			array(
+				'navigation' => $this->get('hvz.navigation')->generate(""),
+				'users' => $users,
+				'previous_page' => $page <= 0 ? -1 : $page - 1,
+				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
+			)
+		);
+
+		return new Response($content);
+	}
+
+	public function searchAction(Request $request)
+	{
+		$securityContext = $this->get('security.context');
+
+		if(!$securityContext->isGranted("ROLE_MOD"))
+		{
+			return $this->redirect($this->generateUrl('hvz_error_403'));
+		}
+
+		$term = $request->get('term', NULL);
+		if($term === NULL)
+		{
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
+		}
+
+		$userRepo = $this->getDoctrine()->getRepository('HvzGameBundle:User');
+		$userEnts = $userRepo->findInSearchableFields($term);
 		$users = array();
 		foreach($userEnts as $user)
 		{
