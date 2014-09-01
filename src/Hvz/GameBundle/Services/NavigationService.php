@@ -79,16 +79,16 @@ class NavigationService
 				"label" => "Profiles",
 				"link" => $this->router->generate('hvz_admin_profiles')
 			);
+			
+			$navigation["admin"][] = array(
+				"id" => "missions",
+				"icon" => "",
+				"label" => "Missions",
+				"link" => $this->router->generate('hvz_admin_missions')
+			);
 
 			if($this->securityContext->isGranted("ROLE_ADMIN"))
 			{
-				$navigation["admin"][] = array(
-					"id" => "missions",
-					"icon" => "",
-					"label" => "Missions",
-					"link" => $this->router->generate('hvz_admin_missions')
-				);
-
 				$navigation["admin"][] = array(
 					"id" => "rules",
 					"icon" => "",
