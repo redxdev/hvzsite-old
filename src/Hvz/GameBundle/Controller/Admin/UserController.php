@@ -67,7 +67,7 @@ class UserController extends Controller
 		}
 
 		$term = $request->get('term', NULL);
-		if($term === NULL)
+		if($term === NULL || empty($term))
 		{
 			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
