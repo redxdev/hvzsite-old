@@ -85,15 +85,15 @@ hvz_admin_game_delete:
         id: \d+
 
 # Admin\User Controller
+hvz_admin_users_search:
+    pattern: /admin/users/search
+    defaults: { _controller: HvzGameBundle:Admin\User:search }
+
 hvz_admin_users:
     pattern: /admin/users/{page}
     defaults: { _controller: HvzGameBundle:Admin\User:index, page: 0 }
     requirements:
         id: \d+
-
-hvz_admin_users_search:
-    pattern: /admin/users/search
-    defaults: { _controller: HvzGameBundle:Admin\User:search }
 
 hvz_admin_user_edit:
     pattern: /admin/user/{id}/edit
