@@ -23,7 +23,7 @@ class MissionController extends Controller
 	{
 		$securityContext = $this->get('security.context');
 
-		if(!$securityContext->isGranted("ROLE_ADMIN"))
+		if(!$securityContext->isGranted("ROLE_MOD"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
