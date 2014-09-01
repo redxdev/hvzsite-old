@@ -175,21 +175,16 @@ class RegisterTagController extends Controller
 					return $this->redirect($this->generateUrl('hvz_register_tag'));
 				}
 			}
-
-			$addFail = false;
-
 			if(!$victimTag || $victimTag->getActive() == false || $victimTag->getProfile()->getActive() == false || $victimTag->getProfile()->getGame() != $game)
 			{
 				$showError = true;
 				$errors[] = "Unknown victim tag";
-				$addFail = true;
 			}
 
 			if(!$zombieProfile || $zombieProfile->getActive() == false || $zombieProfile->getGame() != $game)
 			{
 				$showError = true;
 				$errors[] = "Unknown zombie tag";
-				$addFail = true;
 			}
 
 			if(!$showError && $victimTag->getProfile()->getTeam() != User::TEAM_HUMAN)
