@@ -156,7 +156,7 @@ class ProfileController extends Controller
 		$actlog->recordAction(
 			ActionLogService::TYPE_ADMIN,
 			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
-			'generated profile:' . $user->getEmail() . ':' . $game->getId(),
+			'generated profile: ' . $user->getEmail() . ':' . $game->getId(),
 			false
 		);
 
