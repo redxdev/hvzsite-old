@@ -85,7 +85,7 @@ class RegisterTagController extends Controller
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
 						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
-						"errors" => array("There is no game currently running."),
+						"errors" => array("The game hasn't started yet!"),
 						"victim" => $victim,
 						"zombie" => $zombie
 					)
