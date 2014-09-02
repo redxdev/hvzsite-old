@@ -49,7 +49,7 @@ you change anything in the public resources directories.
 
 Finally, initialize the database schema by running:
 
-    php app/console doctrine:schema:create
+    php app/console doctrine:schema:update --force
 
 Make your web server point towards the "web" directory, and open up your browser!
 
