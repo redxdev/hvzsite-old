@@ -418,7 +418,7 @@ class ProfileController extends Controller
 				"Unknown profile id."
 			);
 
-			return $this->redirect($this->generateUrl('hvz_admin_users'));
+			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
 		}
 
 		$form = $this->createFormBuilder($profile)
@@ -453,7 +453,7 @@ class ProfileController extends Controller
 				"Edited profile successfully."
 			);
 
-			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$content = $this->renderView(
