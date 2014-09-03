@@ -160,7 +160,7 @@ class ProfileController extends Controller
 		$actlog->recordAction(
 			ActionLogService::TYPE_ADMIN,
 			'email:' . $this->get('security.context')->getToken()->getUser()->getEmail(),
-			'generated profile:' . $user->getEmail() . ':' . $game->getId(),
+			'generated profile: ' . $user->getEmail() . ':' . $game->getId(),
 			false
 		);
 
@@ -457,7 +457,7 @@ class ProfileController extends Controller
 				"Edited profile successfully."
 			);
 
-			return $this->redirect($this->generateUrl('hvz_admin_profiles'));
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$content = $this->renderView(

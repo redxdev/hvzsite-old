@@ -81,17 +81,21 @@ class RegisterTagController extends Controller
 			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 			if($game == null)
 			{
-				$content = $this->renderView(
-					'HvzGameBundle:Game:register_tag.html.twig',
-					array(
-						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
-						"errors" => array("The game hasn't started yet!"),
-						"victim" => $victim,
-						"zombie" => $zombie
-					)
-				);
+				$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+				if($game == null)
+				{
+					$content = $this->renderView(
+						'HvzGameBundle:Game:register_tag.html.twig',
+						array(
+							'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+							"errors" => array("There is no game currently running!"),
+							"victim" => $victim,
+							"zombie" => $zombie
+						)
+					);
 
-				return new Response($content);
+					return new Response($content);
+				}
 			}
 
 			$showError = false;
