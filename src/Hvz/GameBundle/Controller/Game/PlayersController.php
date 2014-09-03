@@ -10,24 +10,73 @@ use Hvz\GameBundle\Entity\User;
 
 class PlayersController extends Controller
 {
-	public function indexAction(Request $request)
+	public function indexAction(Request $request, $page)
 	{
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 
 		if($game == null)
 			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
 
+		$profileRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Profile');
+
 		$sortBy = $request->get('sort');
 		$playerEnts = array();
 		if($game == null)
 			$playerEnts = array();
 		else if($sortBy == null)
-			$playerEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByNumberTaggedAndTeam($game);
+			$playerEnts = $profileRepo->findActiveOrderedByNumberTaggedAndTeam($game, $page);
 		else if($sortBy == 'clan')
-			$playerEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findActiveOrderedByClan($game);
+			$playerEnts = $profileRepo->findActiveOrderedByClan($game, $page);
 
 		$badgeReg = $this->get('hvz.badge_registry');
 
+		$players = array();
+		foreach($playerEnts as $player)
+		{
+			$badges = $badgeReg->getBadges($player);
+
+			$players[] = array(
+				'fullname' => $player->getUser()->getFullname(),
+				'team' => ($player->getTeam() == User::TEAM_HUMAN ? 'human' : 'zombie'),
+				'tags' => $player->getNumberTagged(),
+				'clan' => $player->getClan(),
+				'badges' => $badges,
+				'avatar' => $player->getWebAvatarPath()
+			);
+		}
+
+		$count = $profileRepo->findCountByGame($game);
+
+		$content = $this->renderView(
+			'HvzGameBundle:Game:players.html.twig',
+			array(
+				'navigation' => $this->get('hvz.navigation')->generate("players"),
+				'players' => $players,
+				'previous_page' => $page <= 0 ? -1 : $page - 1,
+				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
+			)
+		);
+
+		return new Response($content);
+	}
+
+	public function searchAction(Request $request)
+	{
+		$term = $request->get('term', NULL);
+		if($term === NULL || empty($term))
+		{
+			return $this->redirect($this->generateUrl('hvz_players'));
+		}
+
+		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+
+		if($game == null)
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+
+		$badgeReg = $this->get('hvz.badge_registry');
+
+		$profileRepo = $this->getDoctrine()->getRepository('HvzGameBundle:Profile');
+		$playerEnts = $profileRepo->findInSearchableFields($game, $term);
 		$players = array();
 		foreach($playerEnts as $player)
 		{

@@ -25,8 +25,14 @@ hvz_register_tag_submit:
 
 # Game\Players Controller
 hvz_players:
-    pattern: /players
-    defaults: { _controller: HvzGameBundle:Game/Players:index }
+    pattern: /players/{page}
+    defaults: { _controller: HvzGameBundle:Game/Players:index, page: 0 }
+    requirements:
+        page: \d+
+
+hvz_players_search:
+    pattern: /players/search
+    defaults: { _controller: HvzGameBundle:Game/Players:search }
 
 hvz_tags:
     pattern: /tags

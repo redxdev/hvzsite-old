@@ -4,6 +4,8 @@ namespace Hvz\GameBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+use Hvz\GameBundle\Util\QueryHelper;
+
 /**
  * ProfileRepository
  *
@@ -12,6 +14,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProfileRepository extends EntityRepository
 {
+	use QueryHelper;
+
+	public function findInSearchableFields($game, $term)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('p')
+					->from('HvzGameBundle:Profile', 'p')
+					->innerJoin('p.user', 'u')
+					->where("p.clan LIKE :term ESCAPE '!'")
+					->orWhere("u.fullname LIKE :term ESCAPE '!'")
+					->setParameter('term', $this->makeLikeParam($term))
+					->getQuery();
+
+		return $query->getResult();
+	}
+
 	public function findByGameAndUser($game, $user)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
@@ -56,7 +74,19 @@ class ProfileRepository extends EntityRepository
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('count(p)')
-					->from('HvzGameBundle:User', 'p')
+					->from('HvzGameBundle:Profile', 'p')
+					->getQuery();
+
+		return $query->getSingleScalarResult();
+	}
+
+	public function findCountByGame($game)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('count(p)')
+					->from('HvzGameBundle:Profile', 'p')
+					->where('p.game = :game')
+					->setParameter('game', $game)
 					->getQuery();
 
 		return $query->getSingleScalarResult();
@@ -87,7 +117,7 @@ class ProfileRepository extends EntityRepository
 		return $this->findActiveByTeam($game, User::TEAM_HUMAN);
 	}
 
-	public function findActiveOrderedByNumberTaggedAndTeam($game)
+	public function findActiveOrderedByNumberTaggedAndTeam($game, $page, $maxPerPage = 10)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('p')
@@ -97,12 +127,14 @@ class ProfileRepository extends EntityRepository
 					->orderBy('p.numberTagged', 'DESC')
 					->orderBy('p.team', 'DESC')
 					->setParameter('game', $game)
-					->getQuery();
+					->getQuery()
+					->setMaxResults($maxPerPage)
+					->setFirstResult($page * $maxPerPage);
 
 		return $query->getResult();
 	}
 
-	public function findActiveOrderedByClan($game)
+	public function findActiveOrderedByClan($game, $page, $maxPerPage = 10)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('p, p.clan as HIDDEN tmpClan')
@@ -110,22 +142,12 @@ class ProfileRepository extends EntityRepository
 					->where('p.active = true')
 					->andWhere('p.game = :game')
 					->orderBy('tmpClan', 'ASC')
-					->setParameter('game', $game);
+					->setParameter('game', $game)
+					->getQuery()
+					->setMaxResults($maxPerPage)
+					->setFirstResult($page * $maxPerPage);
 
-		$query = $query->getQuery();
-
-		$results = $query->getResult();
-		$nulls = array();
-		$clans = array();
-		foreach($results as $profile)
-		{
-			if($profile->getClan() == NULL)
-				$nulls[] = $profile;
-			else
-				$clans[] = $profile;
-		}
-
-		return array_merge($clans, $nulls);
+		return $query->getResult();
 	}
 
 	public function findOneByGameAndTagId($game, $tag)
