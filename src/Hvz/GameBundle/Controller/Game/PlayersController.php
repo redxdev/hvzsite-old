@@ -21,12 +21,19 @@ class PlayersController extends Controller
 
 		$sortBy = $request->get('sort');
 		$playerEnts = array();
+		$count = 0;
 		if($game == null)
 			$playerEnts = array();
 		else if($sortBy == null)
+		{
 			$playerEnts = $profileRepo->findActiveOrderedByNumberTaggedAndTeam($game, $page);
+			$count = $profileRepo->findCountByGame($game);
+		}
 		else if($sortBy == 'clan')
+		{
 			$playerEnts = $profileRepo->findActiveOrderedByClan($game, $page);
+			$count = $profileRepo->findActiveClanCount($game);
+		}
 
 		$badgeReg = $this->get('hvz.badge_registry');
 
@@ -45,7 +52,7 @@ class PlayersController extends Controller
 			);
 		}
 
-		$count = $profileRepo->findCountByGame($game);
+
 
 		$content = $this->renderView(
 			'HvzGameBundle:Game:players.html.twig',

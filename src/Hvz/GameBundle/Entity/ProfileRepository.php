@@ -128,12 +128,28 @@ class ProfileRepository extends EntityRepository
 					->orderBy('p.team', 'DESC')
 					->setParameter('game', $game)
 					->getQuery();
-		
+
 		if($page >= 0)
 			$query->setMaxResults($maxPerPage)
 				  ->setFirstResult($page * $maxPerPage);
 
 		return $query->getResult();
+	}
+
+	public function findActiveClanCount($game)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('count(p)')
+					->from('HvzGameBundle:Profile', 'p')
+					->where('p.active = true')
+					->andWhere('p.game = :game')
+					->andWhere('p.clan is not null')
+					->andWhere('p.clan != :empty')
+					->setParameter('game', $game)
+					->setParameter('empty', '')
+					->getQuery();
+
+		return $query->getSingleScalarResult();
 	}
 
 	public function findActiveOrderedByClan($game, $page, $maxPerPage = 10)
@@ -143,8 +159,11 @@ class ProfileRepository extends EntityRepository
 					->from('HvzGameBundle:Profile', 'p')
 					->where('p.active = true')
 					->andWhere('p.game = :game')
+					->andWhere('p.clan is not null')
+					->andWhere('p.clan != :empty')
 					->orderBy('tmpClan', 'ASC')
 					->setParameter('game', $game)
+					->setParameter('empty', '')
 					->getQuery()
 					->setMaxResults($maxPerPage)
 					->setFirstResult($page * $maxPerPage);
