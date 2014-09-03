@@ -19,7 +19,7 @@ use Hvz\GameBundle\Services\ActionLogService;
 
 class ProfileController extends Controller
 {
-	public function indexAction($page, $user = null, $game = null, $active = null)
+	public function indexAction($page = 0, $user = null, $game = null, $active = null)
 	{
 		$securityContext = $this->get('security.context');
 
