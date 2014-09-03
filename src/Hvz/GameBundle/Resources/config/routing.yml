@@ -46,7 +46,7 @@ hvz_missions:
 # Profile Controller
 hvz_profile:
     pattern: /profile
-    defaults: { _controller: HvzGameBundle:Profile:index }
+    defaults: { _controller: HvzGameBundle:Profile:index, page: 0 }
 
 hvz_profile_edit_clan:
     pattern: /profile/clan/edit
@@ -109,8 +109,10 @@ hvz_admin_user_delete:
 
 # Admin\Profile Controller
 hvz_admin_profiles:
-    pattern: /admin/profiles
-    defaults: { _controller: HvzGameBundle:Admin\Profile:index }
+    pattern: /admin/profiles/{page}
+    defaults: { _controller: HvzGameBundle:Admin\Profile:index, page: 0 }
+    requirements:
+        page: \d+
 
 hvz_admin_profiles_by_game:
     pattern: /admin/profiles/game/{game}

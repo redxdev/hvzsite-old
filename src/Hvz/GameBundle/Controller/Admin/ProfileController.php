@@ -19,7 +19,7 @@ use Hvz\GameBundle\Services\ActionLogService;
 
 class ProfileController extends Controller
 {
-	public function indexAction($user = null, $game = null, $active = null)
+	public function indexAction($page, $user = null, $game = null, $active = null)
 	{
 		$securityContext = $this->get('security.context');
 
@@ -44,7 +44,7 @@ class ProfileController extends Controller
 		}
 		else
 		{
-			$profileEnts = $profileRepo->findAll();
+			$profileEnts = $profileRepo->findByPage($page);
 		}
 
 		$profiles = array();
@@ -61,11 +61,15 @@ class ProfileController extends Controller
 			);
 		}
 
+		$count = $profileRepo->findCount();
+
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:profiles.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
-				'profiles' => $profiles
+				'profiles' => $profiles,
+				'previous_page' => $page <= 0 ? -1 : $page - 1,
+				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
 			)
 		);
 

@@ -40,6 +40,28 @@ class ProfileRepository extends EntityRepository
 		return $query->getResult();
 	}
 
+	public function findByPage($page, $maxPerPage = 10)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('p')
+					->from('HvzGameBundle:Profile', 'p')
+					->getQuery()
+					->setMaxResults($maxPerPage)
+					->setFirstResult($page * $maxPerPage);
+
+		return $query->getResult();
+	}
+
+	public function findCount()
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('count(p)')
+					->from('HvzGameBundle:User', 'p')
+					->getQuery();
+
+		return $query->getSingleScalarResult();
+	}
+
 	public function findActiveByTeam($game, $team)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
