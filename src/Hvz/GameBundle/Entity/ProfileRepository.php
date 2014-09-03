@@ -117,7 +117,7 @@ class ProfileRepository extends EntityRepository
 		return $this->findActiveByTeam($game, User::TEAM_HUMAN);
 	}
 
-	public function findActiveOrderedByNumberTaggedAndTeam($game, $page, $maxPerPage = 10)
+	public function findActiveOrderedByNumberTaggedAndTeam($game, $page = -1, $maxPerPage = 10)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('p')
@@ -127,9 +127,11 @@ class ProfileRepository extends EntityRepository
 					->orderBy('p.numberTagged', 'DESC')
 					->orderBy('p.team', 'DESC')
 					->setParameter('game', $game)
-					->getQuery()
-					->setMaxResults($maxPerPage)
-					->setFirstResult($page * $maxPerPage);
+					->getQuery();
+		
+		if($page >= 0)
+			$query->setMaxResults($maxPerPage)
+				  ->setFirstResult($page * $maxPerPage);
 
 		return $query->getResult();
 	}
