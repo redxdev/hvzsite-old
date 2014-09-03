@@ -8,6 +8,12 @@
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-input/paper-input.html') }}">
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src="{{ asset('bundles/hvzgame/bower_components/ckeditor/ckeditor.js') }}"></script>
+{% endblock %}
+
 {% block toolbar %}
 	<span flex>Administration: Edit Ruleset</span>
 {% endblock %}
@@ -20,7 +26,7 @@
 		<div class="card-internal" vertical layout center>
 			<paper-input floatinglabel id="p-title" label="Title"></paper-input>
 			<paper-input floatinglabel id="p-position" label="Position" style="width: 100px;" validate="^[0-9]*$"></paper-input>
-			<paper-input multiline floatinglabel id="p-body" style="width: 100%;" label="Body"></paper-input>
+			<textarea id="p-body" rows="10" cols="80"></textarea>
 			<paper-button id="fake-submit" label="Submit" raisedButton></paper-button>
 		</div>
 	</div>
@@ -37,7 +43,9 @@
 		document.addEventListener('polymer-ready', function() {
 			$("#p-title").val($("#form_title").val());
 			$("#p-position").val($("#form_position").val());
-			$("#p-body").val($("#form_body").val());
+
+			CKEDITOR.replace('p-body');
+			CKEDITOR.instances['p-body'].setData($("#form_body").val());
 		});
 
 		$(function() {
@@ -50,7 +58,7 @@
 				else {
 					$("#form_title").val($("#p-title").val());
 					$("#form_position").val($("#p-position").val());
-					$("#form_body").val($("#p-body").val());
+					$("#form_body").val(CKEDITOR.instances['p-body'].getData());
 
 					$("#form_save").click();
 				}
