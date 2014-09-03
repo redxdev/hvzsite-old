@@ -23,10 +23,10 @@
 				</div>
 			</div>
 			<div class="bottom">
-				{% for tag in profile.tags %}
+				{% for tag in profile.tags|reverse %}
 					{% if loop.index < 3 %}
 						<hr>
-						<p>Tag #{{ loop.index }}: {{ tag }}</p>
+						<p>Tag #{{ loop.length - loop.index + 1 }}: {{ tag }}</p>
 					{% endif %}
 				{% endfor %}
 			</div>

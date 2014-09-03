@@ -17,7 +17,7 @@ class PlayerTagRepository extends EntityRepository
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('t')
 					->from('HvzGameBundle:PlayerTag', 't')
-					->Andwhere('t.profile = :profile')
+					->andWhere('t.profile = :profile')
 					->setParameter('profile', $profile)
 					->getQuery();
 

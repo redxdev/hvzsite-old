@@ -17,6 +17,7 @@
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-icon/core-icon.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-tooltip/core-tooltip.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-input/paper-input.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -30,6 +31,24 @@
 		<core-icon icon="filter"></core-icon>
 		<a href="{{ path('hvz_players') }}"><paper-button label="Team"></paper-button></a>
 		<a href="{{ path('hvz_players', {'sort': 'clan'}) }}"><paper-button label="Clan"></paper-button></a>
+	</div>
+
+	<div horizontal layout center center-justified>
+		<div class="card">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal">
+				<form id="search_form" action="{{ path('hvz_players_search') }}" method="get">
+					<input type="hidden" id="search_term_hidden" name="term">
+				</form>
+
+				<div horizontal layout center wrap center-justified>
+					<paper-input label="Search" id="search_term"></paper-input>
+					<div>
+						<paper-button label="Search" onclick="search()"></paper-button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	{% for player in players %}
@@ -68,10 +87,33 @@
 			</div>
 		</div>
 	{% endfor %}
+
+	{% if previous_page is defined or next_page is defined %}
+		<div horizontal layout center center-justified>
+			<div class="card">
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal" horizontal layout center wrap center-justified>
+					{% if previous_page is defined and previous_page != -1 %}
+						<a href="{{ path('hvz_players', {'page': previous_page, 'sort': sort}) }}"><paper-button label="<<"></paper-button></a>
+					{% endif %}
+					{% if next_page is defined and next_page != -1 %}
+						<a href="{{ path('hvz_players', {'page': next_page, 'sort': sort}) }}"><paper-button label=">>"></paper-button></a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block body_javascripts %}
 	{{ parent() }}
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
+
+	<script>
+		function search() {
+			$("#search_term_hidden").val($("#search_term").val());
+			$("#search_form").submit();
+		}
+	</script>
 {% endblock %}
