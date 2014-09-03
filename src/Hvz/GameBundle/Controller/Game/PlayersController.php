@@ -53,7 +53,8 @@ class PlayersController extends Controller
 				'navigation' => $this->get('hvz.navigation')->generate("players"),
 				'players' => $players,
 				'previous_page' => $page <= 0 ? -1 : $page - 1,
-				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
+				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1,
+				'sort' => $sortBy
 			)
 		);
 

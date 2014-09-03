@@ -94,10 +94,10 @@
 				<paper-shadow z="1"></paper-shadow>
 				<div class="card-internal" horizontal layout center wrap center-justified>
 					{% if previous_page is defined and previous_page != -1 %}
-						<a href="{{ path('hvz_players', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
+						<a href="{{ path('hvz_players', {'page': previous_page, 'sort': sort}) }}"><paper-button label="<<"></paper-button></a>
 					{% endif %}
 					{% if next_page is defined and next_page != -1 %}
-						<a href="{{ path('hvz_players', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
+						<a href="{{ path('hvz_players', {'page': next_page, 'sort': sort}) }}"><paper-button label=">>"></paper-button></a>
 					{% endif %}
 				</div>
 			</div>
