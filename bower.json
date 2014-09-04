@@ -22,6 +22,7 @@
     "paper-elements": "Polymer/paper-elements",
     "core-tooltip": "Polymer/core-tooltip",
     "polymer": "Polymer/polymer",
-    "google-map": "GoogleWebComponents/google-map"
+    "google-map": "GoogleWebComponents/google-map",
+    "ckeditor": "4"
   }
 }

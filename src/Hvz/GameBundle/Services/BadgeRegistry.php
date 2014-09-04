@@ -204,5 +204,13 @@ class BadgeRegistry
 			'10 kills within an hour',
 			'streak-10.png'
 		);
+
+		// found Sam working on the site during the game
+		$this->registerBadge(
+			'found-the-dev',
+			'Found the Developer',
+			'Found the web developer in his natural habitat',
+			'found-the-dev.png'
+		);
 	}
 }
