@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use Hvz\GameBundle\Entity\User;
+
 class MissionsController extends Controller
 {
 	public function indexAction()
@@ -20,7 +22,10 @@ class MissionsController extends Controller
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 		if($game == null)
 		{
-			return $this->redirect($this->generateUrl('hvz_error_game'));
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+
+			if($game == null)
+				return $this->redirect($this->generateUrl('hvz_error_game'));
 		}
 
 		$profile = $this->getDoctrine()->getRepository('HvzGameBundle:Profile')->findByGameAndUser($game, $securityContext->getToken()->getUser());
@@ -31,6 +36,10 @@ class MissionsController extends Controller
 		}
 
 		$missionEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:Mission')->findPostedByTeamOrderedByDate($game, $profile->getTeam());
+
+		if(count($missionEnts) == 0)
+			return $this->redirect($this->generateUrl('hvz_error_game'));
+
 		$missions = array();
 		foreach($missionEnts as $mission)
 		{
