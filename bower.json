@@ -23,6 +23,7 @@
     "core-tooltip": "Polymer/core-tooltip",
     "polymer": "Polymer/polymer",
     "google-map": "GoogleWebComponents/google-map",
+    "google-youtube": "GoogleWebComponents/google-youtube",
     "ckeditor": "4"
   }
 }

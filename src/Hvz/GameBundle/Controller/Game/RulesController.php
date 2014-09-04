@@ -10,8 +10,6 @@ class RulesController extends Controller
 {
 	public function indexAction()
 	{
-		$logger = $this->get('logger');
-
 		$ruleEnts = $this->getDoctrine()->getRepository('HvzGameBundle:Rule')->findAllOrderedByPosition();
 		$rules = array();
 		foreach($ruleEnts as $rule)
@@ -27,6 +25,18 @@ class RulesController extends Controller
 			array(
 				"navigation" => $this->get('hvz.navigation')->generate("rules"),
 				"rules" => $rules
+			)
+		);
+
+		return new Response($content);
+	}
+
+	public function videoAction()
+	{
+		$content = $this->renderView(
+			'HvzGameBundle:Game:video.html.twig',
+			array(
+				"navigation" => $this->get('hvz.navigation')->generate("video")
 			)
 		);
 

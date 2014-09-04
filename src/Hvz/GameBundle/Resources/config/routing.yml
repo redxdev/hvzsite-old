@@ -12,6 +12,10 @@ hvz_rules:
     pattern: /rules
     defaults: { _controller: HvzGameBundle:Game/Rules:index }
 
+hvz_video:
+    pattern: /video
+    defaults: { _controller: HvzGameBundle:Game/Rules:video }
+
 # Game\Register Tag Controller
 hvz_register_tag:
     pattern: /register_tag

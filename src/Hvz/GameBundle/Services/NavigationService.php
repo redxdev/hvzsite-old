@@ -28,6 +28,11 @@ class NavigationService
 					"label" => "Rules",
 					"link" => $this->router->generate('hvz_rules')),
 				array(
+					"id" => "video",
+					"icon" => "drive-video",
+					"label" => "Video + Maps",
+					"link" => $this->router->generate('hvz_video')),
+				array(
 					"id" => "players",
 					"icon" => "filter",
 					"label" => "Players",
@@ -79,7 +84,7 @@ class NavigationService
 				"label" => "Profiles",
 				"link" => $this->router->generate('hvz_admin_profiles')
 			);
-			
+
 			$navigation["admin"][] = array(
 				"id" => "missions",
 				"icon" => "",
