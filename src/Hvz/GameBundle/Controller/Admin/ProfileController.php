@@ -457,7 +457,8 @@ class ProfileController extends Controller
 				"Edited profile successfully."
 			);
 
-			return $this->redirect($this->generateUrl('hvz_admin_profile_view', array("id" => $profile->getId())));
+			//return $this->redirect($this->generateUrl('hvz_admin_profile_view', array("id" => $profile->getId())));
+			return $this->redirect($this->generateUrl('hvz_admin_users'));
 		}
 
 		$content = $this->renderView(
