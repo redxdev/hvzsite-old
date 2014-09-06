@@ -251,6 +251,14 @@ class BadgeRegistry
 			'found-the-dev.png'
 		);
 
+		// the badger story
+		$this->registerBadge(
+			'badger-story',
+			'Badgers',
+			'"The badgers made me do it!"',
+			'badger.png'
+		);
+
 		// killstreaks
 		$this->registerBadge(
 			'streak-2',
