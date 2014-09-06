@@ -160,7 +160,7 @@ class BadgeRegistry
 
 		//Zombie Orb
 		$this->registerBadge(
-			'orb',
+			'zombie-orb',
 			'Zombie Orb',
 			'Bring Katie a Zombie Orb',
 			'snow.png'
@@ -179,7 +179,7 @@ class BadgeRegistry
 
 		//Mod Squad
 		$this->registerBadge(
-			'Mod',
+			'mod-squad',
 			'Mod Squad',
 			'Moderator',
 			'mod.png'
@@ -188,7 +188,7 @@ class BadgeRegistry
 
 		//Size Matters
 		$this->registerBadge(
-			'size',
+			'size-matters',
 			'Size Matters',
 			'Use a huge ass Nerf blaster',
 			'size.png'
@@ -198,16 +198,8 @@ class BadgeRegistry
 		$this->registerBadge(
 			'katie',
 			'Madam President',
-			'Run the club. All day err day',
+			'Run the club. All day erry day',
 			'katie.png'
-		);
-
-		//Heaven Hands
-		$this->registerBadge(
-			'HH',
-			'Heaven Hands',
-			'Got stacks on stacks',
-			'hh.png'
 		);
 
 		//Mitch
@@ -221,7 +213,7 @@ class BadgeRegistry
 
 		//Heaven Hands
 		$this->registerBadge(
-			'HH',
+			'heaven-hands',
 			'Heaven Hands',
 			'Got stacks on stacks',
 			'hh.png'
@@ -249,6 +241,14 @@ class BadgeRegistry
 			'Extraction',
 			'Escaped safely from the horde!',
 			'extraction.png'
+		);
+
+		// found Sam working on the site during the game
+		$this->registerBadge(
+			'found-the-dev',
+			'Found the Developer',
+			'Found the web developer in his natural habitat',
+			'found-the-dev.png'
 		);
 
 		// killstreaks
@@ -313,14 +313,6 @@ class BadgeRegistry
 			'Killionare',
 			'10 kills within an hour',
 			'streak-10.png'
-		);
-
-		// found Sam working on the site during the game
-		$this->registerBadge(
-			'found-the-dev',
-			'Found the Developer',
-			'Found the web developer in his natural habitat',
-			'found-the-dev.png'
 		);
 	}
 }
