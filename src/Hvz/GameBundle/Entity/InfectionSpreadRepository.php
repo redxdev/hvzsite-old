@@ -56,4 +56,20 @@ class InfectionSpreadRepository extends EntityRepository
 
 		return $query->getResult();
 	}
+
+	public function findPreviousDay($game)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('s')
+					->from('HvzGameBundle:InfectionSpread', 's')
+					->where('s.game = :game')
+					->andWhere('s.time BETWEEN :start AND :end')
+					->orderBy('s.time', 'DESC')
+					->setParameter('game', $game)
+					->setParameter('start', new \DateTime('-1 day'))
+					->setParameter('end', new \DateTime())
+					->getQuery();
+
+		return $query->getResult();
+	}
 }

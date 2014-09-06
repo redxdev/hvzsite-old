@@ -13,6 +13,8 @@ use Hvz\GameBundle\Entity\PlayerTag;
 
 use Hvz\GameBundle\Security\Authentication\Token\GoogleOAuthToken;
 
+use Hvz\GameBundle\Services\ActionLogService;
+
 require_once __DIR__ . '/../../../../vendor/google/apiclient/src/Google/Service/Oauth2.php';
 
 class AuthController extends Controller
@@ -27,6 +29,22 @@ class AuthController extends Controller
 
 	public function registerCodeAction(Request $request)
 	{
+		if($request->query->get('error') == 'access_denied')
+		{
+			$content = $this->renderView(
+				'HvzGameBundle::message.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					"message" => array(
+						"type" => "error",
+						"body" => "Access to your google account was denied. Try registering again!"
+					)
+				)
+			);
+
+			return new Response($content);
+		}
+
 		$code = $request->query->get('code');
 		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_register_code', array(), true));
 		$oauth = new \Google_Service_Oauth2($client);
@@ -34,7 +52,7 @@ class AuthController extends Controller
 		if(!$client->getAccessToken())
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -54,7 +72,7 @@ class AuthController extends Controller
 		if($userRepo->findOneByEmail($email))
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -70,7 +88,7 @@ class AuthController extends Controller
 		if(!isset($userInfo['hd']) || ($userInfo['hd'] != 'g.rit.edu' && $userInfo['hd'] != 'rit.edu'))
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -89,6 +107,15 @@ class AuthController extends Controller
 		$user = new User();
 		$user->setEmail($email);
 		$user->setFullname($userInfo['given_name'] . " " . $userInfo['family_name']);
+
+		$actlog = $this->get('hvz.action_log');
+		$actlog->recordAction(
+			ActionLogService::TYPE_AUTH,
+			'email:' . $email,
+			'registered',
+			false
+		);
+
 		$em->persist($user);
 
 		$em->flush();
@@ -96,7 +123,7 @@ class AuthController extends Controller
 		$client->revokeToken();
 
 		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
+			'HvzGameBundle::message.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
@@ -118,6 +145,22 @@ class AuthController extends Controller
 
 	public function loginCodeAction(Request $request)
 	{
+		if($request->query->get('error') == 'access_denied')
+		{
+			$content = $this->renderView(
+				'HvzGameBundle::message.html.twig',
+				array(
+					'navigation' => $this->get('hvz.navigation')->generate(""),
+					"message" => array(
+						"type" => "error",
+						"body" => "Access to your google account was denied. Try logging in again!"
+					)
+				)
+			);
+
+			return new Response($content);
+		}
+
 		$code = $request->query->get('code');
 		$client = $this->get('hvz.oauth.google')->createClient($this->generateUrl('hvz_auth_login_code', array(), true));
 		$oauth = new \Google_Service_Oauth2($client);
@@ -125,7 +168,7 @@ class AuthController extends Controller
 		if(!$client->getAccessToken())
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -147,7 +190,7 @@ class AuthController extends Controller
 		if(!$user)
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -160,8 +203,10 @@ class AuthController extends Controller
 			return new Response($content);
 		}
 
-		$isAdmin = in_array("ROLE_ADMIN", $user->getRoles()) || in_array("ROLE_SUPER_ADMIN", $user->getRoles());
+		$isAdmin = in_array("ROLE_MOD", $user->getRoles()) || in_array("ROLE_ADMIN", $user->getRoles());
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+		if(!$game)
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
 		if(!$isAdmin && !$game)
 		{
 			return $this->redirect($this->generateUrl('hvz_error_active'));
@@ -195,7 +240,7 @@ class AuthController extends Controller
 		if(!$csrf->isCsrfTokenValid('hvz_auth_logout', $token))
 		{
 			$content = $this->renderView(
-				'HvzGameBundle:Auth:message.html.twig',
+				'HvzGameBundle::message.html.twig',
 				array(
 					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
@@ -222,12 +267,12 @@ class AuthController extends Controller
 	public function authErrorAction()
 	{
 		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
+			'HvzGameBundle::message.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
 					"type" => "error",
-					"body" => "<strong>Error 403</strong>: Access denied. Do you have permission to view that page?"
+					"body" => "<strong>Error 403</strong> Access denied. Do you have permission to view that page?"
 				)
 			)
 		);
@@ -238,7 +283,7 @@ class AuthController extends Controller
 	public function activeErrorAction()
 	{
 		$content = $this->renderView(
-			'HvzGameBundle:Auth:message.html.twig',
+			'HvzGameBundle::message.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(

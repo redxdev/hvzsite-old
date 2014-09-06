@@ -30,3 +30,7 @@ services:
     google_oauth.security.authentication.provider:
         class:  Hvz\GameBundle\Security\Authentication\Provider\GoogleOAuthProvider
         arguments: ["", "@hvz.oauth.google"]
+
+    hvz.action_log:
+        class: Hvz\GameBundle\Services\ActionLogService
+        arguments: ["@doctrine.orm.entity_manager"]

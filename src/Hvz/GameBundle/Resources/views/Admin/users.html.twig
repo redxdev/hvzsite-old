@@ -7,6 +7,7 @@
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog.html') }}">
 	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog-transition.html') }}">
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-input/paper-input.html') }}">
 {% endblock %}
 
 {% block toolbar %}
@@ -15,6 +16,24 @@
 
 {% block content %}
 	{{ parent() }}
+
+	<div horizontal layout center center-justified>
+		<div class="card">
+			<paper-shadow z="1"></paper-shadow>
+			<div class="card-internal">
+				<form id="search_form" action="{{ path('hvz_admin_users_search') }}" method="get">
+					<input type="hidden" id="search_term_hidden" name="term">
+				</form>
+
+				<div horizontal layout center wrap center-justified>
+					<paper-input label="Search" id="search_term"></paper-input>
+					<div>
+						<paper-button label="Search" onclick="search()"></paper-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	{% for user in users %}
 		<div class="card" horizontal layout justified wrap>
@@ -27,17 +46,35 @@
 				<p><strong>Access:</strong> {{ user.access }}</p>
 			</div>
 			<div class="card-section" vertical layout flex>
-				<a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}"><paper-button label="{{ user.profiles }} Profiles"></paper-button></a>
-				<a href="{{ path('hvz_admin_profile_generate', {'id': user.id}) }}"><paper-button label="Generate Profile"></a>
+				<a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}">
+					<paper-button label="{{ user.profiles }} Profile{% if user.profiles != 1 %}s{% endif%}"></paper-button>
+				</a>
+				<a href="{{ path('hvz_admin_profile_generate', {'id': user.id, 'token': csrf_token('hvz_profile_generate')}) }}"><paper-button label="Generate Profile"></a>
 			</div>
 			<div class="card-section" vertical layout flex>
 				<a href="{{ path('hvz_admin_user_edit', {'id': user.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="#" onclick="showDeleteDialog('{{ user.fullname | e('js') }}', '{{ path('hvz_admin_user_delete', {'id': user.id}) }}')">
+				<a href="#" onclick="showDeleteDialog('{{ user.fullname | e('js') }}', '{{ path('hvz_admin_user_delete', {'id': user.id, 'token': csrf_token('hvz_user_delete')}) }}')">
 					<paper-button label="Delete" raisedButton></paper-button>
 				</a>
 			</div>
 		</div>
 	{% endfor %}
+
+	{% if previous_page is defined or next_page is defined %}
+		<div horizontal layout center center-justified>
+			<div class="card">
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal" horizontal layout center wrap center-justified>
+					{% if previous_page is defined and previous_page != -1 %}
+						<a href="{{ path('hvz_admin_users', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
+					{% endif %}
+					{% if next_page is defined and next_page != -1 %}
+						<a href="{{ path('hvz_admin_users', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block body_javascripts %}
@@ -59,6 +96,11 @@
 
 			var dialog = document.querySelector('#delete-dialog');
 			dialog.toggle();
+		}
+
+		function search() {
+			$("#search_term_hidden").val($("#search_term").val());
+			$("#search_form").submit();
 		}
 	</script>
 {% endblock %}

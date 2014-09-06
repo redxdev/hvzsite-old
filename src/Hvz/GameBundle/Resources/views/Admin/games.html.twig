@@ -32,24 +32,25 @@
 				</div>
 				<div class="card-section" flex>
 					<p><strong>AV Tags</strong></p>
-					<ul>
+					<ul id="game-{{ game.id  }}-av" style="display: none;">
 						{% for av in game.av_codes %}
 							<li>{% if not av.active %}<strike>{% endif %}{{ av.id }}{% if not av.active %}</strike>{% endif %}</li>
 						{% endfor %}
 					</ul>
-					<a href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id }) }}"><paper-button label="Generate AV"></paper-button></a>
+					<a href="javascript:void($('#game-{{ game.id }}-av').toggle())"><paper-button label="Show/Hide" onclick=""></paper-button></a>
+					<a href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id, 'token': csrf_token('hvz_antivirus_generate') }) }}"><paper-button label="Generate AV"></paper-button></a>
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}"><paper-button label="Profiles" raisedButton></paper-button></a>
 					<a href="{{ path('hvz_admin_missions_by_game', {'game': game.id}) }}"><paper-button label="Missions" raisedButton></paper-button></a>
-					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id}) }}"><paper-button label="Print IDs" raisedButton></paper-button></a>
+					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'today': 1}) }}"><paper-button label="Print IDs" raisedButton></paper-button></a>
 				</div>
 				<div class="card-section" vertical layout flex>
 					<a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-					<a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id}) }}')">
+					<a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id, 'token': csrf_token('hvz_game_delete')}) }}')">
 						<paper-button label="Delete" raisedButton></paper-button>
 					</a>
-				</div>
+					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'preview': 1, 'today': 1}) }}"><paper-button label="Preview IDs" raisedButton></paper-button></a>				</div>
 			</div>
 		</div>
 	{% endfor %}

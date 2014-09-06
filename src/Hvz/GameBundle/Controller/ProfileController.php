@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Hvz\GameBundle\Entity\User;
 
+use Hvz\GameBundle\Services\ActionLogService;
+
 class ProfileController extends Controller
 {
 	public function indexAction()
@@ -20,6 +22,11 @@ class ProfileController extends Controller
 		}
 
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
+
+		if($game == null)
+		{
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+		}
 
 		if($game == null)
 		{
@@ -82,6 +89,11 @@ class ProfileController extends Controller
 
 		if($game == null)
 		{
+			$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findNextGame();
+		}
+
+		if($game == null)
+		{
 			return $this->redirect($this->generateUrl('hvz_error_active'));
 		}
 
@@ -110,6 +122,7 @@ class ProfileController extends Controller
 		}
 		else
 		{
+			$actlog = $this->get('hvz.action_log');
 			$csrf = $this->get('form.csrf_provider');
 			$token = $request->get('_token');
 
@@ -127,6 +140,14 @@ class ProfileController extends Controller
 				$newClan = "";
 
 			$profile->setClan($newClan);
+
+			$actlog->recordAction(
+				ActionLogService::TYPE_PROFILE,
+				'email:' . $profile->getUser()->getEmail(),
+				'changed clan: ' . $newClan,
+				false
+			);
+
 			$this->getDoctrine()->getManager()->flush();
 
 			$this->get('session')->getFlashBag()->add(

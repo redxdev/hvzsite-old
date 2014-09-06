@@ -35,6 +35,13 @@ class Profile
     private $game;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_date", type="date")
+     */
+    private $creationDate;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
@@ -100,6 +107,7 @@ class Profile
         $this->team = User::TEAM_HUMAN;
         $this->tagId = $tag;
         $this->numberTagged = 0;
+        $this->creationDate = new \DateTime();
     }
 
     /**
@@ -404,5 +412,28 @@ class Profile
         $this->avatarPath = $filename;
 
         $this->avatarFile = null;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     * @return Profile
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
     }
 }

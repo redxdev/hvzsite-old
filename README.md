@@ -1,7 +1,7 @@
 HvZ Website
 ===========
 
-This is a mobile-friendly HvZ website.
+This is a desktop + mobile HvZ website built on Symfony2 and Polymer.
 
 Requirements
 ============

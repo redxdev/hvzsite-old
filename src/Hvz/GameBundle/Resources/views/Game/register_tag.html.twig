@@ -11,40 +11,41 @@
 {% block content %}
 	{{ parent() }}
 
-	<div vertical layout>
-		{% if errors is defined and errors is not null %}
-			<div class="card card-error" flex>
-				<paper-shadow z="1"></paper-shadow>
-				<div class="card-internal">
-					<ul>
-						{% for error in errors %}
-							<li>{{ error }}</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		{% endif %}
-
-		<div class="card" flex>
+	{% if errors is defined and errors is not null %}
+		<div class="card card-error" flex>
 			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal" vertical layout center>
-				<div>
-					<small>Enter AV codes in the victim field and the target's player id in the zombie field</small>
-				</div>
-				<paper-input floatinglabel id="victim_id" label="Victim ID" {% if victim %}value="{{ victim }}"{% endif %}></paper-input>
-				<paper-input floatinglabel id="zombie_id" label="Zombie ID" {% if zombie %}value="{{ zombie }}"{% endif %}></paper-input>
-				<paper-button id="submit_tag" label="Submit" raisedButton></paper-button>
-				<div style="margin-top: 5px;">
-					<small>Location: <span id="loc-status">NOT SENDING</span></small>
-				</div>
-				<form id="tag_form" method="post" action="{{ path('hvz_register_tag_submit') }}">
-					<input type="hidden" name="_token" value="{{ csrf_token('hvz_register_tag') }}">
-					<input type="hidden" id="victim_id_hidden" name="victim">
-					<input type="hidden" id="zombie_id_hidden" name="zombie">
-					<input type="hidden" id="latitude" name="latitude">
-					<input type="hidden" id="longitude" name="longitude">
-				</form>
+			<div class="card-internal">
+				<ul>
+					{% for error in errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
 			</div>
+		</div>
+	{% endif %}
+
+	<div class="card" flex>
+		<paper-shadow z="1"></paper-shadow>
+		<div class="card-internal" vertical layout center>
+			<div>
+				<small>
+					Enter AV codes in the victim field and the target's player id in the zombie field.
+					AVs must be used before 5PM.
+				</small>
+			</div>
+			<paper-input floatinglabel id="victim_id" label="Victim Tag" {% if victim %}value="{{ victim }}"{% endif %}></paper-input>
+			<paper-input floatinglabel id="zombie_id" label="Zombie ID" {% if zombie %}value="{{ zombie }}"{% endif %}></paper-input>
+			<paper-button id="submit_tag" label="Submit" raisedButton></paper-button>
+			<div style="margin-top: 5px;">
+				<small>Location: <span id="loc-status">NOT SENDING</span></small>
+			</div>
+			<form id="tag_form" method="post" action="{{ path('hvz_register_tag_submit') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token('hvz_register_tag') }}">
+				<input type="hidden" id="victim_id_hidden" name="victim">
+				<input type="hidden" id="zombie_id_hidden" name="zombie">
+				<input type="hidden" id="latitude" name="latitude">
+				<input type="hidden" id="longitude" name="longitude">
+			</form>
 		</div>
 	</div>
 {% endblock %}
@@ -69,7 +70,7 @@
 				$('#latitude').val(pos.coords.latitude);
 				$('#longitude').val(pos.coords.longitude);
 				$('#loc-status').html("OK");
-			});
+			}, function() {}, {enableHighAccuracy: true, timeout: Infinity, maximumAge: 0});
 		});
 	</script>
 {% endblock %}

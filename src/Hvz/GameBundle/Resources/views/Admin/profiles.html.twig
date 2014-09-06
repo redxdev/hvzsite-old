@@ -34,12 +34,28 @@
 			<div class="card-section" vertical layout flex>
 				<a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}"><paper-button label="View" raisedButton></paper-button></a>
 				<a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id}) }}')">
+				<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id, 'token': csrf_token('hvz_profile_delete')}) }}')">
 					<paper-button label="Delete" raisedButton></paper-button>
 				</a>
 			</div>
 		</div>
 	{% endfor %}
+
+	{% if previous_page is defined or next_page is defined %}
+		<div horizontal layout center center-justified>
+			<div class="card">
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal" horizontal layout center wrap center-justified>
+					{% if previous_page is defined and previous_page != -1 %}
+						<a href="{{ path('hvz_admin_profiles', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
+					{% endif %}
+					{% if next_page is defined and next_page != -1 %}
+						<a href="{{ path('hvz_admin_profiles', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block body_javascripts %}
