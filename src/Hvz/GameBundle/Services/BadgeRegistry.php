@@ -117,6 +117,116 @@ class BadgeRegistry
 			'twinkie.png'
 		);
 
+		//Can't stop won't stop
+		$this->registerBadge(
+			'plaid',
+			'Cant Stop, Wont stop',
+			'Hard Work, Dedication',
+			'plaid.png'
+		);
+
+		//Be a Tank on Wednesday
+		$this->registerBadge(
+			'pink',
+			'On Wednesdays, We Wear Pink',
+			'Be a tank on Wednesday Night',
+			'pink.png'
+		);
+
+		//Midday Mission
+		$this->registerBadge(
+			'midday',
+			'Win a Midday',
+			'Win a Midday Mission',
+			'sun.png'
+		);
+
+
+		//Wednesday Keys
+		$this->registerBadge(
+			'rainbow',
+			'Taste the Rainbow',
+			'Collect a key of every color on Wednesday',
+			'rainbow.png'
+		);
+
+		//#Selfie
+		$this->registerBadge(
+			'selfie',
+			'#Selfie',
+			'Take a Selfie with 3 Admins and 3 Mods',
+			'selfie.png'
+		);
+
+		//Zombie Orb
+		$this->registerBadge(
+			'orb',
+			'Zombie Orb',
+			'Bring Katie a Zombie Orb',
+			'snow.png'
+		);
+
+
+		//Rogue
+		$this->registerBadge(
+			'rogue',
+			'Does It From Behind',
+			'Tag or Stun a Rogue',
+			'rogue.png'
+		);
+
+
+
+		//Mod Squad
+		$this->registerBadge(
+			'Mod',
+			'Mod Squad',
+			'Moderator',
+			'mod.png'
+		);
+
+
+		//Size Matters
+		$this->registerBadge(
+			'size',
+			'Size Matters',
+			'Use a huge ass Nerf blaster',
+			'size.png'
+		);
+
+		//President
+		$this->registerBadge(
+			'katie',
+			'Madam President',
+			'Run the club. All day err day',
+			'katie.png'
+		);
+
+		//Heaven Hands
+		$this->registerBadge(
+			'HH',
+			'Heaven Hands',
+			'Got stacks on stacks',
+			'hh.png'
+		);
+
+		//Mitch
+		$this->registerBadge(
+			'mitch',
+			'Mod Babysitter',
+			'Mod Manager',
+			'mitch.png'
+		);
+
+
+		//Heaven Hands
+		$this->registerBadge(
+			'HH',
+			'Heaven Hands',
+			'Got stacks on stacks',
+			'hh.png'
+		);
+
 		// died on sunday night
 		$this->registerBadge(
 			'bad-start',
