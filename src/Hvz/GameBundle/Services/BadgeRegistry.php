@@ -66,12 +66,13 @@ class BadgeRegistry
 	 * @param description human-readable description
 	 * @param imgPath path relative to public/images/badges
 	 */
-	public function registerBadge($id, $name, $description, $imgPath)
+	public function registerBadge($id, $name, $description, $imgPath, $access = 'ROLE_ADMIN')
 	{
 		$this->registry[$id] = array(
 			'name' => $name,
 			'image' => $imgPath,
-			'description' => $description
+			'description' => $description,
+			'access' => $access
 		);
 	}
 
@@ -82,7 +83,8 @@ class BadgeRegistry
 			'infected',
 			'Infected',
 			'Died in the zombie apocalypse',
-			'infected.png'
+			'infected.png',
+			'INTERNAL'
 		);
 
 		// used an AV
@@ -90,7 +92,8 @@ class BadgeRegistry
 			'used-av',
 			'Used AV',
 			'Used an AV code to become human again',
-			'antivirus.png'
+			'antivirus.png',
+			'INTERNAL'
 		);
 
 		// caught a human between 6 and 8 AM
@@ -98,7 +101,8 @@ class BadgeRegistry
 			'early-bird',
 			'Early Bird',
 			'Caught a human between 6 and 8 AM',
-			'earlybird.png'
+			'earlybird.png',
+			'INTERNAL'
 		);
 
 		// died between 11 PM and midnight
@@ -106,7 +110,8 @@ class BadgeRegistry
 			'mission-aint-over',
 			'Mission ain\'t Over',
 			'Died between 11 PM and Midnight',
-			'mission-aint-over.png'
+			'mission-aint-over.png',
+			'INTERNAL'
 		);
 
 		// got a twinkie from a moderator
@@ -114,7 +119,8 @@ class BadgeRegistry
 			'twinkie',
 			'Twinkie!',
 			'Received a twinkie from a moderator',
-			'twinkie.png'
+			'twinkie.png',
+			'ROLE_MOD'
 		);
 
 		//Can't stop won't stop
@@ -224,7 +230,8 @@ class BadgeRegistry
 			'bad-start',
 			'Bad Start',
 			'Died on Sunday night',
-			'badstart.png'
+			'badstart.png',
+			'INTERNAL'
 		);
 
 		// died from thursday onward
@@ -232,7 +239,8 @@ class BadgeRegistry
 			'so-close',
 			'So Close',
 			'Died from Thursday onward',
-			'close.png'
+			'close.png',
+			'INTERNAL'
 		);
 
 		// got extracted
@@ -264,63 +272,72 @@ class BadgeRegistry
 			'streak-2',
 			'Double Kill',
 			'2 kills within an hour',
-			'streak-2.png'
+			'streak-2.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-3',
 			'Triple Kill',
 			'3 kills within an hour',
-			'streak-3.png'
+			'streak-3.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-4',
 			'Overkill',
 			'4 kills within an hour',
-			'streak-4.png'
+			'streak-4.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-5',
 			'Killtacular',
 			'5 kills within an hour',
-			'streak-5.png'
+			'streak-5.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-6',
 			'Killtrocity',
 			'6 kills within an hour',
-			'streak-6.png'
+			'streak-6.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-7',
 			'Killmanjaro',
 			'7 kills within an hour',
-			'streak-7.png'
+			'streak-7.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-8',
 			'Killtastrophy',
 			'8 kills within an hour',
-			'streak-8.png'
+			'streak-8.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-9',
 			'Killpocalypse',
 			'9 kills within an hour',
-			'streak-9.png'
+			'streak-9.png',
+			'INTERNAL'
 		);
 
 		$this->registerBadge(
 			'streak-10',
 			'Killionare',
 			'10 kills within an hour',
-			'streak-10.png'
+			'streak-10.png',
+			'INTERNAL'
 		);
 	}
 }

@@ -325,7 +325,7 @@ class ProfileController extends Controller
 	{
 		$securityContext = $this->get('security.context');
 
-		if(!$securityContext->isGranted("ROLE_ADMIN"))
+		if(!$securityContext->isGranted("ROLE_MOD"))
 		{
 			return $this->redirect($this->generateUrl('hvz_error_403'));
 		}
@@ -350,6 +350,9 @@ class ProfileController extends Controller
 			$registry = $badgeReg->getRegistry();
 			foreach($registry as $k => $badge)
 			{
+				if($badge['access'] == 'INTERNAL' || !$securityContext->isGranted($badge['access']))
+					continue;
+
 				$badges[] = array(
 					'id' => $k,
 					'name' => $badge['name'],
@@ -379,6 +382,17 @@ class ProfileController extends Controller
 				$this->get('session')->getFlashBag()->add(
 					'page.toast',
 					"Unknown badge id."
+				);
+
+				return $this->redirect($this->generateUrl('hvz_admin_profile_give_badge', array('id' => $id)));
+			}
+
+			$badgeInfo = $badgeReg->getBadge($badge);
+			if($badgeInfo['access'] == 'INTERNAL' || !$securityContext->isGranted($badgeInfo['access']))
+			{
+				$this->get('session')->getFlashBag()->add(
+					'page.toast',
+					"You do not have permission to give out that badge."
 				);
 
 				return $this->redirect($this->generateUrl('hvz_admin_profile_give_badge', array('id' => $id)));
