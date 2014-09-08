@@ -1,6 +1,12 @@
 {# src/Hvz/GameBundle/Resources/views/Game/tags.html.twig #}
 {% extends 'HvzGameBundle::page.html.twig' %}
 
+{% block components %}
+	{{ parent() }}
+
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+{% endblock %}
+
 {% block content %}
 	{{ parent() }}
 
@@ -12,4 +18,20 @@
 			</div>
 		</div>
 	{% endfor %}
+
+	{% if previous_page is defined or next_page is defined %}
+		<div horizontal layout center center-justified>
+			<div class="card">
+				<paper-shadow z="1"></paper-shadow>
+				<div class="card-internal" horizontal layout center wrap center-justified>
+					{% if previous_page is defined and previous_page != -1 %}
+						<a href="{{ path('hvz_tags', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
+					{% endif %}
+					{% if next_page is defined and next_page != -1 %}
+						<a href="{{ path('hvz_tags', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}
