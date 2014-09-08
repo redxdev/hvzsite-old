@@ -30,7 +30,7 @@ class NavigationService
 				array(
 					"id" => "video",
 					"icon" => "drive-video",
-					"label" => "Video + Maps",
+					"label" => "Video",
 					"link" => $this->router->generate('hvz_video')),
 				array(
 					"id" => "players",
@@ -42,6 +42,11 @@ class NavigationService
 					"icon" => "label",
 					"label" => "Tags",
 					"link" => $this->router->generate('hvz_tags')),
+				array(
+					"id" => "map",
+					"icon" => "file-map",
+					"label" => "Tag Map",
+					"link" => $this->router->generate('hvz_map')),
 				array(
 					"id" => "register-tag",
 					"icon" => "label-outline",

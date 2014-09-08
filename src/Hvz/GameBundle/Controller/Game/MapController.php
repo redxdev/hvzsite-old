@@ -11,13 +11,6 @@ class MapController extends Controller
 	// restricted to mods+ only for now
 	public function indexAction($mode)
 	{
-		$securityContext = $this->get('security.context');
-
-		if(!$securityContext->isGranted("ROLE_MOD"))
-		{
-			return $this->redirect($this->generateUrl('hvz_error_403'));
-		}
-
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 		if($game == null)
 			$tagEnts = array();
