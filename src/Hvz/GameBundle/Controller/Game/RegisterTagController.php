@@ -33,8 +33,8 @@ class RegisterTagController extends Controller
 			$csrf = $this->get('form.csrf_provider');
 
 			$token = $request->get('_token');
-			$victim = $request->get('victim');
-			$zombie = $request->get('zombie');
+			$victim = strtolower($request->get('victim'));
+			$zombie = strtolower($request->get('zombie'));
 			$latitude = $request->get('latitude') or null;
 			$longitude = $request->get('longitude') or null;
 
