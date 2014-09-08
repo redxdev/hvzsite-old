@@ -43,7 +43,7 @@ class InfectionSpreadRepository extends EntityRepository
 	public function findCountByGame($game)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$query = $qb->select('count(p)')
+		$query = $qb->select('count(s)')
 					->from('HvzGameBundle:InfectionSpread', 's')
 					->where('s.game = :game')
 					->setParameter('game', $game)
