@@ -1,6 +1,12 @@
 {# src/Hvz/GameBundle/Resources/views/Game/tags.html.twig #}
 {% extends 'HvzGameBundle::page.html.twig' %}
 
+{% block components %}
+	{{ parent() }}
+
+	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+{% endblock %}
+
 {% block content %}
 	{{ parent() }}
 
