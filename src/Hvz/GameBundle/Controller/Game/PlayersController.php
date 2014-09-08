@@ -111,13 +111,13 @@ class PlayersController extends Controller
 		return new Response($content);
 	}
 
-	public function tagsAction()
+	public function tagsAction($page = 0)
 	{
 		$game = $this->getDoctrine()->getRepository('HvzGameBundle:Game')->findCurrentGame();
 		if($game == null)
 			$tagEnts = array();
 		else
-			$tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findByGameOrderedByTime($game);
+			$tagEnts = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findPageByGameOrderedByTime($game, $page);
 		$tags = array();
 		foreach($tagEnts as $tag)
 		{
@@ -132,7 +132,9 @@ class PlayersController extends Controller
 			'HvzGameBundle:Game:tags.html.twig',
 			array(
 				'navigation' => $this->get('hvz.navigation')->generate("tags"),
-				"tags" => $tags
+				"tags" => $tags,
+				'previous_page' => $page <= 0 ? -1 : $page - 1,
+				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
 			)
 		);
 

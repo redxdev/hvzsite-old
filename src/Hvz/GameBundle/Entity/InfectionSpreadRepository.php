@@ -25,6 +25,21 @@ class InfectionSpreadRepository extends EntityRepository
 		return $query->getResult();
 	}
 
+	public function findPageByGameOrderedByTime($game, $page, $maxPerPage = 10)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('s')
+					->from('HvzGameBundle:InfectionSpread', 's')
+					->where('s.game = :game')
+					->orderBy('s.time', 'DESC')
+					->setParameter('game', $game)
+					->getQuery()
+					->setMaxResults($maxPerPage)
+					->setFirstResult($page * $maxPerPage);
+
+		return $query->getResult();
+	}
+
 	public function findByZombieOrderedByTime($game, $zombie)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();
