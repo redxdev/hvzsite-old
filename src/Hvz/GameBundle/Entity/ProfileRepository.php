@@ -125,7 +125,6 @@ class ProfileRepository extends EntityRepository
 					->where('p.active = true')
 					->andWhere('p.game = :game')
 					->orderBy('p.numberTagged', 'DESC')
-					->orderBy('p.team', 'DESC')
 					->setParameter('game', $game)
 					->getQuery();
 
