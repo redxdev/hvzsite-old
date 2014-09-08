@@ -86,6 +86,7 @@ class ProfileRepository extends EntityRepository
 		$query = $qb->select('count(p)')
 					->from('HvzGameBundle:Profile', 'p')
 					->where('p.game = :game')
+					->andWhere('p.active = true')
 					->setParameter('game', $game)
 					->getQuery();
 

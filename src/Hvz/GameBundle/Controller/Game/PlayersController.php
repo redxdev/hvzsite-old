@@ -128,6 +128,8 @@ class PlayersController extends Controller
 			);
 		}
 
+		$count = $this->getDoctrine()->getManager()->getRepository('HvzGameBundle:InfectionSpread')->findCountByGame($game);
+
 		$content = $this->renderView(
 			'HvzGameBundle:Game:tags.html.twig',
 			array(
