@@ -42,9 +42,9 @@ class RegisterTagController extends Controller
 			$lastFailDate = $session->get('hvz_tag_failure_date', new \DateTime());
 			$timeDiff = (new \DateTime())->diff($lastFailDate);
 
-			if($timeDiff->h > 2) {
+//			if($timeDiff->h > 2) {
 				$failedTagCount = 0;
-			}
+//			}
 
 			if($failedTagCount >= 5)
 			{
