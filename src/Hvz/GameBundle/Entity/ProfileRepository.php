@@ -85,9 +85,12 @@ class ProfileRepository extends EntityRepository
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('count(p)')
 					->from('HvzGameBundle:Profile', 'p')
+					->innerJoin('p.user', 'u')
 					->where('p.game = :game')
 					->andWhere('p.active = true')
+					->andWhere('u.roles LIKE :role')
 					->setParameter('game', $game)
+					->setParameter('role', '%ROLE_USER%')
 					->getQuery();
 
 		return $query->getSingleScalarResult();
@@ -123,11 +126,14 @@ class ProfileRepository extends EntityRepository
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$query = $qb->select('p')
 					->from('HvzGameBundle:Profile', 'p')
+					->innerJoin('p.user', 'u')
 					->where('p.active = true')
 					->andWhere('p.game = :game')
+					->andWhere('u.roles LIKE :role')
 					->addOrderBy('p.team', 'DESC')
 					->addOrderBy('p.numberTagged', 'DESC')
 					->setParameter('game', $game)
+					->setParameter('role', '%ROLE_USER%')
 					->getQuery();
 
 		if($page >= 0)

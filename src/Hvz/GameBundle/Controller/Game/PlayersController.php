@@ -52,8 +52,6 @@ class PlayersController extends Controller
 			);
 		}
 
-
-
 		$content = $this->renderView(
 			'HvzGameBundle:Game:players.html.twig',
 			array(
