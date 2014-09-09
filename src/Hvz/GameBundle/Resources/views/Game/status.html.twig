@@ -43,6 +43,7 @@
 			<p>
 				<a href="{{ path('hvz_register_tag') }}">register tag</a> |
 				{% if app.user %}
+					<a href="{{ path('hvz_missions') }}">missions</a> |
 					<a href="{{ path('hvz_profile') }}">profile</a> |
 					<a href="{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}">logout</a>
 				{% else %}
