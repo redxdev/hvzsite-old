@@ -143,6 +143,50 @@ class ProfileRepository extends EntityRepository
 		return $query->getResult();
 	}
 
+	public function findActiveModsCount($game)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('count(p)')
+					->from('HvzGameBundle:Profile', 'p')
+					->innerJoin('p.user', 'u')
+					->where('p.active = true')
+					->andWhere('p.game = :game')
+					->andWhere($qb->expr()->orx(
+						'u.roles LIKE :admin',
+						'u.roles LIKE :mod'
+					))
+					->setParameter('game', $game)
+					->setParameter('admin', '%ROLE_ADMIN%')
+					->setParameter('mod', '%ROLE_MOD%')
+					->getQuery();
+
+		return $query->getSingleScalarResult();
+	}
+
+	public function findActiveMods($game, $page = -1, $maxPerPage = 10)
+	{
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$query = $qb->select('p')
+					->from('HvzGameBundle:Profile', 'p')
+					->innerJoin('p.user', 'u')
+					->where('p.active = true')
+					->andWhere('p.game = :game')
+					->andWhere($qb->expr()->orx(
+						'u.roles LIKE :admin',
+						'u.roles LIKE :mod'
+					))
+					->setParameter('game', $game)
+					->setParameter('admin', '%ROLE_ADMIN%')
+					->setParameter('mod', '%ROLE_MOD%')
+					->getQuery();
+
+		if($page >= 0)
+			$query->setMaxResults($maxPerPage)
+				->setFirstResult($page * $maxPerPage);
+
+		return $query->getResult();
+	}
+
 	public function findActiveClanCount($game)
 	{
 		$qb = $this->getEntityManager()->createQueryBuilder();

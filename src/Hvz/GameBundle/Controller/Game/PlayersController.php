@@ -34,6 +34,11 @@ class PlayersController extends Controller
 			$playerEnts = $profileRepo->findActiveOrderedByClan($game, $page);
 			$count = $profileRepo->findActiveClanCount($game);
 		}
+		else if($sortBy == 'mods')
+		{
+			$playerEnts = $profileRepo->findActiveMods($game, $page);
+			$count = $profileRepo->findActiveModsCount($game);
+		}
 
 		$badgeReg = $this->get('hvz.badge_registry');
 
