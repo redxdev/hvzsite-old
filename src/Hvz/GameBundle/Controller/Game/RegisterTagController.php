@@ -110,8 +110,23 @@ class RegisterTagController extends Controller
 			{
 				$av = $this->getDoctrine()->getRepository('HvzGameBundle:AntiVirusTag')->findOneByGameAndTag($game, $victim);
 
-				if($av && $av->getActive())
+				if($av)
 				{
+					if(!$av->getActive())
+					{
+						$content = $this->renderView(
+							'HvzGameBundle:Game:register_tag.html.twig',
+							array(
+								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+								"errors" => array("This AV has already been used."),
+								"victim" => $victim,
+								"zombie" => $zombie
+							)
+						);
+
+						return new Response($content);
+					}
+
 					if(!$zombieProfile)
 					{
 						$content = $this->renderView(
