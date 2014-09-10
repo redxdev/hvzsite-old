@@ -139,6 +139,16 @@ class ProfileController extends Controller
 			if($newClan == 'null')
 				$newClan = "";
 
+			if(strlen($newClan) > 32)
+			{
+				$this->get('session')->getFlashBag()->add(
+					'page.toast',
+					"Your clan name is too long. Please shorten it and try again."
+				);
+
+				return $this->redirect($this->generateUrl('hvz_profile_edit_clan'));
+			}
+
 			$profile->setClan($newClan);
 
 			$actlog->recordAction(
