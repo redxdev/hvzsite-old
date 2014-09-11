@@ -159,13 +159,29 @@ class RegisterTagController extends Controller
 
 					$now = new \DateTime();
 					$hour = intval($now->format('G'));
-					if($hour >= 17)
+					$day = intval($now->format('w'));
+					if($hour >= 17 && $hour < 23)
 					{
 						$content = $this->renderView(
 							'HvzGameBundle:Game:register_tag.html.twig',
 							array(
 								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
-								"errors" => array("AVs must be used before 5PM"),
+								"errors" => array("AVs must be used before 5PM or after 11PM"),
+								"victim" => $victim,
+								"zombie" => $zombie
+							)
+						);
+
+						return new Response($content);
+					}
+
+					if($day >= 5 && $hour >= 2)
+					{
+						$content = $this->renderView(
+							'HvzGameBundle:Game:register_tag.html.twig',
+							array(
+								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
+								"errors" => array("AVs cannot be used after 2AM on Friday"),
 								"victim" => $victim,
 								"zombie" => $zombie
 							)
