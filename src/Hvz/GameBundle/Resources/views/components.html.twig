@@ -1,0 +1,46 @@
+{% macro nav_internal_link(id, url, text, selected) %}
+    <li{% if id == selected %} class="active"{% endif %}><a href="{{ url }}">{{ text }}</a></li>
+{% endmacro %}
+
+{% macro navbar(type, selected) %}
+    <div class="navbar navbar-default navbar-{{ type }}" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-nav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="visible-lg visible-md navbar-brand navbar-brand-centered">
+                    <a href="#">
+                        <img class="logo" src="images/logo.png" alt="HvZ @ RIT">
+                    </a>
+                </div>
+                <div class="visible-xs visible-sm navbar-brand">
+                    HvZ @ RIT
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-main-nav">
+                <ul class="nav navbar-nav">
+                    {{ nav_internal_link('status', route('hvz_index'), 'Status', selected) }}
+                    {{ nav_internal_link('players', route('hvz_players'), 'Players', selected) }}
+                    {{ nav_internal_link('tags', route('hvz_tags'), 'Tags', selected) }}
+                    {{ nav_internal_link('spread', '#', 'Spread', selected) }}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {{ nav_internal_link('map', route('hvz_map'), 'Map', selected) }}
+                    {{ nav_internal_link('rules', route('hvz_rules'), 'Rules', selected) }}
+                    {{ nav_internal_link('register-tag', route('hvz_register_tag'), 'Register Tag', selected) }}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Login</a></li>
+                            <li><a href="#">Register</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

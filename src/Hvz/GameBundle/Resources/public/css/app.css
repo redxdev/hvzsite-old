@@ -1,0 +1,89 @@
+body.navbar-offset {
+    padding-top: 80px;
+}
+
+.jumbotron.header {
+    background: transparent;
+    position: relative;
+}
+
+.header-text {
+    background-color: rgba(255, 255, 255, 0.57);
+}
+
+.navbar-lower {
+    top: -30px;
+}
+
+.header .video-container {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-video {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+}
+
+@media screen and (min-width:769px) {
+    .navbar-brand-centered {
+        position: absolute;
+        left: 50%;
+        display: block;
+        width: 300px;
+        text-align: center;
+    }
+
+    .navbar>.container .navbar-brand-centered,
+    .navbar>.container-fluid .navbar-brand-centered {
+        margin-left: -150px;
+    }
+
+    .navbar-lower .navbar-brand-centered .logo {
+        position: relative;
+        top: -50px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .navbar-fixed-top .navbar-brand-centered .logo {
+        position: relative;
+        top: -10px;
+        width: 100px;
+        height: 100px;
+    }
+}
+
+.bg-human {
+    background-color: #ff7519;
+}
+
+.bg-zombie {
+    background-color: #31e636;
+}
+
+.large-text {
+    font-size: 200%;
+}
+
+.large-text h1 {
+    font-size: 325%;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+}
+
+.vertical-space {
+    height: 25px;
+}
+
+.vertical-space-sm {
+    height: 10px;
+}
