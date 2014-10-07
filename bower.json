@@ -1,29 +1,9 @@
 {
   "name": "hvzsite",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "dependencies": {
-    "core-animation": "Polymer/core-animation",
-    "core-collapse": "Polymer/core-collapse",
-    "core-drawer-panel": "Polymer/core-drawer-panel",
-    "core-header-panel": "Polymer/core-header-panel",
-    "core-field": "Polymer/core-field",
-    "core-icon-button": "Polymer/core-icon-button",
-    "core-input": "Polymer/core-input",
-    "core-item": "Polymer/core-item",
-    "core-menu": "Polymer/core-menu",
-    "core-overlay": "Polymer/core-overlay",
-    "core-range": "Polymer/core-range",
-    "core-scaffold": "Polymer/core-scaffold",
-    "core-scroll-header-panel": "Polymer/core-scroll-header-panel",
-    "font-roboto": "Polymer/font-roboto",
-    "paper-button": "Polymer/paper-button",
-    "paper-checkbox": "Polymer/paper-checkbox",
-    "paper-dialog": "Polymer/paper-dialog",
-    "paper-elements": "Polymer/paper-elements",
-    "core-tooltip": "Polymer/core-tooltip",
-    "polymer": "Polymer/polymer",
-    "google-map": "GoogleWebComponents/google-map",
-    "google-youtube": "GoogleWebComponents/google-youtube",
-    "ckeditor": "4"
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "bootswatch": "~3.2.0+4"
   }
 }
