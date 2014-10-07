@@ -3,6 +3,7 @@
 {% endmacro %}
 
 {% macro navbar(type, selected) %}
+    {% import _self as components %}
     <div class="navbar navbar-default navbar-{{ type }}" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -13,7 +14,7 @@
                 </button>
                 <div class="visible-lg visible-md navbar-brand navbar-brand-centered">
                     <a href="#">
-                        <img class="logo" src="images/logo.png" alt="HvZ @ RIT">
+                        <img class="logo" src="holder.js/150x150" alt="HvZ @ RIT">
                     </a>
                 </div>
                 <div class="visible-xs visible-sm navbar-brand">
@@ -23,15 +24,15 @@
 
             <div class="collapse navbar-collapse" id="navbar-main-nav">
                 <ul class="nav navbar-nav">
-                    {{ nav_internal_link('status', route('hvz_index'), 'Status', selected) }}
-                    {{ nav_internal_link('players', route('hvz_players'), 'Players', selected) }}
-                    {{ nav_internal_link('tags', route('hvz_tags'), 'Tags', selected) }}
-                    {{ nav_internal_link('spread', '#', 'Spread', selected) }}
+                    {{ components.nav_internal_link('status', path('hvz_index'), 'Status', selected) }}
+                    {{ components.nav_internal_link('players', path('hvz_players'), 'Players', selected) }}
+                    {{ components.nav_internal_link('tags', path('hvz_tags'), 'Tags', selected) }}
+                    {{ components.nav_internal_link('spread', '#', 'Spread', selected) }}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{ nav_internal_link('map', route('hvz_map'), 'Map', selected) }}
-                    {{ nav_internal_link('rules', route('hvz_rules'), 'Rules', selected) }}
-                    {{ nav_internal_link('register-tag', route('hvz_register_tag'), 'Register Tag', selected) }}
+                    {{ components.nav_internal_link('map', path('hvz_map'), 'Map', selected) }}
+                    {{ components.nav_internal_link('rules', path('hvz_rules'), 'Rules', selected) }}
+                    {{ components.nav_internal_link('register-tag', path('hvz_register_tag'), 'Register Tag', selected) }}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

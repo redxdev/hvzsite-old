@@ -45,14 +45,6 @@ class StatusController extends Controller
 
 		$humans = count($profileRepo->findActiveHumans($game));
 		$zombies = count($profileRepo->findActiveZombies($game));
-		$total = $humans + $zombies;
-		$human_percent = 0;
-		$zombie_percent = 0;
-		if($total != 0)
-		{
-			$human_percent = round($humans / $total * 100, 1);
-			$zombie_percent = round($zombies / $total * 100, 1);
-		}
 
 		$content = $this->renderView(
 			'HvzGameBundle:Game:status.html.twig',
@@ -61,9 +53,7 @@ class StatusController extends Controller
 				'game' => array(
 					'humans' => $humans,
 					'zombies' => $zombies,
-					'time' => $time,
-					'human_percent' => $human_percent,
-					'zombie_percent' => $zombie_percent
+					'time' => $time
 				)
 			)
 		);

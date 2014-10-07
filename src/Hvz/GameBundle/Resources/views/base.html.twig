@@ -21,7 +21,7 @@
             'bundles/hvzgame/bower_components/bootswatch/cosmo/bootstrap.css'
             'bundles/hvzgame/css/app.css'
             filter='cssrewrite' %}
-            <link rel="stylesheet" href="{{ asst_url }}">
+            <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
 	{% endblock %}
 
@@ -40,10 +40,18 @@
 	{% block body %}
 	{% endblock %}
 
+    {% block footer %}
+        <div class="footer">
+            <div class="container">
+                <p class="text-muted pull-right">Copyright &copy; 2014</p>
+            </div>
+        </div>
+    {% endblock %}
+
 	{% block body_javascripts %}
         {% javascripts
-            'bundles/hvzgame/bower_components/jquery/dist/jquery.js'
-            'bundles/hvzgame/bower_components/bootstrap/dist/js/bootstrap.js'
+            'bundles/hvzgame/bower_components/jquery/dist/jquery.min.js'
+            'bundles/hvzgame/bower_components/bootstrap/dist/js/bootstrap.min.js'
             'bundles/hvzgame/bower_components/holderjs/holder.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
