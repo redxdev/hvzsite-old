@@ -2,7 +2,7 @@
     <li{% if id == selected %} class="active"{% endif %}><a href="{{ url }}">{{ text }}</a></li>
 {% endmacro %}
 
-{% macro navbar(type, selected) %}
+{% macro navbar(type, selected, selected2) %}
     {% import _self as components %}
     <div class="navbar navbar-default navbar-{{ type }}" role="navigation">
         <div class="container">
@@ -41,12 +41,12 @@
                     {{ components.nav_internal_link('register-tag', path('hvz_register_tag'), 'Register Tag', selected) }}
 
                     {% if is_granted('ROLE_USER') %}
-                        <li class="dropdown">
+                        <li class="dropdown{% if selected == 'user' %} active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{ app.user.fullname | escape }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ path('hvz_profile') }}">Profile</a></li>
+                                {{ components.nav_internal_link('profile', path('hvz_profile'), 'Profile', selected2) }}
                                 <li><a href="{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}">Logout</a></li>
                             </ul>
                         </li>

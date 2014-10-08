@@ -1,12 +1,21 @@
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle::base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block content %}
-	{{ parent() }}
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
 
-	<div class="card card-{{ message.type }}">
-		<paper-shadow z="1"></paper-shadow>
-		<div class="card-internal" vertical layout center>
-			{{ message.body | raw }}
-		</div>
-	</div>
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'message') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="row">
+            <div class="col-md-12 text-center bg-{{ message.type }}">
+                {{ message.body | raw }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

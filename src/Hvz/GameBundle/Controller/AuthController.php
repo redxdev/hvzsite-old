@@ -35,13 +35,15 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "Access to your google account was denied. Try registering again!"
 					)
 				)
 			);
 
-			return new Response($content);
+            $response = new Response($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            return $response;
 		}
 
 		$code = $request->query->get('code');
@@ -54,13 +56,15 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "Invalid authentication token. Please try again."
 					)
 				)
 			);
 
-			return new Response($content);
+            $response = new Response($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            return $response;
 		}
 
 		$userInfo = $oauth->userinfo->get();
@@ -73,7 +77,7 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "warning",
 						"body" => "You are already registered! Please use the login link instead."
 					)
 				)
@@ -88,13 +92,15 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "You must use your Google RIT account."
 					)
 				)
 			);
 
-			return new Response($content);
+            $response = new Response($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            return $response;
 		}
 
 		$em = $this->getDoctrine()->getManager();
@@ -145,13 +151,15 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "Access to your google account was denied. Try logging in again!"
 					)
 				)
 			);
 
-			return new Response($content);
+            $response = new Response($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            return $response;
 		}
 
 		$code = $request->query->get('code');
@@ -164,13 +172,15 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "Invalid authentication token. Please try again."
 					)
 				)
 			);
 
-			return new Response($content);
+            $response = new Response($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            return $response;
 		}
 
 		$userInfo = $oauth->userinfo->get();
@@ -185,7 +195,7 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "Unknown user. Have you registered?"
 					)
 				)
@@ -234,7 +244,7 @@ class AuthController extends Controller
 				'HvzGameBundle::message.html.twig',
 				array(
 					"message" => array(
-						"type" => "error",
+						"type" => "danger",
 						"body" => "Invalid CSRF token: Try logging out again."
 					)
 				)
@@ -260,13 +270,15 @@ class AuthController extends Controller
 			'HvzGameBundle::message.html.twig',
 			array(
 				"message" => array(
-					"type" => "error",
+					"type" => "danger",
 					"body" => "<strong>Error 403</strong> Access denied. Do you have permission to view that page?"
 				)
 			)
 		);
 
-		return new Response($content);
+        $response = new Response($content);
+        $response->setStatusCode(Response::HTTP_FORBIDDEN);
+		return $response;
 	}
 
 	public function activeErrorAction()
@@ -275,12 +287,14 @@ class AuthController extends Controller
 			'HvzGameBundle::message.html.twig',
 			array(
 				"message" => array(
-					"type" => "error",
+					"type" => "danger",
 					"body" => "Your account hasn't been activated. Please contact an administrator or moderator."
 				)
 			)
 		);
 
-		return new Response($content);
+        $response = new Response($content);
+        $response->setStatusCode(Response::HTTP_FORBIDDEN);
+        return $response;
 	}
 }
