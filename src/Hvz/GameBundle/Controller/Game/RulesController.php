@@ -23,20 +23,7 @@ class RulesController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:rules.html.twig',
 			array(
-				"navigation" => $this->get('hvz.navigation')->generate("rules"),
 				"rules" => $rules
-			)
-		);
-
-		return new Response($content);
-	}
-
-	public function videoAction()
-	{
-		$content = $this->renderView(
-			'HvzGameBundle:Game:video.html.twig',
-			array(
-				"navigation" => $this->get('hvz.navigation')->generate("video")
 			)
 		);
 

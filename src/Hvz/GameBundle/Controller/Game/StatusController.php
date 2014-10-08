@@ -49,7 +49,6 @@ class StatusController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:status.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate("status"),
 				'game' => array(
 					'humans' => $humans,
 					'zombies' => $zombies,
@@ -66,7 +65,6 @@ class StatusController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle::message.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
 					"type" => "error",
 					"body" => "The game hasn't started yet, so you can't view this page!"

@@ -12,10 +12,6 @@ hvz_rules:
     pattern: /rules
     defaults: { _controller: HvzGameBundle:Game/Rules:index }
 
-hvz_video:
-    pattern: /video
-    defaults: { _controller: HvzGameBundle:Game/Rules:video }
-
 # Game\Register Tag Controller
 hvz_register_tag:
     pattern: /register_tag
@@ -41,11 +37,6 @@ hvz_players_search:
 hvz_tags:
     pattern: /tags/{page}
     defaults: { _controller: HvzGameBundle:Game/Players:tags, page: 0 }
-
-# Game\Map Controller
-hvz_map:
-    pattern: /map/{mode}
-    defaults: { _controller: HvzGameBundle:Game/Map:index, mode: "all" }
 
 # Game\Missions Controller
 hvz_missions:

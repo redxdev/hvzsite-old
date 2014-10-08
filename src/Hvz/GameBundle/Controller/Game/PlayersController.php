@@ -60,7 +60,6 @@ class PlayersController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:players.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate("players"),
 				'players' => $players,
 				'previous_page' => $page <= 0 ? -1 : $page - 1,
 				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1,
@@ -106,7 +105,6 @@ class PlayersController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:players.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate("players"),
 				'players' => $players
 			)
 		);
@@ -127,7 +125,7 @@ class PlayersController extends Controller
 			$tags[] = array(
 				"victim" => $tag->getVictim()->getUser()->getFullname(),
 				"zombie" => $tag->getZombie()->getUser()->getFullname(),
-				"time" => $tag->getTime()->format("l h:i:s A")
+				"time" => $tag->getTime()
 			);
 		}
 
@@ -136,7 +134,6 @@ class PlayersController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:tags.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate("tags"),
 				"tags" => $tags,
 				'previous_page' => $page <= 0 ? -1 : $page - 1,
 				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1

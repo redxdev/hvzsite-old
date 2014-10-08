@@ -1,34 +1,48 @@
-{# src/Hvz/GameBundle/Resources/views/Game/rules.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle::base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block components %}
-	{{ parent() }}
-
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+{% block title %}
+    Rules | {{ parent() }}
 {% endblock %}
 
-{% block content %}
-	{{ parent() }}
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
 
-	<div class="card">
-		<paper-shadow z="1"></paper-shadow>
-		<div class="card-internal">
-			<h3 class="header">Jump to section:</h3>
-			{% for rule in rules %}
-				<p><a href="#rule-{{ loop.index }}"><paper-button label="{{ rule.title }}"></paper-button></a></p>
-			{% endfor %}
-		</div>
-	</div>
+{% block body %}
+    {{ parent() }}
 
-	{% for rule in rules %}
-		<div class="card">
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal">
-				<a id="rule-{{ loop.index }}"><h2 class="header">{{ rule.title }}</h2></a>
-				<div>
-					{{ rule.body | raw }}
-				</div>
-			</div>
-		</div>
-	{% endfor %}
+    {{ components.navbar('fixed-top', 'rules') }}
+
+    <div class="container">
+        <div class="row visible-xs">
+            <div class="col-md-12">
+                <ul id="side-nav" class="nav nav-tabs">
+                    {% for rule in rules %}
+                        <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="hidden-xs col-sm-3">
+                <ul id="side-nav" class="nav nav-pills nav-stacked" data-spy="affix">
+                    {% for rule in rules %}
+                        <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                {% for rule in rules %}
+                    <section>
+                        <a id="rule-{{ loop.index }}" class="offset"></a>
+                        <h2>{{ rule.title }}</h2>
+                        <div>
+                            {{ rule.body | raw }}
+                        </div>
+                    </section>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
