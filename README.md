@@ -1,7 +1,7 @@
 HvZ Website
 ===========
 
-This is the main website for the Rochester Institute of Technology Humans vs Zombies club, created using Symfony2. It has been used in the Fall 2014 weeklong game of HvZ, with ~850 participants.
+This is the main website for the Rochester Institute of Technology Humans vs Zombies club, created using Symfony2. It has been used in the Fall 2014 weeklong game of HvZ, with ~850 participants. See https://hvz.rit.edu/.
 
 Requirements
 ============
