@@ -14,7 +14,11 @@
                 </button>
                 <div class="visible-lg visible-md navbar-brand navbar-brand-centered">
                     <a href="#">
-                        <img class="logo" src="holder.js/150x150" alt="HvZ @ RIT">
+                        {% if type == "lower" %}
+                            <img class="logo" src="holder.js/150x150" alt="HvZ @ RIT">
+                        {% else %}
+                            <img class="logo" src="holder.js/100x100" alt="HvZ @ RIT">
+                        {% endif %}
                     </a>
                 </div>
                 <div class="visible-xs visible-sm navbar-brand">
@@ -30,15 +34,31 @@
                     {{ components.nav_internal_link('spread', '#', 'Spread', selected) }}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_USER') %}
+                        {{ components.nav_internal_link('missions', path('hvz_missions'), 'Missions', selected) }}
+                    {% endif %}
                     {{ components.nav_internal_link('rules', path('hvz_rules'), 'Rules', selected) }}
                     {{ components.nav_internal_link('register-tag', path('hvz_register_tag'), 'Register Tag', selected) }}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">Register</a></li>
-                        </ul>
-                    </li>
+
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                {{ app.user.fullname | escape }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ path('hvz_profile') }}">Profile</a></li>
+                                <li><a href="{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ path('hvz_auth_login') }}">Login</a></li>
+                                <li><a href="{{ path('hvz_auth_register') }}">Register</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

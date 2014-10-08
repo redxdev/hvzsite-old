@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row visible-xs">
             <div class="col-md-12">
-                <ul id="side-nav" class="nav nav-tabs">
+                <ul class="nav nav-tabs side-nav">
                     {% for rule in rules %}
                         <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
                     {% endfor %}
@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="hidden-xs col-sm-3">
-                <ul id="side-nav" class="nav nav-pills nav-stacked" data-spy="affix">
+                <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix">
                     {% for rule in rules %}
                         <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
                     {% endfor %}

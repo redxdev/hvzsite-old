@@ -1,18 +1,48 @@
-{# src/Hvz/GameBundle/Resources/views/Game/missions.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle::base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block content %}
-	{{ parent() }}
+{% block title %}
+    Missions | {{ parent() }}
+{% endblock %}
 
-	{% for mission in missions %}
-		<div class="card">
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal">
-				<h1 class="header large-header">{{ mission.title }}</h1>
-				<div>
-					{{ mission.body | raw }}
-				</div>
-			</div>
-		</div>
-	{% endfor %}
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'missions') }}
+
+    <div class="container">
+        <div class="row visible-xs">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-stacked side-nav">
+                    {% for mission in missions %}
+                        <li><a href="#mission-{{ loop.index }}">{{ mission.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="hidden-xs col-sm-3">
+                <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix">
+                    {% for mission in missions %}
+                        <li><a href="#mission-{{ loop.index }}">{{ mission.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                {% for mission in missions %}
+                    <section>
+                        <a id="mission-{{ loop.index }}" class="offset"></a>
+                        <h2>{{ mission.title }}</h2>
+                        <div>
+                            {{ mission.body | raw }}
+                        </div>
+                    </section>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

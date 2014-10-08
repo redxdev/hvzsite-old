@@ -34,7 +34,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "Access to your google account was denied. Try registering again!"
@@ -54,7 +53,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "Invalid authentication token. Please try again."
@@ -74,7 +72,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "You are already registered! Please use the login link instead."
@@ -90,9 +87,7 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
-						'navigation' => $this->get('hvz.navigation')->generate(""),
 						"type" => "error",
 						"body" => "You must use your Google RIT account."
 					)
@@ -125,7 +120,6 @@ class AuthController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle::message.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
 					"type" => "success",
 					"body" => "You have successfully registered! Your account must be activated by an administrator or moderator before you can log in."
@@ -150,7 +144,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "Access to your google account was denied. Try logging in again!"
@@ -170,7 +163,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "Invalid authentication token. Please try again."
@@ -192,7 +184,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "Unknown user. Have you registered?"
@@ -242,7 +233,6 @@ class AuthController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle::message.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					"message" => array(
 						"type" => "error",
 						"body" => "Invalid CSRF token: Try logging out again."
@@ -269,7 +259,6 @@ class AuthController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle::message.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
 					"type" => "error",
 					"body" => "<strong>Error 403</strong> Access denied. Do you have permission to view that page?"
@@ -285,7 +274,6 @@ class AuthController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle::message.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				"message" => array(
 					"type" => "error",
 					"body" => "Your account hasn't been activated. Please contact an administrator or moderator."

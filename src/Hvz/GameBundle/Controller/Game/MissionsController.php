@@ -53,7 +53,6 @@ class MissionsController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Game:missions.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate("missions"),
 				"missions" => $missions
 			)
 		);

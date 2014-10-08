@@ -20,7 +20,6 @@ class RegisterTagController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Game:register_tag.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate("register-tag")
 				)
 			);
 
@@ -51,7 +50,6 @@ class RegisterTagController extends Controller
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
-						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 						"errors" => array("You have submitted invalid tags too many times. You must wait ~" . (120 - $timeDiff->i) . " minutes before trying again."),
 						"victim" => $victim,
 						"zombie" => $zombie
@@ -68,7 +66,6 @@ class RegisterTagController extends Controller
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
-						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 						"errors" => array("Invalid CSRF token: Try resubmitting the form."),
 						"victim" => $victim,
 						"zombie" => $zombie
@@ -87,7 +84,6 @@ class RegisterTagController extends Controller
 					$content = $this->renderView(
 						'HvzGameBundle:Game:register_tag.html.twig',
 						array(
-							'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 							"errors" => array("There is no game currently running!"),
 							"victim" => $victim,
 							"zombie" => $zombie
@@ -117,7 +113,6 @@ class RegisterTagController extends Controller
 						$content = $this->renderView(
 							'HvzGameBundle:Game:register_tag.html.twig',
 							array(
-								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 								"errors" => array("This AV has already been used."),
 								"victim" => $victim,
 								"zombie" => $zombie
@@ -132,7 +127,6 @@ class RegisterTagController extends Controller
 						$content = $this->renderView(
 							'HvzGameBundle:Game:register_tag.html.twig',
 							array(
-								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 								"errors" => array("Correct AV code, but invalid zombie"),
 								"victim" => $victim,
 								"zombie" => $zombie
@@ -147,7 +141,6 @@ class RegisterTagController extends Controller
 						$content = $this->renderView(
 							'HvzGameBundle:Game:register_tag.html.twig',
 							array(
-								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 								"errors" => array("You can't use an AV code on a human!"),
 								"victim" => $victim,
 								"zombie" => $zombie
@@ -165,7 +158,6 @@ class RegisterTagController extends Controller
 						$content = $this->renderView(
 							'HvzGameBundle:Game:register_tag.html.twig',
 							array(
-								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 								"errors" => array("AVs must be used before 5PM or after 11PM"),
 								"victim" => $victim,
 								"zombie" => $zombie
@@ -180,7 +172,6 @@ class RegisterTagController extends Controller
 						$content = $this->renderView(
 							'HvzGameBundle:Game:register_tag.html.twig',
 							array(
-								'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 								"errors" => array("AVs cannot be used after 2AM on Friday"),
 								"victim" => $victim,
 								"zombie" => $zombie
@@ -243,7 +234,6 @@ class RegisterTagController extends Controller
 				$content = $this->renderView(
 					'HvzGameBundle:Game:register_tag.html.twig',
 					array(
-						'navigation' => $this->get('hvz.navigation')->generate("register-tag"),
 						"errors" => $errors,
 						"victim" => $victim,
 						"zombie" => $zombie
