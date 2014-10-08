@@ -18,7 +18,10 @@
         <div class="row">
             <div class="col-md-5 col-sm-4">
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-1 col-md-offset-2">
+                        Sort:
+                    </div>
+                    <div class="col-md-6">
                         <ul class="nav nav-pills">
                             <li{% if not sort %} class="active"{% endif %}><a href="{{ path('hvz_players') }}">Team</a></li>
                             <li{% if sort == 'clan' %} class="active"{% endif %}><a href="{{ path('hvz_players', {'sort': 'clan'}) }}">Clan</a></li>
