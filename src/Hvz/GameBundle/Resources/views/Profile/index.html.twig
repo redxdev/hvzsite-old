@@ -35,8 +35,8 @@
             </div>
             <div class="col-sm-4">
                 <h3 class="hidden-xs">&nbsp;</h3>
-                <p><strong>Player ID:</strong> {{ profile.player_id }} <small>(use as a zombie)</small></p>
-                <p><strong>ID Tags:</strong> <small>(give to zombies as a human)</small></p>
+                <p><strong>Player ID:</strong> {{ profile.player_id }} <small class="text-muted">(use as a zombie)</small></p>
+                <p><strong>ID Tags:</strong> <small class="text-muted">(give to zombies as a human)</small></p>
                 <ul>
                     {% for id in profile.id_tags %}
                         <li>
@@ -59,4 +59,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
 {% endblock %}

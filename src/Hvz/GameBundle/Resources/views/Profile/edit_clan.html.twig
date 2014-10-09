@@ -1,44 +1,32 @@
-{# src/Hvz/GameBundle/Resources/views/Profile/edit_clan.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle::base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block components %}
-	{{ parent() }}
-
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-input/paper-input.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
+{% block title %}
+    Change Clan | {{ parent() }}
 {% endblock %}
 
-{% block content %}
-	{{ parent() }}
-
-	<div class="card" flex>
-		<paper-shadow z="1"></paper-shadow>
-		<div class="card-internal" vertical layout center>
-			<paper-input id="clan" floatingLabel label="Clan" value="{{ profile.clan }}"></paper-input>
-			<paper-button id="submit_clan" label="Submit" raisedButton></paper-button>
-			<form id="clan_form" method="post" action="{{ path('hvz_profile_submit_clan') }}">
-				<input type="hidden" name="_token" value="{{ csrf_token('hvz_edit_clan') }}">
-				<input type="hidden" id="clan_hidden" name="clan">
-			</form>
-		</div>
-	</div>
+{% block body_def %}
+    class="navbar-offset"
 {% endblock %}
 
-{% block body_javascripts %}
-	{{ parent() }}
+{% block body %}
+    {{ parent() }}
 
-	<script>
-		$(function() {
-			$('#submit_clan').click(function() {
-				var clan = $("#clan").val();
-				if(clan) {
-					$('#clan_hidden').val(clan);
-				}
-				else {
-					$('#clan_hidden').val('null');
-				}
-				$('#clan_form').submit();
-			});
-		});
-	</script>
+    {{ components.navbar('fixed-top', 'user', 'profile') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+
+        <div class="col-sm-4 col-sm-offset-4">
+            <form method="post" action="{{ path('hvz_profile_submit_clan') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('hvz_edit_clan') }}">
+                <div class="form-group">
+                    <label for="clan">Clan</label>
+                    <input type="text" class="form-control" id="clan" name="clan" placeholder="clan"
+                            {% if profile.clan %}value="{{ profile.clan }}"{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-default">Save</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

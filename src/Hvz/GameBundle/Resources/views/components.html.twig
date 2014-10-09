@@ -59,6 +59,22 @@
                             </ul>
                         </li>
                     {% endif %}
+
+                    {% if is_granted('ROLE_MOD') %}
+                        <li class="dropdown{% if selected == 'admin' %} active{% endif %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                {{ components.nav_internal_link('games', path('hvz_admin_games'), 'Games', selected2) }}
+                                {{ components.nav_internal_link('users', path('hvz_admin_users'), 'Users', selected2) }}
+                                {{ components.nav_internal_link('profiles', path('hvz_admin_profiles'), 'Profiles', selected2) }}
+                                {{ components.nav_internal_link('missions', path('hvz_admin_missions'), 'Missions', selected2) }}
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ components.nav_internal_link('rules', path('hvz_admin_rules'), 'Rules', selected2) }}
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

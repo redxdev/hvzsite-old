@@ -53,7 +53,7 @@ class ProfileController extends Controller
 		{
 			$infections[] = array(
 				"victim" => $infection->getVictim()->getUser()->getFullname(),
-				"time" => $infection->getTime()->format("l h:i:s A")
+				"time" => $infection->getTime()
 			);
 		}
 
@@ -108,8 +108,8 @@ class ProfileController extends Controller
 		if($newClan == null)
 		{
 			$content = $this->renderView(
+                'HvzGameBundle:Profile:edit_clan.html.twig',
 				array (
-					"navigation" => $this->get('hvz.navigation')->generate("profile"),
 					"profile" => array(
 						"clan" => $profile->getClan()
 					)
