@@ -19,6 +19,8 @@
         {% stylesheets
             'bundles/hvzgame/bower_components/bootstrap/dist/css/bootstrap.css'
             'bundles/hvzgame/bower_components/bootswatch/cosmo/bootstrap.css'
+            'bundles/hvzgame/bower_components/snackbarjs/dist/snackbar.min.css'
+            'bundles/hvzgame/bower_components/snackbarjs/themes-css/material.css'
             'bundles/hvzgame/css/app.css'
             filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}">
@@ -52,10 +54,28 @@
         {% javascripts
             'bundles/hvzgame/bower_components/jquery/dist/jquery.min.js'
             'bundles/hvzgame/bower_components/bootstrap/dist/js/bootstrap.min.js'
+            'bundles/hvzgame/bower_components/snackbarjs/dist/snackbar.min.js'
             'bundles/hvzgame/bower_components/holderjs/holder.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
+
+        {% block snackbars %}
+            {% set toasts = app.session.flashbag.get('page.toast') %}
+            {% if toasts and toasts|length > 0 %}
+                <script type="text/javascript">
+                    $(function() {
+                        {% for toast in toasts %}
+                            $.snackbar({
+                                content: "{{ toast | e('js') }}",
+                                style: "snackbar",
+                                timeout: 4000
+                            });
+                        {% endfor %}
+                    });
+                </script>
+            {% endif %}
+        {% endblock %}
 	{% endblock %}
 </body>
 </html>
