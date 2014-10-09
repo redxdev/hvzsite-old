@@ -60,7 +60,6 @@ class ProfileController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Profile:index.html.twig',
 			array(
-				"navigation" => $this->get('hvz.navigation')->generate("profile"),
 				"profile" => array(
 					"team" => $profile->getTeam() == User::TEAM_HUMAN ? 'human' : 'zombie',
 					"tags" => $profile->getNumberTagged(),
@@ -109,7 +108,6 @@ class ProfileController extends Controller
 		if($newClan == null)
 		{
 			$content = $this->renderView(
-				"HvzGameBundle:Profile:edit_clan.html.twig",
 				array (
 					"navigation" => $this->get('hvz.navigation')->generate("profile"),
 					"profile" => array(

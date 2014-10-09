@@ -40,32 +40,3 @@
         {% endif %}
     </div>
 {% endblock %}
-
-{% block content %}
-	{{ parent() }}
-
-	{% for tag in tags if tag.zombie != null %}
-		<div class="card">
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal" vertical layout center center-justified>
-				<p><strong>{{ tag.victim }}</strong> was tagged by <strong>{{ tag.zombie }}</strong> on <em>{{ tag.time }}</em></p>
-			</div>
-		</div>
-	{% endfor %}
-
-	{% if previous_page is defined or next_page is defined %}
-		<div horizontal layout center center-justified>
-			<div class="card">
-				<paper-shadow z="1"></paper-shadow>
-				<div class="card-internal" horizontal layout center wrap center-justified>
-					{% if previous_page is defined and previous_page != -1 %}
-						<a href="{{ path('hvz_tags', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
-					{% endif %}
-					{% if next_page is defined and next_page != -1 %}
-						<a href="{{ path('hvz_tags', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	{% endif %}
-{% endblock %}

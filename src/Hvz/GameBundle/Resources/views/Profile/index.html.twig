@@ -1,79 +1,62 @@
-{# src/Hvz/GameBundle/Resources/views/Admin/games.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle::base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block components %}
-	{{ parent() }}
-
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-tooltip/core-tooltip.html') }}">
+{% block title %}
+    Your Profile | {{ parent() }}
 {% endblock %}
 
-{% block toolbar %}
-	Your Profile
+{% block body_def %}
+    class="navbar-offset"
 {% endblock %}
 
-{% block content %}
-	{{ parent() }}
+{% block body %}
+    {{ parent() }}
 
-	<div horizontal layout wrap>
-		<div class="card card-section card-{{ profile.team }}" vertical layout flex>
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal">
-				<div>
-					<h3 class="header" style="color: black;">{{ app.user.fullname }}</h3>
-					<p><strong>Email:</strong> {{ app.user.email }}</p>
-					<p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
-					<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
-					<p><a href="{{ path('hvz_profile_edit_clan') }}"><paper-button label="Edit Clan"></paper-button></a></p>
-				</div>
-				<div horizontal layout>
-					{% for badge in profile.badges %}
-						<core-tooltip class="badge">
-							<div>
-								<img src="{{ asset('bundles/hvzgame/images/badges/' ~ badge.image) }}"
-									alt="{{ badge.name }} badge">
-							</div>
-							<div tip>
-								<p>{{ badge.name }}</p>
-								<p>{{ badge.description }}</p>
-							</div>
-						</core-tooltip>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-		<div class="card card-section card-heading" vertical layout flex>
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal">
-				<p><strong>Player ID:</strong> {{ profile.player_id }}  <small>(use as a zombie)</small></p>
-				<p><strong>ID Tags:</strong> <small>(give to zombies as a human)</small></p>
-				<ul>
-					{% for id in profile.id_tags %}
-						<li>{% if id.active == false %}<strike>{% endif %}{{ id.tag }}{% if id.active == false %}</strike>{% endif %}</li>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</div>
+    {{ components.navbar('fixed-top', 'user', 'profile') }}
 
-	{% if profile.team == 'zombie' %}
-		<div horizontal layout wrap>
-			<div class="card card-section card-timer player-count" vertical layout center center-justified flex>
-				<paper-shadow z="1"></paper-shadow>
-				<div class="card-internal">
-					<h1>{{ profile.tags }}</h1>
-					<h3>Tags</h3>
-				</div>
-			</div>
-			<div class="card card-section" vertical layout center center-justified flex>
-				<paper-shadow z="1"></paper-shadow>
-				<div class="card-internal">
-					<h1 class="header">My Tags</h1>
-					{% for tag in profile.infections %}
-						<p><strong>{{ tag.victim }}</strong> on {{ tag.time }}</p>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	{% endif %}
+    <div class="container">
+        <div class="vertical-space"></div>
+
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 bg-{{ proflie.team }}">
+                <h3>{{ app.user.fullname }}</h3>
+                <p><strong>Email:</strong> {{ app.user.email }}</p>
+                <p><strong>Team:</strong> {{ profile.team | default('nonea') }}</p>
+                <p>
+                    <strong>Clan:</strong> {{ profile.clan | default('none') }}
+                    <a href="{{ path('hvz_profile_edit_clan') }}" class="btn btn-primary btn-sm">Edit</a>
+                </p>
+                {% for badge in profile.badges %}
+                    <img data-toggle="tooltip" data-placement="top" data-html="true"
+                         title="<p><strong>{{ badge.name }}</strong></p><p>{{ badge.description }}</p>"
+                         src="{{ asset('bundles/hvzgame/images/badges/' ~ badge.image) }}"
+                         alt="{{ badge.name }} badge">
+                {% endfor %}
+            </div>
+            <div class="col-sm-4">
+                <h3 class="hidden-xs">&nbsp;</h3>
+                <p><strong>Player ID:</strong> {{ profile.player_id }} <small>(use as a zombie)</small></p>
+                <p><strong>ID Tags:</strong> <small>(give to zombies as a human)</small></p>
+                <ul>
+                    {% for id in profile.id_tags %}
+                        <li>
+                            {% if id.active == false %}
+                                <s>{{ id.tag }}</s>
+                            {% else %}
+                                {{ id.tag }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 text-center">
+                <h1 class="header-text">{{ profile.tags }} Tag{% if profile.tags > 1 %}s{% endif %}</h1>
+                {% for tag in profile.infections %}
+                    <p><strong>{{ tag.victim }}</strong> <em>{{ time_diff(tag.time) }}</em></p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
