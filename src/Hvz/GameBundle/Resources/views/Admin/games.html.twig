@@ -1,80 +1,81 @@
-{# src/Hvz/GameBundle/Resources/views/Admin/games.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle:Admin:base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block components %}
-	{{ parent() }}
-
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/core-icon-button/core-icon-button.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog-transition.html') }}">
+{% block title %}
+    Games | {{ parent() }}
 {% endblock %}
 
-{% block toolbar %}
-	<span flex>Administration: Games</span>
-	<a href="{{ path('hvz_admin_game_create') }}"><core-icon-button icon="add"></core-icon-button></a>
+{% block body_def %}
+    class="navbar-offset"
 {% endblock %}
 
-{% block content %}
-	{{ parent() }}
+{% block body %}
+    {{ parent() }}
 
-	{% for game in games %}
-		<div class="card">
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal" horizontal layout justified wrap>
-				<div class="card-section" flex>
-					<p><strong>Start:</strong> {{ game.startDate }}</p>
-					<p><strong>End:</strong> {{ game.endDate }}</p>
-				</div>
-				<div class="card-section" flex>
-					<p><strong>Humans:</strong> {{ game.humans }}</p>
-					<p><strong>Zombies:</strong> {{ game.zombies }}</p>
-				</div>
-				<div class="card-section" flex>
-					<p><strong>AV Tags</strong></p>
-					<ul id="game-{{ game.id  }}-av" style="display: none;">
-						{% for av in game.av_codes %}
-							<li>{% if not av.active %}<strike>{% endif %}{{ av.id }}{% if not av.active %}</strike>{% endif %}</li>
-						{% endfor %}
-					</ul>
-					<a href="javascript:void($('#game-{{ game.id }}-av').toggle())"><paper-button label="Show/Hide" onclick=""></paper-button></a>
-					<a href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id, 'token': csrf_token('hvz_antivirus_generate') }) }}"><paper-button label="Generate AV"></paper-button></a>
-				</div>
-				<div class="card-section" vertical layout flex>
-					<a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}"><paper-button label="Profiles" raisedButton></paper-button></a>
-					<a href="{{ path('hvz_admin_missions_by_game', {'game': game.id}) }}"><paper-button label="Missions" raisedButton></paper-button></a>
-					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'today': 1}) }}"><paper-button label="Print IDs" raisedButton></paper-button></a>
-				</div>
-				<div class="card-section" vertical layout flex>
-					<a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-					<a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id, 'token': csrf_token('hvz_game_delete')}) }}')">
-						<paper-button label="Delete" raisedButton></paper-button>
-					</a>
-					<a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'preview': 1, 'today': 1}) }}"><paper-button label="Preview IDs" raisedButton></paper-button></a>				</div>
-			</div>
-		</div>
-	{% endfor %}
+    {{ components.navbar('fixed-top', 'admin', 'games') }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-4">
+                <a class="btn btn-primary" href="{{ path('hvz_admin_game_create') }}">New Game</a>
+            </div>
+        </div>
+
+        <div class="vertical-space"></div>
+
+        {% for game in games %}
+            <div class="row well">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p><strong>Start:</strong> {{ game.startDate }}</p>
+                            <p><strong>End:</strong> {{ game.endDate }}</p>
+                            <p><strong>Humans:</strong> {{ game.humans }}</p>
+                            <p><strong>Zombies:</strong> {{ game.zombies }}</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p><strong>AV Tags</strong></p>
+                            <ul id="game-{{ game.id }}-av" style="display: none;">
+                                {% for av in game.av_codes %}
+                                    <li>
+                                        {% if not av.active %}
+                                            <s>{{ av.id }}</s>
+                                        {% else %}
+                                            {{ av.id }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                <a class="btn btn-default" href="javascript:void($('#game-{{ game.id }}-av').toggle())">Show/Hide</a>
+                                <a class="btn btn-primary" href="{{ path('hvz_admin_game_add_antivirus', {'id': game.id, 'token': csrf_token('hvz_antivirus_generate')}) }}">Generate AV</a>
+                            </p>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="{{ path('hvz_admin_profiles_by_game', {'game': game.id}) }}">Profiles</a></li>
+                                <li><a href="{{ path('hvz_admin_missions_by_game', {'game': game.id}) }}">Missions</a></li>
+                                <li><a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'today': 1}) }}">Print IDs</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="{{ path('hvz_admin_game_edit', {'id': game.id}) }}">Edit</a></li>
+                                <li><a href="#" onclick="showDeleteDialog('{{ game.startDate }}', '{{ path('hvz_admin_game_delete', {'id': game.id, 'token': csrf_token('hvz_game_delete')}) }}')">Delete</a></li>
+                                <li><a href="{{ path('hvz_admin_profiles_print', {'game': game.id, 'preview': 1, 'today': 1}) }}">Preview IDs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block body_javascripts %}
-	<paper-dialog id="delete-dialog" heading="Delete" transition="paper-dialog-transition-center">
-		<p>Are you sure you want to delete the game <span id="delete-id">ERROR</span></p>
+    {{ components.delete_dialog('Are you sure you want to delete the game') }}
 
-		<paper-button label="Cancel" affirmative></paper-button>
-		<paper-button id="delete-button" label="Delete" affirmative autofocus></paper-button>
-	</paper-dialog>
+    {{ parent() }}
 
-	{{ parent() }}
-
-	<script>
-		function showDeleteDialog(game, path) {
-			$("#delete-id").html(game);
-			$("#delete-button").click(function() {
-				window.location = path;
-			});
-
-			var dialog = document.querySelector('#delete-dialog');
-			dialog.toggle();
-		}
-	</script>
+    {{ components.delete_dialog_script() }}
 {% endblock %}

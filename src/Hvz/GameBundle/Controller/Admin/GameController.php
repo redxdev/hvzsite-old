@@ -66,7 +66,6 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:games.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'games' => $games
 			)
 		);
@@ -119,7 +118,6 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:edit_game.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'form' => $form->createView()
 			)
 		);
@@ -181,7 +179,6 @@ class GameController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:edit_game.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'form' => $form->createView()
 			)
 		);
