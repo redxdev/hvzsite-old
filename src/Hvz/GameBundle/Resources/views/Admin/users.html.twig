@@ -1,106 +1,95 @@
-{# src/Hvz/GameBundle/Resources/views/Admin/users.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle:Admin:base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block components %}
-	{{ parent() }}
-
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog-transition.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-input/paper-input.html') }}">
+{% block title %}
+    Users | {{ parent() }}
 {% endblock %}
 
-{% block toolbar %}
-	Administration: Users
+{% block body_def %}
+    class="navbar-offset"
 {% endblock %}
 
-{% block content %}
-	{{ parent() }}
+{% block body %}
+    {{ parent() }}
 
-	<div horizontal layout center center-justified>
-		<div class="card">
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-internal">
-				<form id="search_form" action="{{ path('hvz_admin_users_search') }}" method="get">
-					<input type="hidden" id="search_term_hidden" name="term">
-				</form>
+    {{ components.navbar('fixed-top', 'admin', 'users') }}
 
-				<div horizontal layout center wrap center-justified>
-					<paper-input label="Search" id="search_term"></paper-input>
-					<div>
-						<paper-button label="Search" onclick="search()"></paper-button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-4">
+                <form role="search" action="{{ path('hvz_admin_users_search') }}" method="get">
+                    <div class="input-group">
+                        <input name="term" type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="vertical-space"></div>
 
-	{% for user in users %}
-		<div class="card" horizontal layout justified wrap>
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-section" flex>
-				<p><strong>Name:</strong> {{ user.fullname }}</p>
-				<p><strong>Email:</strong> {{ user.email }}</p>
-			</div>
-			<div class="card-section" flex>
-				<p><strong>Access:</strong> {{ user.access }}</p>
-			</div>
-			<div class="card-section" vertical layout flex>
-				<a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}">
-					<paper-button label="{{ user.profiles }} Profile{% if user.profiles != 1 %}s{% endif%}"></paper-button>
-				</a>
-				<a href="{{ path('hvz_admin_profile_generate', {'id': user.id, 'token': csrf_token('hvz_profile_generate')}) }}"><paper-button label="Generate Profile"></a>
-			</div>
-			<div class="card-section" vertical layout flex>
-				<a href="{{ path('hvz_admin_user_edit', {'id': user.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="#" onclick="showDeleteDialog('{{ user.fullname | e('js') }}', '{{ path('hvz_admin_user_delete', {'id': user.id, 'token': csrf_token('hvz_user_delete')}) }}')">
-					<paper-button label="Delete" raisedButton></paper-button>
-				</a>
-			</div>
-		</div>
-	{% endfor %}
+        {% for user in users %}
+            <div class="row well">
+                <div class="col-sm-4">
+                    <p><strong>Name:</strong> {{ user.fullname }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Access:</strong> {{ user.access }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>
+                            <a href="{{ path('hvz_admin_profiles_by_user', {'user': user.id}) }}">
+                                {{ user.profiles }} Profile{% if user.profiles != 1 %}s{% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('hvz_admin_profile_generate', {'id': user.id, 'token': csrf_token('hvz_profile_generate')}) }}">
+                                Generate Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="nav nav-stacked nav-pills">
+                        <li>
+                            <a href="{{ path('hvz_admin_user_edit', {'id': user.id}) }}">
+                                Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showDeleteDialog('{{ user.fullname | e('js') }}', '{{ path('hvz_admin_user_delete', {'id': user.id, 'token': csrf_token('hvz_user_delete')}) }}')">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
 
-	{% if previous_page is defined or next_page is defined %}
-		<div horizontal layout center center-justified>
-			<div class="card">
-				<paper-shadow z="1"></paper-shadow>
-				<div class="card-internal" horizontal layout center wrap center-justified>
-					{% if previous_page is defined and previous_page != -1 %}
-						<a href="{{ path('hvz_admin_users', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
-					{% endif %}
-					{% if next_page is defined and next_page != -1 %}
-						<a href="{{ path('hvz_admin_users', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	{% endif %}
+        {% if previous_page is defined or next_page is defined %}
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <ul class="pager">
+                        {% if previous_page is defined and previous_page != -1 %}
+                            <li><a href="{{ path('hvz_admin_users', {'page': previous_page}) }}">&larr; Previous</a></li>
+                        {% endif %}
+                        {% if next_page is defined and next_page != -1%}
+                            <li><a href="{{ path('hvz_admin_users', {'page': next_page}) }}">Next &rarr;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block body_javascripts %}
-	<paper-dialog id="delete-dialog" heading="Delete" transition="paper-dialog-transition-center">
-		<p>Are you sure you want to delete the user <span id="delete-id">ERROR</span></p>
-
-		<paper-button label="Cancel" affirmative></paper-button>
-		<paper-button id="delete-button" label="Delete" affirmative autofocus></paper-button>
-	</paper-dialog>
+	{{ components.delete_dialog('Are you sure you want to delete the user') }}
 
 	{{ parent() }}
 
-	<script>
-		function showDeleteDialog(user, path) {
-			$("#delete-id").html(user);
-			$("#delete-button").click(function() {
-				window.location = path;
-			});
-
-			var dialog = document.querySelector('#delete-dialog');
-			dialog.toggle();
-		}
-
-		function search() {
-			$("#search_term_hidden").val($("#search_term").val());
-			$("#search_form").submit();
-		}
-	</script>
+    {{ components.delete_dialog_script() }}
 {% endblock %}

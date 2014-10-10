@@ -47,7 +47,6 @@ class UserController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:users.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'users' => $users,
 				'previous_page' => $page <= 0 ? -1 : $page - 1,
 				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
@@ -89,7 +88,6 @@ class UserController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:users.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'users' => $users
 			)
 		);
@@ -152,7 +150,6 @@ class UserController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:edit_user.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'form' => $form->createView()
 			)
 		);
