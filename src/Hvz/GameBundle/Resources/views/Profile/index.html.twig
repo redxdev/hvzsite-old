@@ -52,7 +52,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4 text-center">
-                <h1 class="header-text">{{ profile.tags }} Tag{% if profile.tags > 1 %}s{% endif %}</h1>
+                <h1 class="header-text">{{ profile.tags }} Tag{% if profile.tags != 1 %}s{% endif %}</h1>
                 {% for tag in profile.infections %}
                     <p><strong>{{ tag.victim }}</strong> <em>{{ time_diff(tag.time) }}</em></p>
                 {% endfor %}
