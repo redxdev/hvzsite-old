@@ -1,82 +1,77 @@
-{# src/Hvz/GameBundle/Resources/views/Admin/profiles.html.twig #}
-{% extends 'HvzGameBundle::page.html.twig' %}
+{% extends 'HvzGameBundle::base.html.twig' %}
+{% import 'HvzGameBundle::components.html.twig' as components %}
 
-{% block components %}
-	{{ parent() }}
-
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-button/paper-button.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog.html') }}">
-	<link rel="import" href="{{ asset('bundles/hvzgame/bower_components/paper-dialog/paper-dialog-transition.html') }}">
+{% block title %}
+    Profiles | {{ parent() }}
 {% endblock %}
 
-{% block toolbar %}
-	Administration: Profiles
+{% block body_def %}
+    class="navbar-offset"
 {% endblock %}
 
-{% block content %}
-	{{ parent() }}
+{% block body %}
+    {{ parent() }}
 
-	{% for profile in profiles %}
-		<div class="card card-{{ profile.team }}" horizontal layout justified wrap>
-			<paper-shadow z="1"></paper-shadow>
-			<div class="card-section" flex>
-				<p><strong>User:</strong> {{ profile.user }}</p>
-				<p><strong>Active:</strong> {{ profile.active }}</p>
-			</div>
-			<div class="card-section" flex>
-				<p><strong>Game:</strong> {{ profile.game }}</p>
-				<p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
-			</div>
-			<div class="card-section" flex>
-				<p><strong># Tagged:</strong> {{ profile.numberTagged }}</p>
-				<p><strong>Team:</strong> {{ profile.team }}</p>
-			</div>
-			<div class="card-section" vertical layout flex>
-				<a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}"><paper-button label="View" raisedButton></paper-button></a>
-				<a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}"><paper-button label="Edit" raisedButton></paper-button></a>
-				<a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id, 'token': csrf_token('hvz_profile_delete')}) }}')">
-					<paper-button label="Delete" raisedButton></paper-button>
-				</a>
-			</div>
-		</div>
-	{% endfor %}
+    {{ components.navbar('fixed-top', 'admin', 'users') }}
 
-	{% if previous_page is defined or next_page is defined %}
-		<div horizontal layout center center-justified>
-			<div class="card">
-				<paper-shadow z="1"></paper-shadow>
-				<div class="card-internal" horizontal layout center wrap center-justified>
-					{% if previous_page is defined and previous_page != -1 %}
-						<a href="{{ path('hvz_admin_profiles', {'page': previous_page}) }}"><paper-button label="<<"></paper-button></a>
-					{% endif %}
-					{% if next_page is defined and next_page != -1 %}
-						<a href="{{ path('hvz_admin_profiles', {'page': next_page}) }}"><paper-button label=">>"></paper-button></a>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	{% endif %}
+    <div class="container">
+        <div class="vertical-space"></div>
+
+        {% for profile in profiles %}
+            <div class="row well {% if player.team == 'human' %}bg-human{% else %}bg-zombie{% endif %}">
+                <div class="col-sm-4">
+                    <p><strong>User:</strong> {{ profile.user }}</p>
+                    <p><strong>Active:</strong> {{ profile.active }}</p>
+                    <p><strong>Game:</strong> {{ profile.game }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p><strong>Team:</strong> {{ profile.team }}</p>
+                    <p><strong># Tagged:</strong> {{ profile.numberTagged }}</p>
+                    <p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>
+                            <a href="{{ path('hvz_admin_profile_view', {'id': profile.id}) }}">
+                                View
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('hvz_admin_profile_edit', {'id': profile.id}) }}">
+                                Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showDeleteDialog('{{ profile.user | e('js') }}', '{{ path('hvz_admin_profile_delete', {'id': profile.id, 'token': csrf_token('hvz_profile_delete')}) }}')">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if previous_page is defined or next_page is defined %}
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <ul class="pager">
+                        {% if previous_page is defined and previous_page != -1 %}
+                            <li><a href="{{ path('hvz_admin_profiles', {'page': previous_page}) }}">&larr; Previous</a></li>
+                        {% endif %}
+                        {% if next_page is defined and next_page != -1%}
+                            <li><a href="{{ path('hvz_admin_profiles', {'page': next_page}) }}">Next &rarr;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block body_javascripts %}
-	<paper-dialog id="delete-dialog" heading="Delete" transition="paper-dialog-transition-center">
-		<p>Are you sure you want to delete the profile for <span id="delete-id">ERROR</span></p>
+	{{ components.delete_dialog('Are you sure you want to delete the profile for') }}
 
-		<paper-button label="Cancel" affirmative></paper-button>
-		<paper-button id="delete-button" label="Delete" affirmative autofocus></paper-button>
-	</paper-dialog>
+    {{ parent() }}
 
-	{{ parent() }}
-
-	<script>
-		function showDeleteDialog(profile, path) {
-			$("#delete-id").html(profile);
-			$("#delete-button").click(function() {
-				window.location = path;
-			});
-
-			var dialog = document.querySelector('#delete-dialog');
-			dialog.toggle();
-		}
-	</script>
+    {{ components.delete_dialog_script() }}
 {% endblock %}

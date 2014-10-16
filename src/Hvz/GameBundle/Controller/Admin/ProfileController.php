@@ -66,7 +66,6 @@ class ProfileController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:profiles.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'profiles' => $profiles,
 				'previous_page' => $page <= 0 ? -1 : $page - 1,
 				'next_page' => $page >= ($count / 10 - 1) ? -1 : $page + 1
@@ -254,7 +253,6 @@ class ProfileController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:view_profile.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'profile' => array(
 					'id' => $profile->getId(),
 					'user' => $profile->getUser()->getFullname(),
@@ -364,7 +362,6 @@ class ProfileController extends Controller
 			$content = $this->renderView(
 				'HvzGameBundle:Admin:give_badge.html.twig',
 				array(
-					'navigation' => $this->get('hvz.navigation')->generate(""),
 					'profile' => array(
 						'id' => $id,
 						'user' => $profile->getUser()->getFullname()
@@ -478,7 +475,6 @@ class ProfileController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:edit_profile.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'form' => $form->createView(),
 				'profile' => array(
 					'user' => $profile->getUser()->getFullname()
@@ -513,7 +509,6 @@ class ProfileController extends Controller
 		$content = $this->renderView(
 			'HvzGameBundle:Admin:edit_avatar.html.twig',
 			array(
-				'navigation' => $this->get('hvz.navigation')->generate(""),
 				'profile' => array(
 					'user' => $profile->getUser()->getFullname(),
 					'id' => $id
