@@ -20,6 +20,12 @@
             <div id="tag-list" class="col-md-12 text-center">
                 {% for tag in tags if tag.zombie != null %}
                     <p><strong>{{ tag.victim }}</strong> was tagged by <strong>{{ tag.zombie }}</strong> <em>{{ time_diff(tag.time) }}</em></p>
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>There were no tags found</h1>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
