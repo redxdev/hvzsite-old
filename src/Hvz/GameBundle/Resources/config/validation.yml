@@ -1,5 +1,0 @@
-Hvz\GameBundle\Entity\Profile:
-    properties:
-        avatarFile:
-            - File:
-                maxSize: 6000000
