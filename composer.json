@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "redxdev/hvzsite",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Humans vs Zombies Website",
     "autoload": {
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },

@@ -1,0 +1,5 @@
+redxdev_app:
+    resource: "@RedxdevAppBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
