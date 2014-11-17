@@ -89,6 +89,29 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     private $numberTagged;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="clan", type="string", length=255)
+     */
+    private $clan;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="badges", type="array")
+     */
+    private $badges;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar_path", length=255, nullable=true)
+     */
+    private $avatarPath;
+
+    private $avatarFile;
+
     public function __construct()
     {
         $this->roles = array("ROLE_USER");
@@ -96,6 +119,8 @@ class User implements UserInterface, EquatableInterface, \Serializable
         $this->team = User::TEAM_HUMAN;
         $this->numberTagged = 0;
         $this->signupDate = new \DateTime();
+        $this->clan = "";
+        $this->badges = array();
     }
 
     public function eraseCredentials()
@@ -381,5 +406,124 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function getHumanIds()
     {
         return $this->humanIds;
+    }
+
+    /**
+     * Set clan
+     *
+     * @param string $clan
+     * @return User
+     */
+    public function setClan($clan)
+    {
+        $this->clan = $clan;
+
+        return $this;
+    }
+
+    /**
+     * Get clan
+     *
+     * @return string 
+     */
+    public function getClan()
+    {
+        return $this->clan;
+    }
+
+    /**
+     * Set badges
+     *
+     * @param array $badges
+     * @return User
+     */
+    public function setBadges($badges)
+    {
+        $this->badges = $badges;
+
+        return $this;
+    }
+
+    /**
+     * Get badges
+     *
+     * @return array 
+     */
+    public function getBadges()
+    {
+        return $this->badges;
+    }
+
+    /**
+     * Set avatarPath
+     *
+     * @param string $avatarPath
+     * @return User
+     */
+    public function setAvatarPath($avatarPath)
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarPath
+     *
+     * @return string 
+     */
+    public function getAvatarPath()
+    {
+        return $this->avatarPath;
+    }
+
+    public function getAbsoluteAvatarPath()
+    {
+        return null === $this->avatarPath ? null : $this->getAvatarUploadRootDir() . '/' . $this->avatarPath;
+    }
+
+    public function getWebAvatarPath()
+    {
+        return null === $this->avatarPath ? null : $this->getAvatarUploadDir() . '/' . $this->avatarPath;
+    }
+
+    public function getAvatarUploadRootDir()
+    {
+        return __DIR__ . '/../../../../web/' . $this->getAvatarUploadDir();
+    }
+
+    public function getAvatarUploadDir()
+    {
+        return 'uploads/avatars';
+    }
+
+    public function setAvatarFile(UploadedFile $file)
+    {
+        $this->avatarFile = $file;
+    }
+
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    public function uploadAvatar()
+    {
+        if(null === $this->getAvatarFile())
+        {
+            return;
+        }
+        $filename = null;
+        while (true) {
+            $filename = uniqid('hvz_avatar', true) . '.jpg';
+            if(!file_exists($this->getAvatarUploadRootDir() . '/' . $filename))
+                break;
+        }
+        $this->getAvatarFile()->move(
+            $this->getAvatarUploadRootDir(),
+            $filename
+        );
+        $this->avatarPath = $filename;
+        $this->avatarFile = null;
     }
 }
