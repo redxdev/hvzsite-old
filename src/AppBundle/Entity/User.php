@@ -52,6 +52,23 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     private $roles;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tagId", type="string", length=8)
+     */
+    private $zombieTag;
+
+    // TODO
+    private $humanTags;
+
     public function __construct()
     {
         $roles = array("ROLE_USER");
