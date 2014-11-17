@@ -15,6 +15,10 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  */
 class User implements UserInterface, EquatableInterface, \Serializable
 {
+    const TEAM_HUMAN = 0;
+
+    const TEAM_ZOMBIE = 1;
+
     /**
      * @var integer
      *
@@ -60,18 +64,38 @@ class User implements UserInterface, EquatableInterface, \Serializable
     private $active;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="team", type="integer")
+     */
+    private $team;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="tagId", type="string", length=8)
+     * @ORM\Column(name="zombieId", type="string", length=8)
      */
-    private $zombieTag;
+    private $zombieId;
 
-    // TODO
-    private $humanTags;
+    /**
+     * @ORM\OneToMany(targetEntity="HumanId", mappedBy="user", cascade={"remove"}, orphanRemoval=true)
+     */
+    private $humanIds;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="humansTagged", type="integer")
+     */
+    private $numberTagged;
 
     public function __construct()
     {
-        $roles = array("ROLE_USER");
+        $this->roles = array("ROLE_USER");
+        $this->active = false;
+        $this->team = User::TEAM_HUMAN;
+        $this->numberTagged = 0;
+        $this->signupDate = new \DateTime();
     }
 
     public function eraseCredentials()
@@ -232,5 +256,130 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return User
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set team
+     *
+     * @param integer $team
+     * @return User
+     */
+    public function setTeam($team)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return integer 
+     */
+    public function getTeam()
+    {
+        return $this->team;
+    }
+
+    /**
+     * Set zombieId
+     *
+     * @param string $zombieId
+     * @return User
+     */
+    public function setZombieId($zombieId)
+    {
+        $this->zombieId = $zombieId;
+
+        return $this;
+    }
+
+    /**
+     * Get zombieId
+     *
+     * @return string 
+     */
+    public function getZombieId()
+    {
+        return $this->zombieId;
+    }
+
+    /**
+     * Set numberTagged
+     *
+     * @param integer $numberTagged
+     * @return User
+     */
+    public function setNumberTagged($numberTagged)
+    {
+        $this->numberTagged = $numberTagged;
+
+        return $this;
+    }
+
+    /**
+     * Get numberTagged
+     *
+     * @return integer 
+     */
+    public function getNumberTagged()
+    {
+        return $this->numberTagged;
+    }
+
+    /**
+     * Add humanIds
+     *
+     * @param \AppBundle\Entity\HumanId $humanIds
+     * @return User
+     */
+    public function addHumanId(\AppBundle\Entity\HumanId $humanIds)
+    {
+        $this->humanIds[] = $humanIds;
+
+        return $this;
+    }
+
+    /**
+     * Remove humanIds
+     *
+     * @param \AppBundle\Entity\HumanId $humanIds
+     */
+    public function removeHumanId(\AppBundle\Entity\HumanId $humanIds)
+    {
+        $this->humanIds->removeElement($humanIds);
+    }
+
+    /**
+     * Get humanIds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHumanIds()
+    {
+        return $this->humanIds;
     }
 }
