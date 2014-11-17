@@ -1,4 +1,8 @@
 security:
+    role_hierarchy:
+        ROLE_MOD: ROLE_USER
+        ROLE_ADMIN: ROLE_MOD
+
     providers:
         in_memory:
             memory: ~
