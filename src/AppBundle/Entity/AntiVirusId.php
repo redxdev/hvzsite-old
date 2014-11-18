@@ -42,6 +42,11 @@ class AntiVirusId
      */
     private $description;
 
+    public function __construct($tag)
+    {
+        $this->tag = $tag;
+        $this->active = true;
+    }
 
     /**
      * Get id
