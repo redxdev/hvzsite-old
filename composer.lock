@@ -901,17 +901,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.8",
+            "version": "v3.0.10",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "bc5e96bb4faf6bee7121085951d11b89488952f5"
+                "reference": "ca188a500a7bef815a46f19f8616f0a775e7dbf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/bc5e96bb4faf6bee7121085951d11b89488952f5",
-                "reference": "bc5e96bb4faf6bee7121085951d11b89488952f5",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/ca188a500a7bef815a46f19f8616f0a775e7dbf2",
+                "reference": "ca188a500a7bef815a46f19f8616f0a775e7dbf2",
                 "shasum": ""
             },
             "require": {
@@ -950,7 +950,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2014-11-03 21:16:34"
+            "time": "2014-11-23 18:30:35"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -1290,12 +1290,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "75d8d8f9990d41eb85127b71498958c3fe93671f"
+                "reference": "4a1a0ed6868bceb60d6a67035fb8499d8aa85e10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/75d8d8f9990d41eb85127b71498958c3fe93671f",
-                "reference": "75d8d8f9990d41eb85127b71498958c3fe93671f",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4a1a0ed6868bceb60d6a67035fb8499d8aa85e10",
+                "reference": "4a1a0ed6868bceb60d6a67035fb8499d8aa85e10",
                 "shasum": ""
             },
             "require": {
@@ -1359,7 +1359,7 @@
                 "ircmaxell/password-compat": "1.0.*",
                 "monolog/monolog": "~1.11",
                 "ocramius/proxy-manager": ">=0.3.1,<0.6-dev",
-                "propel/propel1": "1.6.*"
+                "propel/propel1": "~1.6"
             },
             "type": "library",
             "extra": {
@@ -1398,7 +1398,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-11-16 17:46:24"
+            "time": "2014-11-24 07:41:00"
         },
         {
             "name": "twig/extensions",

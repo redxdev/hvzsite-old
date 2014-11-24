@@ -66,7 +66,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * @var integer
      *
-     * @ORM\Column(name="team", type="integer")
+     * @ORM\Column(name="team", type="smallint")
      */
     private $team;
 
