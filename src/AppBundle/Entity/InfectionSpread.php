@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * InfectionSpread
  *
- * @ORM\Table()
+ * @ORM\Table(name="infection_spread")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\InfectionSpreadRepository")
  */
 class InfectionSpread

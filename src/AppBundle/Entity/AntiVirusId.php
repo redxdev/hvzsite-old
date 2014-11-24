@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AntiVirusId
  *
- * @ORM\Table()
+ * @ORM\Table(name="av_ids")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\AntiVirusIdRepository")
  */
 class AntiVirusId

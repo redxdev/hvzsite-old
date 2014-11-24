@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ActionLog
+ * ActionLogEntry
  *
- * @ORM\Table()
+ * @ORM\Table(name="action_log")
  * @ORM\Entity
  */
-class ActionLog
+class ActionLogEntry
 {
     /**
      * @var integer
