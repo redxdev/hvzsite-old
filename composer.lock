@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4178b8bbe49cf3feab2bd5af5e15b4a8",
+    "hash": "003d4d697ce644546f92deeff7d37231",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -612,6 +612,48 @@
                 "orm"
             ],
             "time": "2014-10-06 13:22:50"
+        },
+        {
+            "name": "google/apiclient",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/google/google-api-php-client.git",
+                "reference": "f985b38158efe4c55c90b90443311f792c919a59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/f985b38158efe4c55c90b90443311f792c919a59",
+                "reference": "f985b38158efe4c55c90b90443311f792c919a59",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Client library for Google APIs",
+            "homepage": "http://developers.google.com/api-client-library/php",
+            "keywords": [
+                "google"
+            ],
+            "time": "2014-11-20 10:13:43"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1290,12 +1332,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "4a1a0ed6868bceb60d6a67035fb8499d8aa85e10"
+                "reference": "75d8d8f9990d41eb85127b71498958c3fe93671f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/4a1a0ed6868bceb60d6a67035fb8499d8aa85e10",
-                "reference": "4a1a0ed6868bceb60d6a67035fb8499d8aa85e10",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/75d8d8f9990d41eb85127b71498958c3fe93671f",
+                "reference": "75d8d8f9990d41eb85127b71498958c3fe93671f",
                 "shasum": ""
             },
             "require": {
@@ -1359,7 +1401,7 @@
                 "ircmaxell/password-compat": "1.0.*",
                 "monolog/monolog": "~1.11",
                 "ocramius/proxy-manager": ">=0.3.1,<0.6-dev",
-                "propel/propel1": "~1.6"
+                "propel/propel1": "1.6.*"
             },
             "type": "library",
             "extra": {
@@ -1398,7 +1440,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-11-24 07:41:00"
+            "time": "2014-11-16 17:46:24"
         },
         {
             "name": "twig/extensions",
