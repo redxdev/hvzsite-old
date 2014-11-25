@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Rules | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'rules') }}
+
+    <div class="container">
+        <div class="row visible-xs">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs side-nav">
+                    {% for rule in rules %}
+                        <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="hidden-xs col-sm-3">
+                <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix">
+                    {% for rule in rules %}
+                        <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                {% for rule in rules %}
+                    <section>
+                        <a id="rule-{{ loop.index }}" class="offset"></a>
+                        <h2>{{ rule.title }}</h2>
+                        <div>
+                            {{ rule.body | raw }}
+                        </div>
+                    </section>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
