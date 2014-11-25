@@ -11,3 +11,7 @@ services:
     id_generator:
         class: AppBundle\Service\IdGenerator
         arguments: ["@doctrine.orm.entity_manager"]
+
+    badge_registry:
+        class: AppBundle\Service\BadgeRegistry
+        arguments: ["@doctrine.orm.entity_manager"]
