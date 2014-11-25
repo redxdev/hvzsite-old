@@ -14,7 +14,7 @@
 /vendor/
 
 # Managed by Bower
-/src/Hvz/GameBundle/Resources/public/bower_components/
+/web/assets/bower_components/
 
 # Assets and user uploads
 /web/bundles/
@@ -33,5 +33,4 @@
 
 # Other
 *.php~
-src/Hvz/GameBundle/Services/OAuthSettings.php
 deployment.sh

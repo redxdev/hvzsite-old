@@ -1,0 +1,58 @@
+.card-spacer {
+    height: 10.5em;
+}
+
+.card {
+    float: left;
+    width: 8cm;
+    height: 4.5cm;
+    background-color: #FFF;
+    border: 0.10in #00CC00 solid;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.card .info {
+    float: left;
+    font-size: 14px;
+    color: black;
+    margin-top: -5px;
+    margin-left: 0.2cm;
+    width: 3.56cm;
+    height: 2.8cm;
+    line-height: 1.2em;
+    word-wrap: break-word;
+}
+
+.card .info .name {
+    font-weight: bold;
+}
+
+.card .avatar img {
+    width: 3.7324cm;
+    height: 2.8cm;
+    max-height: 100%;
+    max-width: 100%;
+    float: left;
+    background-color: #D4D4D4;
+}
+
+.card .top {
+    width: inherit;
+    height: 3.175cm;
+}
+
+.card .bottom {
+    width: inherit;
+    text-align: center;
+    color: black;
+}
+
+.card p {
+    line-height: 1.2em;
+}
+
+.card hr {
+    margin-top: -0.4cm;
+    margin-bottom: -0.1cm;
+}

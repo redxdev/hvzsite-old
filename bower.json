@@ -1,11 +1,18 @@
 {
-  "name": "hvzsite",
-  "version": "2.0.0",
+  "name": "Humans vs Zombies @ RIT",
+  "version": "2.0",
+  "homepage": "https://github.com/redxdev/hvzsite",
+  "authors": [
+    "Sam Bloomberg <sam@redxdev.com>"
+  ],
+  "license": "MIT",
+  "private": true,
   "dependencies": {
     "jquery": "~2.1.1",
-    "bootstrap": "~3.2.0",
-    "bootswatch": "~3.2.0+4",
-    "holderjs": "~2.4.0",
-    "snackbarjs": "FezVrasta/snackbarjs"
+    "bootstrap": "~3.3.1",
+    "bootswatch": "~3.3.1+2",
+    "holderjs": "~2.4.1",
+    "snackbarjs": "~1.0.0",
+    "webcamjs": "*"
   }
 }
