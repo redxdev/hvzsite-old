@@ -24,9 +24,9 @@ class HumanId
     /**
      * @var string
      *
-     * @ORM\Column(name="tag", type="string", length=8)
+     * @ORM\Column(name="id_string", type="string", length=8)
      */
-    private $tag;
+    private $id_string;
 
     /**
      * @var boolean

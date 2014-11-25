@@ -7,3 +7,7 @@ services:
     action_log:
         class: AppBundle\Service\ActionLog
         arguments: ["@doctrine.orm.entity_manager"]
+
+    id_generator:
+        class: AppBundle\Service\IdGenerator
+        arguments: ["@doctrine.orm.entity_manager"]
