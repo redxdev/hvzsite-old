@@ -4,17 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    action_log:
-        class: AppBundle\Service\ActionLog
-        arguments: ["@doctrine.orm.entity_manager"]
-
-    id_generator:
-        class: AppBundle\Service\IdGenerator
-        arguments: ["@doctrine.orm.entity_manager"]
-
-    badge_registry:
-        class: AppBundle\Service\BadgeRegistry
-        arguments: ["@doctrine.orm.entity_manager"]
 
     google_oauth.client:
         class: AppBundle\Service\GoogleOAuthClient
@@ -22,4 +11,15 @@ services:
 
     google_oauth.provider:
         class: AppBundle\Security\Authentication\Provider\GoogleOAuthProvider
-        arguments: ["", "@google_oauth.client"]
+
+    action_log:
+        class: AppBundle\Service\ActionLog
+
+    id_generator:
+        class: AppBundle\Service\IdGenerator
+
+    badge_registry:
+        class: AppBundle\Service\BadgeRegistry
+
+    game_status:
+        class: AppBundle\Service\GameStatus
