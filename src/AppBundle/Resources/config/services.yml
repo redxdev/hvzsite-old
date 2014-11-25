@@ -16,6 +16,10 @@ services:
         class: AppBundle\Service\BadgeRegistry
         arguments: ["@doctrine.orm.entity_manager"]
 
-    google_oauth_client:
+    google_oauth.client:
         class: AppBundle\Service\GoogleOAuthClient
         arguments: ["%google_client_id%", "%google_client_secret%", "%google_application_name%"]
+
+    google_oauth.provider:
+        class: AppBundle\Security\Authentication\Provider\GoogleOAuthProvider
+        arguments: ["", "@google_oauth.client"]
