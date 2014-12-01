@@ -51,13 +51,13 @@ class InfectionSpread
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="zombie", referencedColumnId="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="zombie", referencedColumnName="id", onDelete="CASCADE")
      */
     private $zombie;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="human", referencedColumnId="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="human", referencedColumnName="id", onDelete="CASCADE")
      */
     private $human;
 

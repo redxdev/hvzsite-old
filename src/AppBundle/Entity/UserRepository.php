@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    public function findActiveCount($team = -1)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(u)')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true');
+        if($team >= 0)
+        {
+            $qb = $qb->andWhere('u.team = :team')
+                ->setParameter('team', $team);
+        }
+
+        $qb = $qb->getQuery();
+        return $qb->getSingleScalarResult();
+    }
 }

@@ -10,9 +10,9 @@
   "dependencies": {
     "jquery": "~2.1.1",
     "bootstrap": "~3.3.1",
-    "bootswatch": "~3.3.1+2",
     "holderjs": "~2.4.1",
     "snackbarjs": "~1.0.0",
-    "webcamjs": "*"
+    "webcamjs": "*",
+    "bootswatch": "~3.3.1+2"
   }
 }

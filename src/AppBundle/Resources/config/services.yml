@@ -23,3 +23,4 @@ services:
 
     game_status:
         class: AppBundle\Service\GameStatus
+        arguments: ["@doctrine.orm.entity_manager", "%hvz_game_start%", "%hvz_game_end%"]
