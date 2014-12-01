@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="well col-sm-5 text-center bg-human large-text">
-                {% if team.humans %}
+                {% if game %}
                     <h1><strong>{{ team.humans }}</strong></h1>
                     Human{% if team.humans != 1 %}s{% endif %}
                 {% else %}
@@ -44,7 +44,7 @@
                 <h1>VS</h1>
             </div>
             <div class="well col-sm-5 text-center bg-zombie large-text">
-                {% if team.zombies %}
+                {% if game %}
                     <h1><strong>{{ team.zombies }}</strong></h1>
                     Zombie{% if team.zombies != 1 %}s{% endif %}
                 {% else %}

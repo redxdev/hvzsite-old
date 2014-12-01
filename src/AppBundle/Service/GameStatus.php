@@ -15,8 +15,8 @@ class GameStatus
     public function __construct(EntityManager $entityManager, $startTime, $endTime)
     {
         $this->entityManager = $entityManager;
-        $this->startTime = new \DateTime($startTime);
-        $this->endTime = new \DateTime($endTime);
+        $this->startTime = new \DateTime("@" . $startTime);
+        $this->endTime = new \DateTime("@" . $endTime);
     }
 
     public function getGameStart()
@@ -56,7 +56,6 @@ class GameStatus
         $result["game"] = [
             "start" => $this->startTime->getTimestamp(),
             "end" => $this->endTime->getTimestamp(),
-            "diff" => $diff,
             "time" => [
                 "days" => $diff->d,
                 "hours" => $diff->h,

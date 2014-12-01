@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatusController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="status_index")
      */
     public function indexAction()
     {
