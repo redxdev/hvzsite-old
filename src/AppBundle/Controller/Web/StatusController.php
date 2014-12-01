@@ -10,9 +10,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatusController extends Controller
 {
     /**
-     * @Route("/", name="status_index")
+     * @Route("/", name="web_index")
      */
     public function indexAction()
+    {
+        return $this->redirect($this->generateUrl("web_status"));
+    }
+
+    /**
+     * @Route("/status", name="web_status")
+     */
+    public function statusction()
     {
         $gameStatus = $this->get('game_status');
         $game = $gameStatus->getGameStatus();
