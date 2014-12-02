@@ -174,4 +174,73 @@ class InfectionSpread
     {
         return $this->killstreaks;
     }
+
+    /**
+     * Set hasLocation
+     *
+     * @param boolean $hasLocation
+     * @return InfectionSpread
+     */
+    public function setHasLocation($hasLocation)
+    {
+        $this->hasLocation = $hasLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get hasLocation
+     *
+     * @return boolean 
+     */
+    public function getHasLocation()
+    {
+        return $this->hasLocation;
+    }
+
+    /**
+     * Set zombie
+     *
+     * @param \AppBundle\Entity\User $zombie
+     * @return InfectionSpread
+     */
+    public function setZombie(\AppBundle\Entity\User $zombie = null)
+    {
+        $this->zombie = $zombie;
+
+        return $this;
+    }
+
+    /**
+     * Get zombie
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getZombie()
+    {
+        return $this->zombie;
+    }
+
+    /**
+     * Set human
+     *
+     * @param \AppBundle\Entity\User $human
+     * @return InfectionSpread
+     */
+    public function setHuman(\AppBundle\Entity\User $human = null)
+    {
+        $this->human = $human;
+
+        return $this;
+    }
+
+    /**
+     * Get human
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getHuman()
+    {
+        return $this->human;
+    }
 }

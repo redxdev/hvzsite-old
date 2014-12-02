@@ -18,8 +18,8 @@
         <div class="row visible-xs">
             <div class="col-md-12">
                 <ul class="nav nav-tabs side-nav">
-                    {% for rule in rules %}
-                        <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
+                    {% for ruleset in rulesets %}
+                        <li><a href="#rule-{{ loop.index }}">{{ ruleset.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -27,18 +27,18 @@
         <div class="row">
             <div class="hidden-xs col-sm-3">
                 <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix">
-                    {% for rule in rules %}
-                        <li><a href="#rule-{{ loop.index }}">{{ rule.title }}</a></li>
+                    {% for ruleset in rulesets %}
+                        <li><a href="#rule-{{ loop.index }}">{{ ruleset.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="col-sm-9">
-                {% for rule in rules %}
+                {% for ruleset in rulesets %}
                     <section>
                         <a id="rule-{{ loop.index }}" class="offset"></a>
-                        <h2>{{ rule.title }}</h2>
+                        <h2>{{ ruleset.title }}</h2>
                         <div>
-                            {{ rule.body | raw }}
+                            {{ ruleset.body | raw }}
                         </div>
                     </section>
                 {% endfor %}

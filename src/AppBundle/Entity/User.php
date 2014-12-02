@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 

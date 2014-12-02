@@ -37,10 +37,10 @@
                     {% endif %}#}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {#{{ components.nav_internal_link('rules', path('hvz_rules'), 'Rules', selected) }}
-                    {{ components.nav_internal_link('register-tag', path('hvz_register_tag'), 'Register Tag', selected) }}
+                    {{ components.nav_internal_link('rules', path('web_rules'), 'Rules', selected) }}
+                    {{ components.nav_internal_link('register-infection', path('web_register_infection'), 'Register Infection', selected) }}
 
-                    {% if is_granted('ROLE_USER') %}
+                    {#{% if is_granted('ROLE_USER') %}
                         <li class="dropdown{% if selected == 'user' %} active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{ app.user.fullname | escape }} <span class="caret"></span>
