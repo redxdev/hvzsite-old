@@ -13,10 +13,12 @@ services:
         class: AppBundle\Security\Authentication\Provider\GoogleOAuthProvider
 
     action_log:
-        class: AppBundle\Service\ActionLog
+        class: AppBundle\Service\ActionLogService
+        arguments: ["@doctrine.orm.entity_manager"]
 
     id_generator:
         class: AppBundle\Service\IdGenerator
+        arguments: ["@doctrine.orm.entity_manager"]
 
     badge_registry:
         class: AppBundle\Service\BadgeRegistry
@@ -32,3 +34,4 @@ services:
 
     game_manager:
         class: AppBundle\Service\GameManager
+        arguments: ["@action_log", "@doctrine.orm.entity_manager", "@badge_registry"]

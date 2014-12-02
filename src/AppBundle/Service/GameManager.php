@@ -10,14 +10,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class GameManager
 {
     private $actLog;
-    private $session;
     private $entityManager;
     private $badgeReg;
 
-    public function __construct(ActionLogService $actLog, Session $session, EntityManager $entityManager, BadgeRegistry $badgeReg)
+    public function __construct(ActionLogService $actLog, EntityManager $entityManager, BadgeRegistry $badgeReg)
     {
         $this->actLog = $actLog;
-        $this->session = $session;
         $this->entityManager = $entityManager;
         $this->badgeReg = $badgeReg;
     }
@@ -29,15 +27,15 @@ class GameManager
         $idRepo = $this->entityManager->getRepository("AppBundle:HumanId");
         $userRepo = $this->entityManager->getRepository("AppBundle:User");
 
-        $humanId = $idRepo->findByIdString($humanIdStr);
-        $zombie = $userRepo->findByZombieId($zombieIdStr);
+        $humanId = $idRepo->findOneByIdString($humanIdStr);
+        $zombie = $userRepo->findOneByZombieId($zombieIdStr);
 
         if(!$humanId || !$humanId->getActive() || !$humanId->getUser()->getActive())
         {
             $errors[] = "Unknown human id";
         }
 
-        if(!zombie || !$zombie->getActive())
+        if(!$zombie || !$zombie->getActive())
         {
             $errors[] = "Unknown zombie id";
         }
@@ -49,7 +47,7 @@ class GameManager
                 $errors[] = "Victim is not a human";
             }
 
-            if($zombie->getUser()->getTeam() != GameUtil::TEAM_ZOMBIE)
+            if($zombie->getTeam() != GameUtil::TEAM_ZOMBIE)
             {
                 $errors[] = "Attacker is not a zombie";
             }
@@ -98,8 +96,8 @@ class GameManager
 
             return [
                 "status" => "ok",
-                "human" => $humanId->getUser()->getFullname(),
-                "zombie" => $zombie->getFullname()
+                "human_name" => $humanId->getUser()->getFullname(),
+                "zombie_name" => $zombie->getFullname()
             ];
         }
     }
