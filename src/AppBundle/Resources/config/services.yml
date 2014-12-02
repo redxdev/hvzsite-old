@@ -29,3 +29,6 @@ services:
     content_manager:
         class: AppBundle\Service\ContentManager
         arguments: ["@doctrine.orm.entity_manager"]
+
+    game_manager:
+        class: AppBundle\Service\GameManager

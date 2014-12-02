@@ -28,4 +28,19 @@ class InfectionSpreadRepository extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    public function findForKillstreak($zombie)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('s')
+            ->from('AppBundle:InfectionSpread', 's')
+            ->where('s.zombie = :zombie')
+            ->andWhere('s.time BETWEEN :start AND :end')
+            ->setParameter('zombie', $zombie)
+            ->setParameter('start', new \DateTime('-1 hour'))
+            ->setParameter('end', new \DateTime())
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

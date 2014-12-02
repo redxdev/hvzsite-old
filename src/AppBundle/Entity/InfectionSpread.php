@@ -29,23 +29,16 @@ class InfectionSpread
     private $time;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="hasLocation", type="boolean")
-     */
-    private $hasLocation = false;
-
-    /**
      * @var float
      *
-     * @ORM\Column(name="latitude", type="float")
+     * @ORM\Column(name="latitude", type="float", nullable=true)
      */
     private $latitude = null;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="longitude", type="float")
+     * @ORM\Column(name="longitude", type="float", nullable=true)
      */
     private $longitude = null;
 
@@ -173,29 +166,6 @@ class InfectionSpread
     public function getKillstreaks()
     {
         return $this->killstreaks;
-    }
-
-    /**
-     * Set hasLocation
-     *
-     * @param boolean $hasLocation
-     * @return InfectionSpread
-     */
-    public function setHasLocation($hasLocation)
-    {
-        $this->hasLocation = $hasLocation;
-
-        return $this;
-    }
-
-    /**
-     * Get hasLocation
-     *
-     * @return boolean 
-     */
-    public function getHasLocation()
-    {
-        return $this->hasLocation;
     }
 
     /**

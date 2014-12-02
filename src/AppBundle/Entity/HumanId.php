@@ -26,7 +26,7 @@ class HumanId
      *
      * @ORM\Column(name="id_string", type="string", length=8)
      */
-    private $id_string;
+    private $idString;
 
     /**
      * @var boolean
@@ -49,29 +49,6 @@ class HumanId
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set tag
-     *
-     * @param string $tag
-     * @return HumanId
-     */
-    public function setTag($tag)
-    {
-        $this->tag = $tag;
-
-        return $this;
-    }
-
-    /**
-     * Get tag
-     *
-     * @return string 
-     */
-    public function getTag()
-    {
-        return $this->tag;
     }
 
     /**
@@ -118,5 +95,28 @@ class HumanId
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set idString
+     *
+     * @param string $idString
+     * @return HumanId
+     */
+    public function setIdString($idString)
+    {
+        $this->idString = $idString;
+
+        return $this;
+    }
+
+    /**
+     * Get idString
+     *
+     * @return string 
+     */
+    public function getIdString()
+    {
+        return $this->idString;
     }
 }
