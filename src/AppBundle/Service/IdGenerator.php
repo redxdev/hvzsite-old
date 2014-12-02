@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\HumanId;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
 class IdGenerator
@@ -13,6 +15,25 @@ class IdGenerator
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+
+    public function generateUser(User $user, $flush = true)
+    {
+        $user->setZombieId($this->generate());
+
+        $id1 = new HumanId();
+        $id1->setIdString($this->generate());
+        $id1->setUser($user);
+        $user->addHumanId($id1);
+        $this->entityManager->persist($id1);
+
+        $id2 = new HumanId();
+        $id2->setIdString($this->generate());
+        $id2->setUser($user);
+        $user->addHumanId($id2);
+        $this->entityManager->persist($id2);
+
+        return $user;
     }
 
     public function generate($size = 8)
@@ -55,7 +76,7 @@ class IdGenerator
         $query = $this->entityManager->createQueryBuilder()
             ->select("count(id.id)")
             ->from("AppBundle:HumanId", 'id')
-            ->where("id.id_string = :gen")
+            ->where("id.idString = :gen")
             ->setParameter("gen", $id)
             ->getQuery();
 
@@ -77,9 +98,9 @@ class IdGenerator
     private function isDuplicateAntiVirusId($id)
     {
         $query = $this->entityManager->createQueryBuilder()
-            ->select("count(av.id_string)")
+            ->select("count(av.id)")
             ->from("AppBundle:AntiVirusId", 'av')
-            ->where("av.id_string = :gen")
+            ->where("av.idString = :gen")
             ->setParameter("gen", $id)
             ->getQuery();
 

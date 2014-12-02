@@ -41,6 +41,11 @@ class HumanId
      */
     private $user;
 
+    public function __construct()
+    {
+        $this->active = true;
+    }
+
     /**
      * Get id
      *

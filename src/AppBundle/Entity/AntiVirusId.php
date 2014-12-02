@@ -26,7 +26,7 @@ class AntiVirusId
      *
      * @ORM\Column(name="id_string", type="string", length=8)
      */
-    private $id_string;
+    private $idString;
 
     /**
      * @var boolean
@@ -56,29 +56,6 @@ class AntiVirusId
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set tag
-     *
-     * @param string $tag
-     * @return AntiVirusId
-     */
-    public function setTag($tag)
-    {
-        $this->tag = $tag;
-
-        return $this;
-    }
-
-    /**
-     * Get tag
-     *
-     * @return string 
-     */
-    public function getTag()
-    {
-        return $this->tag;
     }
 
     /**
@@ -125,5 +102,28 @@ class AntiVirusId
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set idString
+     *
+     * @param string $idString
+     * @return AntiVirusId
+     */
+    public function setIdString($idString)
+    {
+        $this->idString = $idString;
+
+        return $this;
+    }
+
+    /**
+     * Get idString
+     *
+     * @return string 
+     */
+    public function getIdString()
+    {
+        return $this->idString;
     }
 }
