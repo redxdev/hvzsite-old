@@ -20,7 +20,8 @@ services:
 
     badge_registry:
         class: AppBundle\Service\BadgeRegistry
+        arguments: ["@doctrine.orm.entity_manager"]
 
     game_status:
         class: AppBundle\Service\GameStatus
-        arguments: ["@doctrine.orm.entity_manager", "%hvz_game_start%", "%hvz_game_end%"]
+        arguments: ["@doctrine.orm.entity_manager", "@badge_registry", "%hvz_game_start%", "%hvz_game_end%"]

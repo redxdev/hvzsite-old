@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Util\GameUtil;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,10 +16,6 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  */
 class User implements UserInterface, EquatableInterface, \Serializable
 {
-    const TEAM_HUMAN = 0;
-
-    const TEAM_ZOMBIE = 1;
-
     /**
      * @var integer
      *
@@ -87,12 +84,12 @@ class User implements UserInterface, EquatableInterface, \Serializable
      *
      * @ORM\Column(name="humansTagged", type="integer")
      */
-    private $numberTagged;
+    private $humansTagged;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="clan", type="string", length=255)
+     * @ORM\Column(name="clan", type="string", length=32)
      */
     private $clan;
 
@@ -116,8 +113,8 @@ class User implements UserInterface, EquatableInterface, \Serializable
     {
         $this->roles = array("ROLE_USER");
         $this->active = false;
-        $this->team = User::TEAM_HUMAN;
-        $this->numberTagged = 0;
+        $this->team = GameUtil::TEAM_HUMAN;
+        $this->humansTagged = 0;
         $this->signupDate = new \DateTime();
         $this->clan = "";
         $this->badges = array();
@@ -353,26 +350,26 @@ class User implements UserInterface, EquatableInterface, \Serializable
     }
 
     /**
-     * Set numberTagged
+     * Set humansTagged
      *
-     * @param integer $numberTagged
+     * @param integer $humansTagged
      * @return User
      */
-    public function setNumberTagged($numberTagged)
+    public function setHumansTagged($humansTagged)
     {
-        $this->numberTagged = $numberTagged;
+        $this->humansTagged = $humansTagged;
 
         return $this;
     }
 
     /**
-     * Get numberTagged
+     * Get humansTagged
      *
      * @return integer 
      */
-    public function getNumberTagged()
+    public function getHumansTagged()
     {
-        return $this->numberTagged;
+        return $this->humansTagged;
     }
 
     /**

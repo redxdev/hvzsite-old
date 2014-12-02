@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Util\QueryHelper;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,6 +13,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    use QueryHelper;
+
     public function findActiveCount($team = -1)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -26,5 +29,117 @@ class UserRepository extends EntityRepository
 
         $qb = $qb->getQuery();
         return $qb->getSingleScalarResult();
+    }
+
+    public function findActiveNormalCount()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(u)')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere('u.roles LIKE :roles')
+            ->addOrderBy('u.team', 'DESC')
+            ->addOrderBy('u.humansTagged', 'DESC')
+            ->setParameter('roles', '%ROLE_USER%')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function findActiveOrderedByNumberTaggedAndTeam($page, $maxPerPage = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere('u.roles LIKE :roles')
+            ->addOrderBy('u.team', 'DESC')
+            ->addOrderBy('u.humansTagged', 'DESC')
+            ->setParameter('roles', '%ROLE_USER%')
+            ->getQuery()
+            ->setMaxResults($maxPerPage)
+            ->setFirstResult($page * $maxPerPage);
+
+        return $query->getResult();
+    }
+
+    public function findActiveOrderedByClan($page, $maxPerPage = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('u, u.clan as HIDDEN tmpClan')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere('u.clan is not NULL')
+            ->andWhere('u.clan != :empty')
+            ->orderBy('tmpClan', 'ASC')
+            ->setParameter('empty', '')
+            ->getQuery()
+            ->setMaxResults($maxPerPage)
+            ->setFirstResult($page * $maxPerPage);
+
+        return $query->getResult();
+    }
+
+    public function findActiveWithClanCount()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(u)')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere('u.clan is not NULL')
+            ->andWhere('u.clan != :empty')
+            ->setParameter('empty', '')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function findActiveMods($page, $maxPerPage = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere($qb->expr()->orx(
+                'u.roles LIKE :admin',
+                'u.roles LIKE :mod'
+            ))
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->setParameter('mod', '%ROLE_MOD%')
+            ->getQuery()
+            ->setMaxResults($maxPerPage)
+            ->setFirstResult($page * $maxPerPage);
+
+        return $query->getResult();
+    }
+
+    public function findActiveModsCount()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(u)')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere($qb->expr()->orx(
+                'u.roles LIKE :admin',
+                'u.roles LIKE :mod'
+            ))
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->setParameter('mod', '%ROLE_MOD%')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function findInSearchableFields($term)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->where("u.clan LIKE :term ESCAPE '!'")
+            ->orWhere("u.fullname LIKE :term ESCAPE '!'")
+            ->setParameter('term', $this->makeLikeParam($term))
+            ->getQuery();
+
+        return $query->getResult();
     }
 }

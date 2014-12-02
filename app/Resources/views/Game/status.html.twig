@@ -116,17 +116,20 @@
                 chart.draw(data, options);
             });
         }
+    </script>
 
-        {% if game %}
+    {% if game %}
+        <script type="text/javascript">
             $(function() {
-                $("#countdown").countdown({{ game.time.timestamp }}, function(event) {
-                    var $this = $(this).html(event.strftime(''
+                $("#countdown").countdown({{ game.time.timestamp }}*1000, function (event) {
+                    $(this).html(event.strftime(''
                             + '<strong>%-D</strong> day%!D '
                             + '<strong>%-H</strong> hour%!H '
-                            + '<strong>%-M</strong> minute%!M'
+                            + '<strong>%-M</strong> minute%!M '
                             + '<strong>%-S</strong> second%!S'
                     ));
                 });
-        {% endif %}
-    </script>
+            });
+        </script>
+    {% endif %}
 {% endblock %}

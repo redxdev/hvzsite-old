@@ -2,7 +2,7 @@
 {% import '::components.html.twig' as components %}
 
 {% block title %}
-    Tags | {{ parent() }}
+    Infections | {{ parent() }}
 {% endblock %}
 
 {% block body_def %}
@@ -12,33 +12,33 @@
 {% block body %}
     {{ parent() }}
 
-    {{ components.navbar('fixed-top', 'tags') }}
+    {{ components.navbar('fixed-top', 'infections') }}
 
     <div class="container">
         <div class="vertical-space"></div>
         <div class="row">
             <div id="tag-list" class="col-md-12 text-center">
-                {% for tag in tags if tag.zombie != null %}
-                    <p><strong>{{ tag.victim }}</strong> was tagged by <strong>{{ tag.zombie }}</strong> <em>{{ time_diff(tag.time) }}</em></p>
+                {% for infection in infections if infection.zombie != null %}
+                    <p><strong>{{ infection.victim }}</strong> was tagged by <strong>{{ infection.zombie }}</strong> <em>{{ time_diff(tag.time) }}</em></p>
                 {% else %}
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>There were no tags found</h1>
+                            <h1>There were no infections found</h1>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
 
-        {% if previous_page is defined or next_page is defined %}
+        {% if page is defined and (page > 0 or continues == true)%}
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <ul class="pager">
-                        {% if previous_page is defined and previous_page != -1 %}
-                            <li><a href="{{ path('hvz_tags', {'page': previous_page}) }}">&larr; Previous</a></li>
+                        {% if page > 0 %}
+                            <li><a href="{{ path('web_infections', {'page': page - 1, 'sort': sort}) }}">&larr; Previous</a></li>
                         {% endif %}
-                        {% if next_page is defined and next_page != -1%}
-                            <li><a href="{{ path('hvz_tags', {'page': next_page}) }}">Next &rarr;</a></li>
+                        {% if continues == true %}
+                            <li><a href="{{ path('web_infections', {'page': page + 1, 'sort': sort}) }}">Next &rarr;</a></li>
                         {% endif %}
                     </ul>
                 </div>
