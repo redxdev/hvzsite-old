@@ -5,7 +5,6 @@ namespace AppBundle\Service;
 use AppBundle\Entity\InfectionSpread;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class GameManager
 {

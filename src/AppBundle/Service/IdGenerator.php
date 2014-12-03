@@ -33,6 +33,9 @@ class IdGenerator
         $user->addHumanId($id2);
         $this->entityManager->persist($id2);
 
+        if($flush)
+            $this->entityManager->flush();
+
         return $user;
     }
 

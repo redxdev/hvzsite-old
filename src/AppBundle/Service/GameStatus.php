@@ -5,8 +5,6 @@ namespace AppBundle\Service;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\EntityManager;
 
-use AppBundle\Entity\User;
-
 class GameStatus
 {
 
@@ -137,7 +135,7 @@ class GameStatus
 
     public function searchPlayerList($term)
     {
-        if($term == null || empty($term))
+        if($term === null || empty($term))
             return ['continues' => false, 'players' => []];
 
         $userRepo = $this->entityManager->getRepository("AppBundle:User");

@@ -23,12 +23,12 @@ class UserRepository extends EntityRepository
             ->where('u.active = true');
         if($team >= 0)
         {
-            $qb = $qb->andWhere('u.team = :team')
+            $query = $query->andWhere('u.team = :team')
                 ->setParameter('team', $team);
         }
 
-        $qb = $qb->getQuery();
-        return $qb->getSingleScalarResult();
+        $query = $query->getQuery();
+        return $query->getSingleScalarResult();
     }
 
     public function findActiveNormalCount()

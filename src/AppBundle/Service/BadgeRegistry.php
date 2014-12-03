@@ -10,7 +10,7 @@ class BadgeRegistry
 {
     private $entityManager;
 
-    private $registry = array();
+    private $registry = [];
 
     public function __construct(EntityManager $entityManager)
     {
@@ -47,10 +47,10 @@ class BadgeRegistry
     public function getBadges(User $user)
     {
         $badgeIds = $user->getBadges();
-        if($badgeIds == null)
-            return array();
+        if($badgeIds === null)
+            return [];
 
-        $badges = array();
+        $badges = [];
         foreach($badgeIds as $id)
         {
             $badges[] = $this->getBadge($id);
