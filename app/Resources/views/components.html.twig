@@ -40,27 +40,27 @@
                     {{ components.nav_internal_link('rules', path('web_rules'), 'Rules', selected) }}
                     {{ components.nav_internal_link('register-infection', path('web_register_infection'), 'Register Infection', selected) }}
 
-                    {#{% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_USER') %}
                         <li class="dropdown{% if selected == 'user' %} active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{ app.user.fullname | escape }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                {{ components.nav_internal_link('profile', path('hvz_profile'), 'Profile', selected2) }}
-                                <li><a href="{{ path('hvz_auth_logout', {'token': csrf_token('hvz_auth_logout')}) }}">Logout</a></li>
+                                {#{{ components.nav_internal_link('profile', path('hvz_profile'), 'Profile', selected2) }}#}
+                                <li><a href="{{ path('web_auth_logout', {'token': csrf_token('auth_logout')}) }}">Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ path('hvz_auth_login') }}">Login</a></li>
-                                <li><a href="{{ path('hvz_auth_register') }}">Register</a></li>
+                                <li><a href="{{ path('web_auth_login_redirect') }}">Login</a></li>
+                                <li><a href="{{ path('web_auth_register_redirect') }}">Register</a></li>
                             </ul>
                         </li>
                     {% endif %}
 
-                    {% if is_granted('ROLE_MOD') %}
+                    {#{% if is_granted('ROLE_MOD') %}
                         <li class="dropdown{% if selected == 'admin' %} active{% endif %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">

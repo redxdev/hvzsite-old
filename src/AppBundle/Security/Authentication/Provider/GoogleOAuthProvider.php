@@ -5,6 +5,7 @@ namespace AppBundle\Security\Authentication\Provider;
 use AppBundle\Security\Authentication\Token\GoogleOAuthToken;
 use AppBundle\Service\GoogleOAuthClient;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 

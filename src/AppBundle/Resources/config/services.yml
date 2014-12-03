@@ -38,4 +38,4 @@ services:
 
     game_authentication:
         class: AppBundle\Service\GameAuthentication
-        arguments: ["@google_oauth.client", "@doctrine.orm.entity_manager", "@action_log", "@id_generator"]
+        arguments: ["@google_oauth.client", "@doctrine.orm.entity_manager", "@action_log", "@id_generator", "@security.token_storage", "@event_dispatcher", "@session"]

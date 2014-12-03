@@ -4,13 +4,17 @@ security:
         ROLE_ADMIN: ROLE_MOD
 
     providers:
-        in_memory:
-            memory: ~
+        google_oauth.provider:
+            entity: { class: AppBundle\Entity\User, property: email }
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        default:
+        user_area:
+            security: true
+            pattern: ^/
             anonymous: ~
+            provider: google_oauth.provider
+            access_denied_url: /error/403
