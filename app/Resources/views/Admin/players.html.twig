@@ -47,12 +47,12 @@
                 <div class="col-sm-4">
                     <ul class="nav nav-stacked nav-pills">
                         <li>
-                            <a href="{#{{ path('hvz_admin_player_edit', {'id': player.id}) }}#}">
+                            <a href="{{ path('web_admin_player_edit', {'id': player.id}) }}">
                                 Edit
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="showDeleteDialog('{{ player.fullname | e('js') }}', '{#{{ path('hvz_admin_player_delete', {'id': player.id, 'token': csrf_token('hvz_user_delete')}) }}#}')">
+                            <a href="#" onclick="showDeleteDialog('{{ player.fullname | e('js') }}', '{{ path('web_admin_player_delete', {'id': player.id, 'token': csrf_token('player_delete')}) }}')">
                                 Delete
                             </a>
                         </li>

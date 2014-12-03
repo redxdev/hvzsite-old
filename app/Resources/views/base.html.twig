@@ -67,7 +67,7 @@
                 $(function() {
                     {% for toast in toasts %}
                     $.snackbar({
-                        content: "{{ toast | e('js') }}",
+                        content: "{{ toast | e('html') | e('js') }}",
                         style: "snackbar",
                         timeout: 4000
                     });

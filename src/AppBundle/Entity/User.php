@@ -90,7 +90,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="clan", type="string", length=32)
+     * @ORM\Column(name="clan", type="string", length=32, nullable=true)
      */
     private $clan;
 

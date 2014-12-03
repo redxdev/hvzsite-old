@@ -57,6 +57,14 @@ body.navbar-offset {
         width: 100px;
         height: 100px;
     }
+
+    .vertical-space {
+        height: 25px;
+    }
+
+    .vertical-space-sm {
+        height: 10px;
+    }
 }
 
 .bg-human {
@@ -78,14 +86,6 @@ body.navbar-offset {
 .avatar {
     width: 100px;
     height: 100px;
-}
-
-.vertical-space {
-    height: 25px;
-}
-
-.vertical-space-sm {
-    height: 10px;
 }
 
 a.offset {

@@ -1,0 +1,34 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Edit Player | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'players') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Edit Player</h2>
+                <h3>{{ fullname | e }} : {{ email | e }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Save" class="btn btn-default pull-right">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
