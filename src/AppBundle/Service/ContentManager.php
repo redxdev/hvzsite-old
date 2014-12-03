@@ -23,7 +23,7 @@ class ContentManager
         foreach($rulesetEnts as $ruleset)
         {
             $rulesets[] = [
-                "id" => $ruleset->getId,
+                "id" => $ruleset->getId(),
                 "title" => $ruleset->getTitle(),
                 "body" => $ruleset->getBody()
             ];
@@ -44,7 +44,7 @@ class ContentManager
                 "id" => $mission->getId(),
                 "title" => $mission->getTitle(),
                 "body" => $mission->getBody(),
-                "team" => $mission->getTeam == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
+                "team" => $mission->getTeam() == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
                 "post_date" => $mission->getPostDate()
             ];
         }

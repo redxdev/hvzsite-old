@@ -31,9 +31,10 @@
                     {{ components.nav_internal_link('status', path('web_status'), 'Status', selected) }}
                     {{ components.nav_internal_link('players', path('web_players'), 'Players', selected) }}
                     {{ components.nav_internal_link('infections', path('web_infections'), 'Infections', selected) }}
+                    {# TODO: Spread page #}
                     {#{{ components.nav_internal_link('spread', '#', 'Spread', selected) }}#}
                     {% if is_granted('ROLE_USER') %}
-                        {{ components.nav_internal_link('missions', path('hvz_missions'), 'Missions', selected) }}
+                        {{ components.nav_internal_link('missions', path('web_missions'), 'Missions', selected) }}
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -46,7 +47,7 @@
                                 {{ app.user.fullname | escape }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                {#{{ components.nav_internal_link('profile', path('hvz_profile'), 'Profile', selected2) }}#}
+                                {{ components.nav_internal_link('profile', path('web_profile'), 'Profile', selected2) }}
                                 <li><a href="{{ path('web_auth_logout', {'token': csrf_token('auth_logout')}) }}">Logout</a></li>
                             </ul>
                         </li>
