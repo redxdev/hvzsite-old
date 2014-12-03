@@ -1,0 +1,87 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Players | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'players') }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-4">
+                <form role="search" action="{{ path('web_admin_players_search') }}" method="get">
+                    <div class="input-group">
+                        <input name="term" type="text" class="form-control" placeholder="Search"
+                                {% if search_term is defined %}value="{{ search_term | e }}"{% endif %}>
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="vertical-space"></div>
+
+        {% for player in players %}
+            <div class="row well">
+                <div class="col-sm-4">
+                    <p><strong>Name:</strong> {{ player.fullname }}</p>
+                    <p><strong>Email:</strong> {{ player.email }}</p>
+                    <p><strong>Access:</strong> {{ player.access }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p><strong>Team:</strong> {{ player.team }}</p>
+                    <p><strong>Humans Tagged:</strong> {{ player.humansTagged }}</p>
+                    <p><strong>Clan:</strong> {{ player.clan }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="nav nav-stacked nav-pills">
+                        <li>
+                            <a href="{#{{ path('hvz_admin_player_edit', {'id': player.id}) }}#}">
+                                Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showDeleteDialog('{{ player.fullname | e('js') }}', '{#{{ path('hvz_admin_player_delete', {'id': player.id, 'token': csrf_token('hvz_user_delete')}) }}#}')">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if page is defined and (page > 0 or continues == true)%}
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <ul class="pager">
+                        {% if page > 0 %}
+                            <li><a href="{{ path('web_admin_players', {'page': page - 1}) }}">&larr; Previous</a></li>
+                        {% endif %}
+                        {% if continues == true %}
+                            <li><a href="{{ path('web_admin_players', {'page': page + 1}) }}">Next &rarr;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ components.delete_dialog('Are you sure you want to delete the user') }}
+
+    {{ parent() }}
+
+    {{ components.delete_dialog_script() }}
+{% endblock %}

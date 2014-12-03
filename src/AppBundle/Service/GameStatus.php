@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManager;
 
 class GameStatus
 {
-
     private $entityManager;
     private $badgeRegistry;
     private $startTime;
@@ -79,28 +78,36 @@ class GameStatus
         ];
     }
 
-    private function buildPlayerList($playerEnts)
+    private function buildPlayerList($playerEnts, $protectedInfo = false)
     {
         $players = [];
         foreach($playerEnts as $player)
         {
             $badges = $this->badgeRegistry->getBadges($player);
 
-            $players[] = [
+            $p = [
                 'id' => $player->getId(),
                 'fullname' => $player->getFullname(),
                 'team' => $player->getTeam() == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
-                'tags' => $player->getHumansTagged(),
+                'humansTagged' => $player->getHumansTagged(),
                 'clan' => $player->getClan(),
                 'badges' => $badges,
                 'avatar' => $player->getWebAvatarPath()
             ];
+
+            if($protectedInfo)
+            {
+                $p['email'] = $player->getEmail();
+                $p['access'] = $player->getRoles()[0];
+            }
+
+            $players[] = $p;
         }
 
         return $players;
     }
 
-    public function getPlayerList($page, $maxPerPage = 10, $sortBy = GameUtil::SORT_TEAM)
+    public function getPlayerList($page, $maxPerPage = 10, $sortBy = GameUtil::SORT_TEAM, $allowSortAll = false, $protectedInfo = false)
     {
         $userRepo = $this->entityManager->getRepository("AppBundle:User");
 
@@ -123,9 +130,18 @@ class GameStatus
                 $playerEnts = $userRepo->findActiveMods($page, $maxPerPage);
                 $count = $userRepo->findActiveModsCount();
                 break;
+
+            case GameUtil::SORT_ALL:
+                if(!$allowSortAll) {
+                    return ['continues' => false, 'players' => []];
+                }
+
+                $playerEnts = $userRepo->findAllByPage($page, $maxPerPage);
+                $count = $userRepo->findCount();
+                break;
         }
 
-        $players = $this->buildPlayerList($playerEnts);
+        $players = $this->buildPlayerList($playerEnts, $protectedInfo);
 
         return [
             'continues' => $page < ($count / $maxPerPage - 1),
@@ -133,15 +149,15 @@ class GameStatus
         ];
     }
 
-    public function searchPlayerList($term)
+    public function searchPlayerList($term, $onlyActive = true, $protectedInfo = false)
     {
         if($term === null || empty($term))
             return ['continues' => false, 'players' => []];
 
         $userRepo = $this->entityManager->getRepository("AppBundle:User");
 
-        $playerEnts = $userRepo->findInSearchableFields($term);
-        $players = $this->buildPlayerList($playerEnts);
+        $playerEnts = $userRepo->findInSearchableFields($term, $onlyActive, $protectedInfo);
+        $players = $this->buildPlayerList($playerEnts, $protectedInfo);
 
         return [
             'continues' => false,

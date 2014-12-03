@@ -130,15 +130,61 @@ class UserRepository extends EntityRepository
         return $query->getSingleScalarResult();
     }
 
-    public function findInSearchableFields($term)
+    public function findAllByPage($page, $maxPerPage = 10)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $query = $qb->select('u')
             ->from('AppBundle:User', 'u')
-            ->where("u.clan LIKE :term ESCAPE '!'")
-            ->orWhere("u.fullname LIKE :term ESCAPE '!'")
-            ->setParameter('term', $this->makeLikeParam($term))
+            ->orderBy('u.signupDate', 'ASC')
+            ->getQuery()
+            ->setMaxResults($maxPerPage)
+            ->setFirstResult($page * $maxPerPage);
+
+        return $query->getResult();
+    }
+
+    public function findCount()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(u)')
+            ->from('AppBundle:User', 'u')
             ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function findInSearchableFields($term, $onlyActive = true, $email = false)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $or = null;
+        if(!$email)
+        {
+            $or = $qb->expr()->orx(
+                "u.fullname LIKE :term ESCAPE '!'",
+                "u.clan LIKE :term ESCAPE '!'"
+            );
+        }
+        else
+        {
+            $or = $qb->expr()->orx(
+                "u.fullname LIKE :term ESCAPE '!'",
+                "u.clan LIKE :term ESCAPE '!'",
+                "u.email LIKE :term ESCAPE '!'"
+            );
+        }
+
+        $query = $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->where($or)
+            ->setParameter('term', $this->makeLikeParam($term));
+
+        if($onlyActive)
+        {
+            $query = $query->andWhere("u.active = true");
+        }
+
+        $query = $query->getQuery();
 
         return $query->getResult();
     }

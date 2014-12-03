@@ -10,4 +10,5 @@ class GameUtil
     const SORT_TEAM = 'team';
     const SORT_CLAN = 'clan';
     const SORT_MODS = 'mods';
+    const SORT_ALL = 'all';
 }
