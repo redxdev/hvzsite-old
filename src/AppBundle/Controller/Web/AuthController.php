@@ -132,7 +132,7 @@ class AuthController extends Controller
                 "You have been successfully logged in."
             );
 
-            return $this->redirect($this->generateUrl("web_index"));
+            return $this->redirectToRoute("web_index");
         }
     }
 
@@ -164,6 +164,6 @@ class AuthController extends Controller
             "You have been successfully logged out."
         );
 
-        return $this->redirect($this->generateUrl("web_index"));
+        return $this->redirectToRoute("web_index");
     }
 }

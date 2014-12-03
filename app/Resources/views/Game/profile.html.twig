@@ -24,7 +24,7 @@
                 <p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
                 <p>
                     <strong>Clan:</strong> {{ profile.clan | default('none') }}
-                    {#<a href="{{ path('hvz_profile_edit_clan') }}" class="btn btn-primary btn-sm">Edit</a>#}
+                    <a href="{{ path('web_profile_change_clan') }}" class="btn btn-primary btn-sm">Edit</a>
                 </p>
                 {% for badge in profile.badges %}
                     <img data-toggle="tooltip" data-placement="top" data-html="true"

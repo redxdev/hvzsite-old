@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Change Clan | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'user', 'profile') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+
+        <div class="col-sm-4 col-sm-offset-4">
+            <form method="post" action="{{ path('web_profile_submit_clan') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('change_clan') }}">
+                <div class="form-group">
+                    <label for="clan">Clan</label>
+                    <input type="text" class="form-control" id="clan" name="clan" placeholder="clan"
+                           {% if clan is defined %}value="{{ clan }}"{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-default">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

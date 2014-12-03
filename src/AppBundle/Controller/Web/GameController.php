@@ -30,11 +30,11 @@ class GameController extends Controller
      */
     public function registerInfectionSubmitAction(Request $request)
     {
-        $token = $request->get('_token');
-        $humanIdStr = $request->get('human');
-        $zombieIdStr = $request->get('zombie');
-        $latitude = $request->get('latitude') or null;
-        $longitude = $request->get('longitude') or null;
+        $token = $request->request->get('_token');
+        $humanIdStr = $request->request->get('human');
+        $zombieIdStr = $request->request->get('zombie');
+        $latitude = $request->request->get('latitude') or null;
+        $longitude = $request->request->get('longitude') or null;
 
         if(!$this->isCsrfTokenValid("hvz_register_infection", $token))
         {

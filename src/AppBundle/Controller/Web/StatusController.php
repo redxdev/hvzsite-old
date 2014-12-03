@@ -15,7 +15,7 @@ class StatusController extends Controller
      */
     public function indexAction()
     {
-        return $this->redirect($this->generateUrl("web_status"));
+        return $this->redirectToRoute("web_status");
     }
 
     /**
@@ -49,7 +49,7 @@ class StatusController extends Controller
     {
         $gameStatus = $this->get('game_status');
 
-        $sortBy = $request->get('sort');
+        $sortBy = $request->query->get('sort');
 
         $list = $gameStatus->getPlayerList($page, 10, $sortBy);
         $list["sort"] = $sortBy;
@@ -70,7 +70,7 @@ class StatusController extends Controller
     {
         $gameStatus = $this->get('game_status');
 
-        $term = $request->get('term');
+        $term = $request->query->get('term');
         $list = $gameStatus->searchPlayerList($term);
         $list["sort"] = null;
         $list["search_term"] = $term;
