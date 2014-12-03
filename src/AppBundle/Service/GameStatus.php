@@ -89,6 +89,7 @@ class GameStatus
             $badges = $this->badgeRegistry->getBadges($player);
 
             $players[] = [
+                'id' => $player->getId(),
                 'fullname' => $player->getFullname(),
                 'team' => $player->getTeam() == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
                 'tags' => $player->getHumansTagged(),
@@ -159,6 +160,7 @@ class GameStatus
         foreach($infectionEnts as $infection)
         {
             $infections[] = [
+                "id" => $infection->getId(),
                 "human" => $infection->getHuman()->getFullname(),
                 "zombie" => $infection->getZombie()->getFullname(),
                 "time" => $infection->getTime()

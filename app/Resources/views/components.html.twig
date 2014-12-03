@@ -32,9 +32,9 @@
                     {{ components.nav_internal_link('players', path('web_players'), 'Players', selected) }}
                     {{ components.nav_internal_link('infections', path('web_infections'), 'Infections', selected) }}
                     {#{{ components.nav_internal_link('spread', '#', 'Spread', selected) }}#}
-                    {#{% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_USER') %}
                         {{ components.nav_internal_link('missions', path('hvz_missions'), 'Missions', selected) }}
-                    {% endif %}#}
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {{ components.nav_internal_link('rules', path('web_rules'), 'Rules', selected) }}

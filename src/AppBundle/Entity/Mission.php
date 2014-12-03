@@ -38,9 +38,9 @@ class Mission
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="postdate", type="datetime")
+     * @ORM\Column(name="post_date", type="datetime")
      */
-    private $postdate;
+    private $postDate;
 
     /**
      * @var integer
@@ -51,7 +51,7 @@ class Mission
 
     public function __construct()
     {
-        $this->postdate = new \DateTime();
+        $this->postDate = new \DateTime();
     }
 
     /**
@@ -111,29 +111,6 @@ class Mission
     }
 
     /**
-     * Set postdate
-     *
-     * @param \DateTime $postdate
-     * @return Mission
-     */
-    public function setPostdate($postdate)
-    {
-        $this->postdate = $postdate;
-
-        return $this;
-    }
-
-    /**
-     * Get postdate
-     *
-     * @return \DateTime 
-     */
-    public function getPostdate()
-    {
-        return $this->postdate;
-    }
-
-    /**
      * Set team
      *
      * @param integer $team
@@ -154,5 +131,28 @@ class Mission
     public function getTeam()
     {
         return $this->team;
+    }
+
+    /**
+     * Set postDate
+     *
+     * @param \DateTime $postDate
+     * @return Mission
+     */
+    public function setPostDate($postDate)
+    {
+        $this->postDate = $postDate;
+
+        return $this;
+    }
+
+    /**
+     * Get postDate
+     *
+     * @return \DateTime 
+     */
+    public function getPostDate()
+    {
+        return $this->postDate;
     }
 }
