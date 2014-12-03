@@ -31,8 +31,16 @@
                     {{ components.nav_internal_link('status', path('web_status'), 'Status', selected) }}
                     {{ components.nav_internal_link('players', path('web_players'), 'Players', selected) }}
                     {{ components.nav_internal_link('infections', path('web_infections'), 'Infections', selected) }}
-                    {# TODO: Spread page #}
-                    {#{{ components.nav_internal_link('spread', '#', 'Spread', selected) }}#}
+                    <li class="dropdown{% if selected == 'stats' %} active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Stats <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            {# TODO: Implement stats pages #}
+                            {{ components.nav_internal_link('spread', '#', 'Spread', selected2) }}
+                            {{ components.nav_internal_link('map', '#', 'Map', selected2) }}
+                        </ul>
+                    </li>
                     {% if is_granted('ROLE_USER') %}
                         {{ components.nav_internal_link('missions', path('web_missions'), 'Missions', selected) }}
                     {% endif %}
