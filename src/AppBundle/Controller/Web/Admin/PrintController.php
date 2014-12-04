@@ -65,7 +65,7 @@ class PrintController extends Controller
      * @Route("/admin/print/mark", name="web_admin_print_mark")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function markPrinted(Request $request)
+    public function markPrintedAction(Request $request)
     {
         $token = $request->query->get('token');
         if(!$this->isCsrfTokenValid("print_mark", $token))
