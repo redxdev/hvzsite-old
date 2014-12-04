@@ -157,7 +157,7 @@ class AuthController extends Controller
         }
 
         $gameAuth = $this->get("game_authentication");
-        $result = $gameAuth->logout();
+        $gameAuth->logout();
 
         $this->get('session')->getFlashBag()->add(
             'page.toast',
