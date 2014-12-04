@@ -1,0 +1,74 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Missions | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'missions') }}
+
+    <div class="container">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="row">
+                <div class="col-md-5 col-sm-4">
+                    <a href="{{ path('web_admin_mission_create') }}" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="vertical-space"></div>
+        {% endif %}
+
+        <div class="vertical-space"></div>
+
+        {% for mission in missions %}
+            <div class="row well">
+                <div class="col-sm-12">
+                    <div class="row bg-{{ mission.team }}">
+                        <div class="col-sm-8">
+                            <h2>{{ mission.title }}</h2>
+                            <p>{{ mission.post_date | date('Y-m-d H:i:s') }}</p>
+                        </div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="col-sm-4">
+                                <ul class="nav nav-stacked nav-pills">
+                                    <li>
+                                        <a href="#">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showDeleteDialog('{{ mission.title | e('js') }}', '{{ path('web_admin_mission_delete', {'id': mission.id, 'token': csrf_token('mission_delete')}) }}')">
+                                            Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ mission.body | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ components.delete_dialog('Are you sure you want to delete the mission') }}
+
+    {{ parent() }}
+
+    {{ components.delete_dialog_script() }}
+{% endblock %}

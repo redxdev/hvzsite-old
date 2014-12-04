@@ -1,0 +1,101 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    View Player | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'players') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="vertical-space"></div>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 text-center">
+                {% if profile.avatar is defined and profile.avatar is not null %}
+                    <img src="{{ asset(profile.avatar) }}" alt="avatar" class="avatar">
+                {% else %}
+                    <img src="holder.js/100x100" alt="avatar" class="avatar">
+                {% endif %}
+                <ul class="nav nav-pills">
+                    <li>
+                        <a href="{{ path('web_admin_player_edit', {'id': profile.id}) }}">
+                            Edit
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('web_admin_player_avatar_change', {'id': profile.id}) }}">
+                            Change Avatar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="showDeleteDialog('{{ profile.fullname | e('js') }}', '{{ path('web_admin_player_delete', {'id': profile.id, 'token': csrf_token('player_delete')}) }}')">
+                            Delete
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 bg-{{ profile.team }}">
+                <h3>{{ profile.fullname }}</h3>
+                <p><strong>Email:</strong> {{ profile.email }}</p>
+                <p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
+                <p><strong>Clan:</strong> {{ profile.clan | default('none') }}</p>
+                <p><strong>Access:</strong> {{ profile.access }}</p>
+                {% for badge in profile.badges %}
+                    <img data-toggle="tooltip" data-placement="top" data-html="true"
+                         title="<p><strong>{{ badge.name }}</strong></p><p>{{ badge.description }}</p>"
+                         src="{{ asset('assets/images/badges/' ~ badge.image) }}"
+                         alt="{{ badge.name }} badge">
+                {% endfor %}
+            </div>
+            <div class="col-sm-4">
+                <h3 class="hidden-xs">&nbsp;</h3>
+                <p><strong>Zombie Id:</strong> {{ profile.zombieId }} <small class="text-muted">(use as a zombie)</small></p>
+                <p><strong>Human Ids:</strong> <small class="text-muted">(give to zombies as a human)</small></p>
+                <ul>
+                    {% for id in profile.humanIds %}
+                        <li>
+                            {% if id.active == false %}
+                                <s>{{ id.id_string }}</s>
+                            {% else %}
+                                {{ id.id_string }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 text-center">
+                <h1 class="header-text">{{ profile.humansTagged }} Tag{% if profile.humansTagged != 1 %}s{% endif %}</h1>
+                {% for infection in profile.infections %}
+                    <p><strong>{{ infection.human }}</strong> <em>{{ time_diff(infection.time) }}</em></p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ components.delete_dialog('Are you sure you want to delete the user') }}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+
+    {{ components.delete_dialog_script() }}
+{% endblock %}

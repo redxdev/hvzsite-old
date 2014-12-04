@@ -20,4 +20,15 @@ class MissionRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function findAllOrderedByDate()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('m')
+            ->from('AppBundle:Mission', 'm')
+            ->orderBy('m.postDate', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

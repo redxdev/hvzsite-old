@@ -32,11 +32,8 @@ class ContentManager
         return ["rulesets" => $rulesets];
     }
 
-    public function getTeamMissionList($team)
+    private function buildMissionList($missionEnts)
     {
-        $missionRepo = $this->entityManager->getRepository('AppBundle:Mission');
-
-        $missionEnts = $missionRepo->findPostedByTeamOrderedByDate($team);
         $missions = [];
         foreach($missionEnts as $mission)
         {
@@ -48,6 +45,26 @@ class ContentManager
                 "post_date" => $mission->getPostDate()
             ];
         }
+
+        return $missions;
+    }
+
+    public function getTeamMissionList($team)
+    {
+        $missionRepo = $this->entityManager->getRepository('AppBundle:Mission');
+
+        $missionEnts = $missionRepo->findPostedByTeamOrderedByDate($team);
+        $missions = $this->buildMissionList($missionEnts);
+
+        return ["missions" => $missions];
+    }
+
+    public function getFullMissionList()
+    {
+        $missionRepo = $this->entityManager->getRepository('AppBundle:Mission');
+
+        $missionEnts = $missionRepo->findAllOrderedByDate();
+        $missions = $this->buildMissionList($missionEnts);
 
         return ["missions" => $missions];
     }

@@ -12,7 +12,6 @@
     "bootstrap": "~3.3.1",
     "holderjs": "~2.4.1",
     "snackbarjs": "~1.0.0",
-    "webcamjs": "*",
     "bootswatch": "~3.3.1",
     "jquery.countdown": "~2.0.4"
   }

@@ -487,7 +487,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
 
     public function getAvatarUploadRootDir()
     {
-        return __DIR__ . '/../../../../web/' . $this->getAvatarUploadDir();
+        return __DIR__ . '/../../../web/' . $this->getAvatarUploadDir();
     }
 
     public function getAvatarUploadDir()

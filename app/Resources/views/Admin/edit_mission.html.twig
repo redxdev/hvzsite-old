@@ -2,7 +2,7 @@
 {% import '::components.html.twig' as components %}
 
 {% block title %}
-    Edit Player | {{ parent() }}
+    Edit Mission | {{ parent() }}
 {% endblock %}
 
 {% block body_def %}
@@ -12,18 +12,17 @@
 {% block body %}
     {{ parent() }}
 
-    {{ components.navbar('fixed-top', 'admin', 'players') }}
+    {{ components.navbar('fixed-top', 'admin', 'missions') }}
 
     <div class="container">
         <div class="vertical-space"></div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h2>Edit Player</h2>
-                <h3>{{ fullname | e }} : {{ email | e }}</h3>
+                <h2>Edit Mission</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-offset-4 col-sm-4">
+            <div class="col-sm-8 col-sm-offset-2">
                 {{ form_start(form) }}
                     {{ form_widget(form) }}
                     <input type="submit" value="Save" class="btn btn-default pull-right">

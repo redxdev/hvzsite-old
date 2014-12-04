@@ -47,6 +47,11 @@
                 <div class="col-sm-4">
                     <ul class="nav nav-stacked nav-pills">
                         <li>
+                            <a href="{{ path('web_admin_player_view', {'id': player.id}) }}">
+                                View
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ path('web_admin_player_edit', {'id': player.id}) }}">
                                 Edit
                             </a>

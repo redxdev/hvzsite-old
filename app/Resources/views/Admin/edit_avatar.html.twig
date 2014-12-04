@@ -1,0 +1,61 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Change Avatar | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'players') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="vertical-space"></div>
+
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div id="webcam"></div>
+                <a href="javascript:void(0)" onclick="take_picture()" class="btn btn-primary">Take Picture</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+    'assets/js/webcam.min.js'%}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(function() {
+            Webcam.setSWFLocation("{{ asset('assets/flash/webcam.swf') }}");
+            Webcam.set({
+                width: 300,
+                height: 300,
+                image_format: 'jpeg',
+                jpeg_quality: 100
+            });
+            Webcam.attach("#webcam");
+        });
+
+        function take_picture() {
+            var data_uri = Webcam.snap();
+            Webcam.upload(
+                    data_uri,
+                    "{{ path('web_admin_player_avatar_submit', {'id': playerId, 'token': csrf_token("avatar_submit") }) }}",
+                    'form[avatarFile]',
+                    function(code, text) {
+                        window.location = text;
+            });
+        }
+    </script>
+{% endblock %}

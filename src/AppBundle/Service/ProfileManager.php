@@ -17,9 +17,10 @@ class ProfileManager
         $this->badgeReg = $badgeReg;
     }
 
-    public function getProfileInfo(User $user)
+    public function getProfileInfo(User $user, $protectedInfo = false)
     {
         $profile = [
+            "id" => $user->getId(),
             "fullname" => $user->getFullname(),
             "email" => $user->getEmail(),
             "clan" => $user->getClan(),
@@ -31,6 +32,11 @@ class ProfileManager
             "humanIds" => [],
             "infections" => []
         ];
+
+        if($protectedInfo)
+        {
+            $profile["access"] = $user->getRoles()[0];
+        }
 
         $humanIds = $user->getHumanIds();
         foreach($humanIds as $humanId)
@@ -46,8 +52,10 @@ class ProfileManager
         foreach($infections as $infection)
         {
             $profile["infections"][] = [
-                "human" => $infection->getHuman(),
-                "zombie" => $infection->getZombie(),
+                "human" => $infection->getHuman()->getFullname(),
+                "humanId" => $infection->getHuman()->getId(),
+                "zombie" => $infection->getZombie()->getFullname(),
+                "zombieId" => $infection->getZombie()->getId(),
                 "time" => $infection->getTime(),
                 "longitude" => $infection->getLongitude(),
                 "latitude" => $infection->getLatitude()

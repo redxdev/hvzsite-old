@@ -74,10 +74,9 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 {{ components.nav_internal_link('players', path('web_admin_players'), 'Players', selected2) }}
-                                {#{{ components.nav_internal_link('profiles', path('hvz_admin_profiles'), 'Profiles', selected2) }}
-                                {{ components.nav_internal_link('missions', path('hvz_admin_missions'), 'Missions', selected2) }}
+                                {{ components.nav_internal_link('missions', path('web_admin_missions'), 'Missions', selected2) }}
 
-                                {% if is_granted('ROLE_ADMIN') %}
+                                {#{% if is_granted('ROLE_ADMIN') %}
                                     {{ components.nav_internal_link('rules', path('hvz_admin_rules'), 'Rules', selected2) }}
                                 {% endif %}#}
                             </ul>
