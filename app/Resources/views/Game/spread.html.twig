@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Infection Spread | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'stats', 'map') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="vertical-space"></div>
+
+        <div class="row">
+            <div class="col-md-12" id="spread-chart">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages:["orgchart"]});
+        google.setOnLoadCallback(drawSpreadChart);
+
+        function drawSpreadChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Player', 'Zombie', 'tooltip'],
+                {% for infection in infections %}
+                    [{v:'{{ infection.human_id | e('js') }}', f:'{{ infection.human | e('js') }}'}, '{{ infection.zombie_id | e('js')}}', '{{ time_diff(infection.time) | e('js') }}'],
+                {% endfor %}
+            ]);
+
+            var options = {
+                allowHtml: false,
+                allowCollapse: true,
+                size: 'small'
+            };
+
+            var chart = new google.visualization.OrgChart(document.getElementById('spread-chart'));
+            chart.draw(data, options);
+
+            $(window).resize(function() {
+                chart.draw(data, options);
+            });
+        }
+    </script>
+{% endblock %}

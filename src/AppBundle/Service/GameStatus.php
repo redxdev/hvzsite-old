@@ -176,7 +176,9 @@ class GameStatus
             $infections[] = [
                 "id" => $infection->getId(),
                 "human" => $infection->getHuman()->getFullname(),
+                "human_id" => $infection->getHuman()->getId(),
                 "zombie" => $infection->getZombie()->getFullname(),
+                "zombie_id" => $infection->getZombie()->getId(),
                 "time" => $infection->getTime(),
                 "latitude" => $infection->getLatitude(),
                 "longitude" => $infection->getLongitude()
