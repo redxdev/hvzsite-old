@@ -52,4 +52,21 @@ class StatusController extends Controller
 
         return new JsonResponse($list);
     }
+
+    /**
+     * @Route("/players/search", name="rest_v1_players_search")
+     * @Method({"GET"})
+     */
+    public function searchPlayersAction(Request $request)
+    {
+        $gameStatus = $this->get('game_status');
+
+        $term = $request->query->get('term');
+        if(strlen($term) < 3)
+            return new JsonResponse(["status" => "error", "errors" => ["Search term must have at least three characters"]], 403);
+
+        $list = $gameStatus->searchPlayerList($term);
+
+        return new JsonResponse($list);
+    }
 }
