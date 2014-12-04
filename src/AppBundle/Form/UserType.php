@@ -12,14 +12,14 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("active", "checkbox")
+            ->add("active", "checkbox", ["required" => false])
             ->add("team", "choice", [
                 'choices' => [
                     GameUtil::TEAM_HUMAN => 'Human',
                     GameUtil::TEAM_ZOMBIE => 'Zombie'
                 ]
             ])
-            ->add("clan", "text");
+            ->add("clan", "text", ["required" => false]);
 
         if($options["show_roles"] === true)
         {

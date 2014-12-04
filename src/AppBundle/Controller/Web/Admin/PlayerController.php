@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+//TODO: Add option to generate additional human ids
 class PlayerController extends Controller
 {
     /**

@@ -1,0 +1,33 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Edit Antivirus | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'antiviruses') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2>Edit Antivirus</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Save" class="btn btn-default pull-right">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

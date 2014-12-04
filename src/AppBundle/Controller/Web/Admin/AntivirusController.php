@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Web\Admin;
 
-use AppBundle\Entity\Ruleset;
-use AppBundle\Form\RulesetType;
+use AppBundle\Entity\AntiVirusId;
+use AppBundle\Form\AntiVirusIdType;
 use AppBundle\Service\ActionLogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -12,42 +12,55 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RulesetController extends Controller
+class AntivirusController extends Controller
 {
     /**
-     * @Route("/admin/rulesets", name="web_admin_rulesets")
+     * @Route("/admin/antiviruses", name="web_admin_antiviruses")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function rulesetsAction()
+    public function antivirusesAction()
     {
-        $contentManager = $this->get('content_manager');
+        $entityManager = $this->getDoctrine()->getManager();
+        $avRepo = $entityManager->getRepository('AppBundle:AntiVirusId');
 
-        $list = $contentManager->getRulesetList();
+        $avEnts = $avRepo->findAll();
+        $avs = [];
+        foreach($avEnts as $av)
+        {
+            $avs[] = [
+                "id" => $av->getId(),
+                "active" => $av->getActive(),
+                "id_string" => $av->getIdString(),
+                "description" => $av->getDescription()
+            ];
+        }
 
         $content = $this->renderView(
-            ":Admin:rulesets.html.twig",
-            $list
+            ":Admin:antiviruses.html.twig",
+            [
+                "antiviruses" => $avs
+            ]
         );
 
         return new Response($content);
     }
 
     /**
-     * @Route("/admin/ruleset/{id}/delete", name="web_admin_ruleset_delete", requirements={"id" = "\d+"})
-     * @ParamConverter("ruleset", class="AppBundle:Ruleset")
+     * @Route("/admin/antivirus/{id}/delete", name="web_admin_antivirus_delete")
+     * @ParamConverter("av", class="AppBundle:AntiVirusId")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function rulesetDeleteAction(Request $request, Ruleset $ruleset)
+    public function antivirusDeleteAction(Request $request, AntiVirusId $av)
     {
         $token = $request->query->get('token');
-        if(!$this->isCsrfTokenValid("ruleset_delete", $token))
+        if(!$this->isCsrfTokenValid("antivirus_delete", $token))
         {
             $request->getSession()->getFlashBag()->add(
                 'page.toast',
-                'Invalid CSRF token. Try deleting the ruleset again!'
+                'Invalid CSRF token. Try deleting the antivirus again!'
             );
 
-            return $this->redirectToRoute('web_admin_rulesets');
+            return $this->redirectToRoute('web_admin_antiviruses');
         }
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -56,29 +69,32 @@ class RulesetController extends Controller
         $actLog->record(
             ActionLogService::TYPE_ADMIN,
             $this->getUser()->getEmail(),
-            'Deleted ruleset ' . $ruleset->getTitle(),
+            'Deleted antivirus #' . $av->getId() . ": " . $av->getIdString(),
             false
         );
 
-        $entityManager->remove($ruleset);
+        $entityManager->remove($av);
         $entityManager->flush();
 
         $request->getSession()->getFlashBag()->add(
             'page.toast',
-            'Successfully deleted mission ' . $ruleset->getTitle()
+            'Successfully deleted antivirus ' . $av->getId()
         );
 
-        return $this->redirectToRoute('web_admin_rulesets');
+        return $this->redirectToRoute('web_admin_antiviruses');
     }
 
     /**
-     * @Route("/admin/ruleset/create", name="web_admin_ruleset_create")
+     * @Route("/admin/antivirus/create", name="web_admin_antivirus_create")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function rulesetCreateAction(Request $request)
+    public function antivirusCreateAction(Request $request)
     {
-        $ruleset = new Ruleset();
-        $form = $this->createForm(new RulesetType(), $ruleset);
+        $idGen = $this->get('id_generator');
+
+        $av = new AntiVirusId();
+        $av->setIdString($idGen->generate());
+        $form = $this->createForm(new AntiVirusIdType(), $av);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -87,24 +103,24 @@ class RulesetController extends Controller
             $actLog->record(
                 ActionLogService::TYPE_ADMIN,
                 $this->getUser()->getEmail(),
-                "Created new ruleset " . $ruleset->getTitle(),
+                "Created new antivirus " . $av->getIdString(),
                 false
             );
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($ruleset);
+            $entityManager->persist($av);
             $entityManager->flush();
 
             $request->getSession()->getFlashBag()->add(
                 'page.toast',
-                'Successfully created ruleset ' . $ruleset->getTitle()
+                'Successfully created antivirus ' . $av->getIdString()
             );
 
-            return $this->redirectToRoute('web_admin_rulesets');
+            return $this->redirectToRoute('web_admin_antiviruses');
         }
 
         $content = $this->renderView(
-            ":Admin:edit_ruleset.html.twig",
+            ":Admin:edit_antivirus.html.twig",
             [
                 "form" => $form->createView()
             ]
@@ -114,13 +130,13 @@ class RulesetController extends Controller
     }
 
     /**
-     * @Route("/admin/ruleset/{id}/edit", name="web_admin_ruleset_edit", requirements={"id" = "\d+"})
-     * @ParamConverter("ruleset", class="AppBundle:Ruleset")
+     * @Route("/admin/antivirus/{id}/edit", name="web_admin_antivirus_edit")
+     * @ParamConverter("av", class="AppBundle:AntiVirusId")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function rulesetEditAction(Request $request, Ruleset $ruleset)
+    public function antivirusEditAction(Request $request, AntiVirusId $av)
     {
-        $form = $this->createForm(new RulesetType(), $ruleset);
+        $form = $this->createForm(new AntiVirusIdType(), $av);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -129,23 +145,24 @@ class RulesetController extends Controller
             $actLog->record(
                 ActionLogService::TYPE_ADMIN,
                 $this->getUser()->getEmail(),
-                "Edited ruleset " . $ruleset->getTitle(),
+                "Created new antivirus " . $av->getIdString(),
                 false
             );
 
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($av);
             $entityManager->flush();
 
             $request->getSession()->getFlashBag()->add(
                 'page.toast',
-                'Successfully edited ruleset ' . $ruleset->getTitle()
+                'Successfully created antivirus ' . $av->getIdString()
             );
 
-            return $this->redirectToRoute('web_admin_rulesets');
+            return $this->redirectToRoute('web_admin_antiviruses');
         }
 
         $content = $this->renderView(
-            ':Admin:edit_ruleset.html.twig',
+            ":Admin:edit_antivirus.html.twig",
             [
                 "form" => $form->createView()
             ]

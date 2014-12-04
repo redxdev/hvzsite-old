@@ -26,8 +26,8 @@ class GameManager
         $idRepo = $this->entityManager->getRepository("AppBundle:HumanId");
         $userRepo = $this->entityManager->getRepository("AppBundle:User");
 
-        $humanId = $idRepo->findOneByIdString($humanIdStr);
-        $zombie = $userRepo->findOneByZombieId($zombieIdStr);
+        $humanId = $idRepo->findOneByIdString(trim(strtolower($humanIdStr)));
+        $zombie = $userRepo->findOneByZombieId(trim(strtolower($zombieIdStr)));
 
         if(!$humanId || !$humanId->getActive() || !$humanId->getUser()->getActive())
         {
@@ -166,6 +166,99 @@ class GameManager
 
                 $infection->setKillstreaks($streaks);
             }
+        }
+    }
+
+    public function isValidAntiVirusTime()
+    {
+        $now = new \DateTime();
+        $hour = intval($now->format('G'));
+        $day = intval($now->format('w'));
+
+        if($hour >= 17 && $hour < 23)
+        {
+            return false;
+        }
+
+        if($day > 5 && $hour >= 2)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function processAntiVirus($avIdStr, $zombieIdStr)
+    {
+        if(!$this->isValidAntiVirusTime())
+        {
+            return [
+                "status" => "error",
+                "errors" => ["You may not use an antivirus at this time"],
+                "antivirus" => $avIdStr,
+                "zombie" => $zombieIdStr
+            ];
+        }
+
+        $errors = [];
+
+        $avRepo = $this->entityManager->getRepository("AppBundle:AntiVirusId");
+        $userRepo = $this->entityManager->getRepository("AppBundle:User");
+
+        $avId = $avRepo->findOneByIdString(trim(strtolower($avIdStr)));
+        $zombie = $userRepo->findOneByZombieId(trim(strtolower($zombieIdStr)));
+
+        if(!$avId)
+        {
+            $errors[] = "Unknown antivirus code";
+        }
+        else if(!$avId->getActive())
+        {
+            $errors[] = "Antivirus has already been used";
+        }
+
+        if(!$zombie || !$zombie->getActive())
+        {
+            $errors[] = "Unknown zombie id";
+        }
+
+        if(count($errors) == 0)
+        {
+            if($zombie->getTeam() != GameUtil::TEAM_ZOMBIE)
+            {
+                $errors[] = "Player is not a zombie";
+            }
+        }
+
+        if(count($errors) != 0)
+        {
+            return [
+                "status" => "error",
+                "errors" => $errors,
+                "antivirus" => $avIdStr,
+                "zombie" => $zombieIdStr
+            ];
+        }
+        else
+        {
+            $this->actLog->record(
+                ActionLogService::TYPE_GAME,
+                $zombie->getEmail(),
+                'Used an antivirus - ' . $avId->getIdString(),
+                false
+            );
+
+            $avId->setActive(false);
+            $zombie->setTeam(GameUtil::TEAM_HUMAN);
+
+            $this->badgeReg->addBadge($zombie, 'used-av', false);
+
+            $this->entityManager->flush();
+
+            return [
+                "status" => "ok",
+                "zombie_name" => $zombie->getFullname()
+            ];
         }
     }
 }

@@ -36,7 +36,7 @@ class GameController extends Controller
         $latitude = $request->request->get('latitude') or null;
         $longitude = $request->request->get('longitude') or null;
 
-        if(!$this->isCsrfTokenValid("hvz_register_infection", $token))
+        if(!$this->isCsrfTokenValid("register_infection", $token))
         {
             $content = $this->renderView(
                 ":Game:register_infection.html.twig",
@@ -56,14 +56,77 @@ class GameController extends Controller
 
         if($result["status"] == "ok")
         {
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'page.toast',
-                $result["human_name"] . " has joined the horde, courtesy of " . $result["zombie_name"]
+                $result["human_name"] . " has joined the horde, courtesy of " . $result["zombie_name"] . "!"
             );
         }
 
         $content = $this->renderView(
             ":Game:register_infection.html.twig",
+            $result
+        );
+
+        return new Response($content);
+    }
+
+    /**
+     * @Route("/antivirus", name="web_antivirus")
+     * @Method({"GET"})
+     */
+    public function antivirusAction()
+    {
+        $gameManager = $this->get('game_manager');
+
+        $content = $this->renderView(
+            ":Game:antivirus.html.twig",
+            [
+                "valid_time" => $gameManager->isValidAntiVirusTime()
+            ]
+        );
+
+        return new Response($content);
+    }
+
+    /**
+     * @Route("/antivirus", name="web_antivirus_submit")
+     * @Method({"POST"})
+     */
+    public function antivirusSubmitAction(Request $request)
+    {
+        $token = $request->request->get('_token');
+        $avIdStr = $request->request->get('antivirus');
+        $zombieIdStr = $request->request->get('zombie');
+
+        if(!$this->isCsrfTokenValid("antivirus", $token))
+        {
+            $content = $this->renderView(
+                ":Game:antivirus.html.twig",
+                [
+                    "status" => "error",
+                    "errors" => ["Invalid CSRF token; try resubmitting the form."],
+                    "antivirus" => $avIdStr,
+                    "zombie" => $zombieIdStr
+                ]
+            );
+
+            return new Response($content);
+        }
+
+        $gameManager = $this->get('game_manager');
+        $result = $gameManager->processAntiVirus($avIdStr, $zombieIdStr);
+        $result["valid_time"] = $gameManager->isValidAntiVirusTime();
+
+        if($result["status"] == "ok")
+        {
+            $request->getSession()->getFlashBag()->add(
+                'page.toast',
+                $result["zombie_name"] . "has taken an antivirus and become human once more!"
+            );
+        }
+
+        $content = $this->renderView(
+            ":Game:antivirus.html.twig",
             $result
         );
 

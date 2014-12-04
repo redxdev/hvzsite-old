@@ -33,7 +33,7 @@
         <div class="vertical-space"></div>
 
         {% for player in players %}
-            <div class="row well">
+            <div class="row well bg-{{ player.team }}">
                 <div class="col-sm-4">
                     <p><strong>Name:</strong> {{ player.fullname }}</p>
                     <p><strong>Email:</strong> {{ player.email }}</p>

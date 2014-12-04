@@ -1,0 +1,74 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Antiviruses | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'antiviruses') }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-4">
+                <a href="{{ path('web_admin_antivirus_create') }}" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="vertical-space"></div>
+
+        {% for av in antiviruses %}
+            <div class="row well">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h3>
+                                #{{ av.id }}:
+                                {% if not av.active %}
+                                    <s>{{ av.id_string }}</s>
+                                {% else %}
+                                    {{ av.id_string }}
+                                {% endif %}
+                            </h3>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="nav nav-stacked nav-pills">
+                                <li>
+                                    <a href="{{ path('web_admin_antivirus_edit', {'id': av.id}) }}">
+                                        Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" onclick="showDeleteDialog('#{{ av.id | e('js') }}', '{{ path('web_admin_antivirus_delete', {'id': av.id, 'token': csrf_token('antivirus_delete')}) }}')">
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ av.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ components.delete_dialog('Are you sure you want to delete the antivirus') }}
+
+    {{ parent() }}
+
+    {{ components.delete_dialog_script() }}
+{% endblock %}
