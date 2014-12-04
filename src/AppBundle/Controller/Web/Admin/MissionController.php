@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\Mission;
-use AppBundle\Form\MissionType;
+use AppBundle\Form\Type\MissionType;
 use AppBundle\Service\ActionLogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

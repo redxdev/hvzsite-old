@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\Ruleset;
-use AppBundle\Form\RulesetType;
+use AppBundle\Form\Type\RulesetType;
 use AppBundle\Service\ActionLogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

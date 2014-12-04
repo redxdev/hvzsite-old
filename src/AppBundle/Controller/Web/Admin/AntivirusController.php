@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\AntiVirusId;
-use AppBundle\Form\AntiVirusIdType;
+use AppBundle\Form\Type\AntiVirusIdType;
 use AppBundle\Service\ActionLogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

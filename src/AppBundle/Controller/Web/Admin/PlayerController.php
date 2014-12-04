@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\HumanId;
 use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
+use AppBundle\Form\Type\UserType;
 use AppBundle\Service\ActionLogService;
 use AppBundle\Util\GameUtil;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -261,7 +261,7 @@ class PlayerController extends Controller
 
             $entityManager->flush();
 
-            if($oldAvatarPath != null)
+            if($oldAvatarPath !== null)
             {
                 @unlink($oldAvatarPath);
             }

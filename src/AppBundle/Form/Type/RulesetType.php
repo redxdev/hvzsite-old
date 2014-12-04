@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use AppBundle\Util\GameUtil;
 use Symfony\Component\Form\AbstractType;
