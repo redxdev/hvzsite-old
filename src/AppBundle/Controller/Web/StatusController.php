@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Web;
 
+use AppBundle\Util\GameUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,18 +24,28 @@ class StatusController extends Controller
     public function statusAction()
     {
         $gameStatus = $this->get('game_status');
+        $statsManager = $this->get('stats_manager');
         $game = $gameStatus->getGameStatus();
         $teams = null;
+        $infectionTimeline = null;
+        $infections = null;
+        $topPlayers = null;
         if($game["status"] != "no-game")
         {
             $teams = $gameStatus->getTeamStatus();
+            $infectionTimeline = $statsManager->getInfectionTimeline()["timeline"];
+            $infections = $gameStatus->getInfectionList(0, 5)["infections"];
+            $topPlayers = $gameStatus->getPlayerList(0, 5, GameUtil::SORT_TEAM)["players"];
         }
 
         $content = $this->renderView(
             ":Game:status.html.twig",
             [
                 "game" => array_key_exists("game", $game) ? $game["game"] : null,
-                "team" => $teams
+                "team" => $teams,
+                "timeline" => $infectionTimeline,
+                "infections" => $infections,
+                "top_players" => $topPlayers
             ]
         );
 

@@ -43,4 +43,16 @@ class InfectionSpreadRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function findCountGroupedByTime()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(s) as totalCount, s.time, substring(s.time, 1, 13) as HIDDEN timeStr')
+            ->from('AppBundle:InfectionSpread', 's')
+            ->groupBy('timeStr')
+            ->orderBy('s.time', 'ASC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

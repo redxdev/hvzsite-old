@@ -53,18 +53,28 @@
             </div>
         </div>
         <div class="row">
-            <div id="tag-chart" class="col-md-12" style="height: 250px;">
+            <div id="infection-chart" class="col-md-12" style="height: 250px;">
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 text-center">
-                <h1>Recent Tags</h1>
-                <p>todo</p>
-            </div>
-            <div class="col-sm-6 text-center">
-                <h1>Top Zombies</h1>
-                <p>todo</p>
-            </div>
+            {% if infections is not null %}
+                <div class="col-sm-6 text-center">
+                    <h1>Recent Infections</h1>
+                    {% for infection in infections %}
+                        <p><strong>{{ infection.human }}</strong> was tagged by <strong>{{ infection.zombie }}</strong> <em>{{ time_diff(infection.time) }}</em></p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if top_players is not null %}
+                <div class="col-sm-6 text-center">
+                    <h1>Top Players</h1>
+                    {% for player in top_players %}
+                        {% if player.humansTagged > 0 %}
+                            <p><strong>{{ player.fullname }}</strong> with <strong>{{ player.humansTagged }}</strong> tags</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
@@ -76,47 +86,36 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    {% if timeline is defined %}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-    <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawTagChart);
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawInfectionChart);
 
-        function drawTagChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Time', '# Tags', {role: 'tooltip'}],
-                ['21:00', 25, 'Sunday 21:00 - 25 kills'],
-                ['22:00', 10, 'Sunday 22:00 - 10 kills'],
-                ['23:00', 5, 'Sunday 23:00 - 5 kills'],
-                ['00:00', 1, 'Monday 00:00 - 1 kills'],
-                ['01:00', 1, 'Monday 01:00 - 1 kills'],
-                ['02:00', 1, 'Monday 02:00 - 1 kills'],
-                ['03:00', 1, 'Monday 03:00 - 1 kills'],
-                ['04:00', 1, 'Monday 04:00 - 1 kills'],
-                ['05:00', 3, 'Monday 05:00 - 3 kills'],
-                ['06:00', 7, 'Monday 06:00 - 7 kills'],
-                ['07:00', 10, 'Monday 07:00 - 10 kills'],
-                ['08:00', 20, 'Monday 08:00 - 20 kills'],
-                ['09:00', 13, 'Monday 09:00 - 13 kills'],
-                ['10:00', 4, 'Monday 10:00 - 4 kills'],
-                ['11:00', 8, 'Monday 11:00 - 8 kills'],
-                ['12:00', 3, 'Monday 12:00 - 3 kills'],
-            ]); // TODO: Use REST API for this
+            function drawInfectionChart() {
+                var data = google.visualization.arrayToDataTable([
+                        ['Time', '# Infections', {role: 'tooltip'}],
+                        {% for entry in timeline %}
+                        ['{{ entry.time_str | e('js') }}', {{ entry.count }}, '{{ entry.count }} infections']{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                ]);
 
-            var options = {
-                title: 'Tag Timeline',
-                colors: ['black'],
-                legend: 'none'
-            };
+                var options = {
+                    title: 'Infection Timeline',
+                    colors: ['black'],
+                    legend: 'none'
+                };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('tag-chart'));
-            chart.draw(data, options);
-
-            $(window).resize(function() {
+                var chart = new google.visualization.ColumnChart(document.getElementById('infection-chart'));
                 chart.draw(data, options);
-            });
-        }
-    </script>
+
+                $(window).resize(function() {
+                    chart.draw(data, options);
+                });
+            }
+        </script>
+    {% endif %}
 
     {% if game %}
         <script type="text/javascript">
