@@ -33,8 +33,8 @@ class GameController extends Controller
         $token = $request->request->get('_token');
         $humanIdStr = $request->request->get('human');
         $zombieIdStr = $request->request->get('zombie');
-        $latitude = $request->request->get('latitude') or null;
-        $longitude = $request->request->get('longitude') or null;
+        $latitude = $request->request->get('latitude');
+        $longitude = $request->request->get('longitude');
 
         if(!$this->isCsrfTokenValid("register_infection", $token))
         {
