@@ -1,5 +1,5 @@
-HvZ Website (Symfony 2.6 branch)
-================================
+HvZ Website
+===========
 
 This is the website for the Rochester Institute of Technology Humans vs Zombies club, created using Symfony. It has been
 used in the Fall 2014 weeklong game of HvZ, with ~850 participants. See https://hvz.rit.edu/.
