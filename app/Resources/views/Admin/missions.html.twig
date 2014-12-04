@@ -35,13 +35,13 @@
                     <div class="row bg-{{ mission.team }}">
                         <div class="col-sm-8">
                             <h2>{{ mission.title }}</h2>
-                            <p>{{ mission.post_date | date('Y-m-d H:i:s') }}</p>
+                            <p>{{ mission.post_date | date('Y-m-d H:i:s') }} ({{ time_diff(mission.post_date) }})</p>
                         </div>
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="col-sm-4">
                                 <ul class="nav nav-stacked nav-pills">
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ path('web_admin_mission_edit', {'id': mission.id}) }}">
                                             Edit
                                         </a>
                                     </li>

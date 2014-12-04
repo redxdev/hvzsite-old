@@ -31,3 +31,19 @@
         </div>
     </div>
 {% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+    'assets/bower_components/ckeditor/ckeditor.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(function() {
+            CKEDITOR.basePath = "{{ asset('assets/bower_components/ckeditor/') }}"
+            CKEDITOR.replace('mission_body');
+        });
+    </script>
+{% endblock %}

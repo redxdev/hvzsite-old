@@ -113,4 +113,47 @@ class MissionController extends Controller
 
         return new Response($content);
     }
+
+    /**
+     * @Route("/admin/mission/{id}/edit", name="web_admin_mission_edit", requirements={"id" = "\d+"})
+     * @ParamConverter("mission", class="AppBundle:Mission")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function missionEditAction(Request $request, Mission $mission)
+    {
+        $form = $this->createForm(new MissionType(), $mission);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $actLog = $this->get('action_log');
+            $actLog->record(
+                ActionLogService::TYPE_ADMIN,
+                $this->getUser()->getEmail(),
+                "Edited mission " . $mission->getTitle(),
+                false
+            );
+
+            $entityManager = $this->get('doctrine.orm.entity_manager');
+            $entityManager->persist($mission);
+            $entityManager->flush();
+
+            $request->getSession()->getFlashBag()->add(
+                'page.toast',
+                'Successfully edited mission ' . $mission->getTitle()
+            );
+
+            return $this->redirectToRoute('web_admin_missions');
+        }
+
+        $content = $this->renderView(
+            ":Admin:edit_mission.html.twig",
+            [
+                "form" => $form->createView()
+            ]
+        );
+
+        return new Response($content);
+    }
 }
