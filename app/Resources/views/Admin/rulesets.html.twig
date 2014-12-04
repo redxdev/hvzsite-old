@@ -1,0 +1,67 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Rulesets | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'rulesets') }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-4">
+                <a href="{#{{ path('web_admin_ruleset_create') }}#}" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="vertical-space"></div>
+
+        {% for ruleset in rulesets %}
+            <div class="row well">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2>{{ ruleset.title }}</h2>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="nav nav-stacked nav-pills">
+                                <li>
+                                    <a href="{#{{ path('web_admin_mission_edit', {'id': mission.id}) }}#}">
+                                        Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" onclick="showDeleteDialog('{{ ruleset.title | e('js') }}', '{{ path('web_admin_ruleset_delete', {'id': ruleset.id, 'token': csrf_token('ruleset_delete')}) }}')">
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ ruleset.body | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ components.delete_dialog('Are you sure you want to delete the ruleset') }}
+
+    {{ parent() }}
+
+    {{ components.delete_dialog_script() }}
+{% endblock %}

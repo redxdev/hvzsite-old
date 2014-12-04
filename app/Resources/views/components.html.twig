@@ -76,9 +76,9 @@
                                 {{ components.nav_internal_link('players', path('web_admin_players'), 'Players', selected2) }}
                                 {{ components.nav_internal_link('missions', path('web_admin_missions'), 'Missions', selected2) }}
 
-                                {#{% if is_granted('ROLE_ADMIN') %}
-                                    {{ components.nav_internal_link('rules', path('hvz_admin_rules'), 'Rules', selected2) }}
-                                {% endif %}#}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ components.nav_internal_link('rulesets', path('web_admin_rulesets'), 'Rulesets', selected2) }}
+                                {% endif %}
                             </ul>
                         </li>
                     {% endif %}
