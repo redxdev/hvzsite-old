@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HvZ Player Id Cards</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('assets/css/print.css') }}">
+</head>
+<body>
+{% for p in profiles %}
+    {% set player = p.profile %}
+    <div class="card">
+        <div class="top">
+            <div class="avatar">
+                {% if player.avatar is not null %}
+                    <img src="{{ asset(player.avatar) }}" alt="avatar">
+                {% else %}
+                    <img src="holder.js/100x100" alt="avatar">
+                {% endif %}
+            </div>
+            <div class="info">
+                <p class="name">{{ player.fullname }}</p>
+                <p>Zombie Id: {% if not preview %}{{ player.zombieId }}{% endif %}</p>
+            </div>
+        </div>
+        <div class="bottom">
+            {% for id in player.humanIds|reverse %}
+                {% if loop.index < 3 %}
+                    <hr>
+                    <p class="human-id">Human Id #{{ loop.length - loop.index + 1 }}: {% if not preview %}{{ id.id_string }}{% endif %}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if loop.index is divisibleby(2) %}
+        <br style="clear:both">
+    {% endif %}
+
+    {% if loop.index is divisibleby(8) %}
+        <div class="card-spacer"></div>
+    {% endif %}
+{% endfor %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
+</body>
+</html>

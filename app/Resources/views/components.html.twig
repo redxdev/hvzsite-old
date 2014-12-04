@@ -79,6 +79,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     {{ components.nav_internal_link('antiviruses', path('web_admin_antiviruses'), 'Antiviruses', selected2) }}
                                     {{ components.nav_internal_link('rulesets', path('web_admin_rulesets'), 'Rulesets', selected2) }}
+                                    {{ components.nav_internal_link('print', path('web_admin_print'), 'Print', selected2) }}
                                 {% endif %}
                             </ul>
                         </li>

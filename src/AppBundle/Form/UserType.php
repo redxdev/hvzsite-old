@@ -13,6 +13,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add("active", "checkbox", ["required" => false])
+            ->add("printed", "checkbox", ["required" => false])
             ->add("team", "choice", [
                 'choices' => [
                     GameUtil::TEAM_HUMAN => 'Human',

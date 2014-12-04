@@ -64,4 +64,17 @@ class ProfileManager
 
         return ["profile" => $profile];
     }
+
+    public function getUnprintedProfiles()
+    {
+        $userRepo = $this->entityManager->getRepository("AppBundle:User");
+        $profileEnts = $userRepo->findActiveUnprinted();
+        $profiles = [];
+        foreach($profileEnts as $profile)
+        {
+            $profiles[] = $this->getProfileInfo($profile);
+        }
+
+        return ["profiles" => $profiles];
+    }
 }

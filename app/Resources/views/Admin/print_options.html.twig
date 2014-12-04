@@ -1,0 +1,43 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Print Ids | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'print') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="vertical-space"></div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2>Print Id Cards</h2>
+                <ul class="nav nav-pills">
+                    <li>
+                        <a href="{{ path('web_admin_print_preview') }}">
+                            Preview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('web_admin_print_full') }}">
+                            Print
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('web_admin_print_mark', {'token': csrf_token('print_mark')}) }}">
+                            Mark all as printed
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

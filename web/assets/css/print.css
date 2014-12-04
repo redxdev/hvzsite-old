@@ -1,3 +1,7 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .card-spacer {
     height: 10.5em;
 }
@@ -55,4 +59,8 @@
 .card hr {
     margin-top: -0.4cm;
     margin-bottom: -0.1cm;
+}
+
+.card .human-id {
+    margin-top: 0.5em;
 }

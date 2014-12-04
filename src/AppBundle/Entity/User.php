@@ -104,9 +104,16 @@ class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="avatar_path", length=255, nullable=true)
+     * @ORM\Column(name="avatar_path", type="string", length=255, nullable=true)
      */
     private $avatarPath;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="printed", type="boolean")
+     */
+    private $printed;
 
     private $avatarFile;
 
@@ -119,6 +126,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
         $this->signupDate = new \DateTime();
         $this->clan = "";
         $this->badges = array();
+        $this->printed = false;
     }
 
     public function eraseCredentials()
@@ -523,5 +531,28 @@ class User implements UserInterface, EquatableInterface, \Serializable
         );
         $this->avatarPath = $filename;
         $this->avatarFile = null;
+    }
+
+    /**
+     * Set printed
+     *
+     * @param boolean $printed
+     * @return User
+     */
+    public function setPrinted($printed)
+    {
+        $this->printed = $printed;
+
+        return $this;
+    }
+
+    /**
+     * Get printed
+     *
+     * @return boolean 
+     */
+    public function getPrinted()
+    {
+        return $this->printed;
     }
 }

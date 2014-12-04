@@ -188,4 +188,17 @@ class UserRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function findActiveUnprinted()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere('u.printed = false')
+            ->orderBy('u.fullname', 'ASC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
