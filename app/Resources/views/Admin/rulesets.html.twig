@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-sm-4">
-                <a href="{#{{ path('web_admin_ruleset_create') }}#}" class="btn btn-primary">
+                <a href="{{ path('web_admin_ruleset_create') }}" class="btn btn-primary">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -35,7 +35,7 @@
                         <div class="col-sm-4">
                             <ul class="nav nav-stacked nav-pills">
                                 <li>
-                                    <a href="{#{{ path('web_admin_mission_edit', {'id': mission.id}) }}#}">
+                                    <a href="{{ path('web_admin_ruleset_edit', {'id': ruleset.id}) }}">
                                         Edit
                                     </a>
                                 </li>

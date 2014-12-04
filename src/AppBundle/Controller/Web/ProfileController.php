@@ -75,7 +75,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute("web_profile_change_clan");
         }
 
-        $entityManager = $this->get('doctrine.orm.entity_manager');
+        $entityManager = $this->getDoctrine()->getManager();
         $actLog = $this->get('action_log');
 
         $this->getUser()->setClan($clan);

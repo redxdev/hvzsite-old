@@ -72,7 +72,7 @@ class PlayerController extends Controller
             return $this->redirectToRoute('web_admin_players');
         }
 
-        $entityManager = $this->get('doctrine.orm.entity_manager');
+        $entityManager = $this->getDoctrine()->getManager();
         $actLog = $this->get('action_log');
 
         $actLog->record(
@@ -114,7 +114,7 @@ class PlayerController extends Controller
                 false
             );
 
-            $entityManager = $this->get('doctrine.orm.entity_manager');
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             $request->getSession()->getFlashBag()->add(
@@ -201,7 +201,7 @@ class PlayerController extends Controller
 
         if($form->isValid())
         {
-            $entityManager = $this->get('doctrine.orm.entity_manager');
+            $entityManager = $this->getDoctrine()->getManager();
             $actLog = $this->get('action_log');
 
             $actLog->record(

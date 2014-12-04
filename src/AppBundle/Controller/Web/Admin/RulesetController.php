@@ -50,7 +50,7 @@ class RulesetController extends Controller
             return $this->redirectToRoute('web_admin_rulesets');
         }
 
-        $entityManager = $this->get('doctrine.orm.entity_manager');
+        $entityManager = $this->getDoctrine()->getManager();
         $actLog = $this->get('action_log');
 
         $actLog->record(
@@ -79,7 +79,6 @@ class RulesetController extends Controller
     {
         $ruleset = new Ruleset();
         $form = $this->createForm(new RulesetType(), $ruleset);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -92,7 +91,7 @@ class RulesetController extends Controller
                 false
             );
 
-            $entityManager = $this->get('doctrine.orm.entity_manager');
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ruleset);
             $entityManager->flush();
 
@@ -106,6 +105,47 @@ class RulesetController extends Controller
 
         $content = $this->renderView(
             ":Admin:edit_ruleset.html.twig",
+            [
+                "form" => $form->createView()
+            ]
+        );
+
+        return new Response($content);
+    }
+
+    /**
+     * @Route("/admin/ruleset/{id}/edit", name="web_admin_ruleset_edit", requirements={"id" = "\d+"})
+     * @ParamConverter("ruleset", class="AppBundle:Ruleset")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function rulesetEditAction(Request $request, Ruleset $ruleset)
+    {
+        $form = $this->createForm(new RulesetType(), $ruleset);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $actLog = $this->get('action_log');
+            $actLog->record(
+                ActionLogService::TYPE_ADMIN,
+                $this->getUser()->getEmail(),
+                "Edited ruleset " . $ruleset->getTitle(),
+                false
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            $request->getSession()->getFlashBag()->add(
+                'page.toast',
+                'Successfully edited ruleset ' . $ruleset->getTitle()
+            );
+
+            return $this->redirectToRoute('web_admin_rulesets');
+        }
+
+        $content = $this->renderView(
+            ':Admin:edit_ruleset.html.twig',
             [
                 "form" => $form->createView()
             ]

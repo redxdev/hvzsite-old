@@ -50,7 +50,7 @@ class MissionController extends Controller
             return $this->redirectToRoute('web_admin_missions');
         }
 
-        $entityManager = $this->get('doctrine.orm.entity_manager');
+        $entityManager = $this->getDoctrine()->getManager();
         $actLog = $this->get('action_log');
 
         $actLog->record(
@@ -79,7 +79,6 @@ class MissionController extends Controller
     {
         $mission = new Mission();
         $form = $this->createForm(new MissionType(), $mission);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -92,7 +91,7 @@ class MissionController extends Controller
                 false
             );
 
-            $entityManager = $this->get('doctrine.orm.entity_manager');
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($mission);
             $entityManager->flush();
 
@@ -122,7 +121,6 @@ class MissionController extends Controller
     public function missionEditAction(Request $request, Mission $mission)
     {
         $form = $this->createForm(new MissionType(), $mission);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -135,8 +133,7 @@ class MissionController extends Controller
                 false
             );
 
-            $entityManager = $this->get('doctrine.orm.entity_manager');
-            $entityManager->persist($mission);
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             $request->getSession()->getFlashBag()->add(

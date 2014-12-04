@@ -13,6 +13,7 @@ class RulesetType extends AbstractType
     {
         $builder
             ->add("title", "text")
+            ->add("position", "integer")
             ->add("body", "textarea");
     }
 

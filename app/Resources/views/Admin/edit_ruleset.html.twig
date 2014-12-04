@@ -1,0 +1,49 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Edit Ruleset | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'rulesets') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2>Edit Ruleset</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Save" class="btn btn-default pull-right">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+    'assets/bower_components/ckeditor/ckeditor.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(function() {
+            CKEDITOR.basePath = "{{ asset('assets/bower_components/ckeditor/') }}"
+            CKEDITOR.replace('ruleset_body');
+        });
+    </script>
+{% endblock %}
