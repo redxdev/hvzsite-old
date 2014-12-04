@@ -84,12 +84,13 @@ class BadgeRegistry
             throw new \DuplicateKeyException("Duplicate badge id " . $id);
         }
 
-        $this->registry[$id] = array(
+        $this->registry[$id] = [
+            'id' => $id,
             'name' => $name,
             'image' => $imgPath,
             'description' => $description,
             'access' => $access
-        );
+        ];
     }
 
     public function registerBadges()

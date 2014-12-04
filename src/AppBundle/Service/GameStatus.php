@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\User;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\EntityManager;
 
@@ -78,30 +79,35 @@ class GameStatus
         ];
     }
 
+    public function getPlayerInfo(User $player, $protectedInfo = false)
+    {
+        $badges = $this->badgeRegistry->getBadges($player);
+
+        $p = [
+            'id' => $player->getId(),
+            'fullname' => $player->getFullname(),
+            'team' => $player->getTeam() == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
+            'humansTagged' => $player->getHumansTagged(),
+            'clan' => $player->getClan(),
+            'badges' => $badges,
+            'avatar' => $player->getWebAvatarPath()
+        ];
+
+        if($protectedInfo)
+        {
+            $p['email'] = $player->getEmail();
+            $p['access'] = $player->getRoles()[0];
+        }
+
+        return $p;
+    }
+
     private function buildPlayerList($playerEnts, $protectedInfo = false)
     {
         $players = [];
         foreach($playerEnts as $player)
         {
-            $badges = $this->badgeRegistry->getBadges($player);
-
-            $p = [
-                'id' => $player->getId(),
-                'fullname' => $player->getFullname(),
-                'team' => $player->getTeam() == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
-                'humansTagged' => $player->getHumansTagged(),
-                'clan' => $player->getClan(),
-                'badges' => $badges,
-                'avatar' => $player->getWebAvatarPath()
-            ];
-
-            if($protectedInfo)
-            {
-                $p['email'] = $player->getEmail();
-                $p['access'] = $player->getRoles()[0];
-            }
-
-            $players[] = $p;
+            $players = $this->getPlayerInfo($player, $protectedInfo);
         }
 
         return $players;

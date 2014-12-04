@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller\REST\v1;
 
+use AppBundle\Entity\User;
 use AppBundle\Util\GameUtil;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +35,19 @@ class StatusController extends Controller
         $teams = $gameStatus->getTeamStatus();
 
         return new JsonResponse($teams);
+    }
+
+    /**
+     * @Route("/player/{id}", name="rest_v1_player", requirements={"id" = "\d+"})
+     * @Method({"GET"})
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function playerAction(User $user)
+    {
+        $gameStatus = $this->get('game_status');
+        $player = $gameStatus->getPlayerInfo($user, false);
+
+        return new JsonResponse($player);
     }
 
     /**
@@ -66,6 +81,23 @@ class StatusController extends Controller
             return new JsonResponse(["status" => "error", "errors" => ["Search term must have at least three characters"]], 403);
 
         $list = $gameStatus->searchPlayerList($term);
+
+        return new JsonResponse($list);
+    }
+
+    /**
+     * @Route("/infections/{page}", name="rest_v1_infections", requirements={"page" = "\d+"})
+     * @Method({"GET"})
+     */
+    public function infectionsAction(Request $request, $page = 0)
+    {
+        $maxPerPage = $request->query->get('maxPerPage', 10);
+
+        if($maxPerPage > 30)
+            return new JsonResponse(["status" => "error", "errors" => ["The maximum allowed per page is 30"]], 403);
+
+        $gameStatus = $this->get('game_status');
+        $list = $gameStatus->getInfectionList($page, $maxPerPage);
 
         return new JsonResponse($list);
     }
