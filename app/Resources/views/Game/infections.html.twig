@@ -36,10 +36,10 @@
                 <div class="col-md-4 col-md-offset-4">
                     <ul class="pager">
                         {% if page > 0 %}
-                            <li><a href="{{ path('web_infections', {'page': page - 1, 'sort': sort}) }}">&larr; Previous</a></li>
+                            <li><a href="{{ path('web_infections', {'page': page - 1}) }}">&larr; Previous</a></li>
                         {% endif %}
                         {% if continues == true %}
-                            <li><a href="{{ path('web_infections', {'page': page + 1, 'sort': sort}) }}">Next &rarr;</a></li>
+                            <li><a href="{{ path('web_infections', {'page': page + 1}) }}">Next &rarr;</a></li>
                         {% endif %}
                     </ul>
                 </div>

@@ -177,7 +177,9 @@ class GameStatus
                 "id" => $infection->getId(),
                 "human" => $infection->getHuman()->getFullname(),
                 "zombie" => $infection->getZombie()->getFullname(),
-                "time" => $infection->getTime()
+                "time" => $infection->getTime(),
+                "latitude" => $infection->getLatitude(),
+                "longitude" => $infection->getLongitude()
             ];
         }
 

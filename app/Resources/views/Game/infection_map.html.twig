@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Infection Map | {{ parent() }}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'stats', 'map') }}
+
+    <div class="container" style="overflow: auto; height:100%; width: 100%;">
+        <div class="row" style="height: 100%; width: 100%;">
+            <div class="col-sm-12" id="map-canvas" style="height: 100%; width: 100%;">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization&sensor=true_or_false"></script>
+    <script type="text/javascript">
+        var infectionData = [
+            {% for infection in infections %}
+                {% if infection.latitude is defined and infection.longitude is defined
+                and infection.latitude is not null and infection.longitude is not null %}
+                    {location: new google.maps.LatLng({{ infection.latitude }}, {{ infection.longitude }}), weight: 1}{% if not loop.last %},{% endif %}
+                {% endif %}
+            {% endfor %}
+        ];
+
+        function initializeMap() {
+            var mapOptions = {
+                zoom: 16,
+                center: new google.maps.LatLng(43.0856756, -77.6705275),
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var heatmap = new google.maps.visualization.HeatmapLayer({data: infectionData});
+            heatmap.setMap(map);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initializeMap);
+    </script>
+{% endblock %}

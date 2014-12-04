@@ -87,7 +87,6 @@ class StatusController extends Controller
      */
     public function infectionsAction($page = 0)
     {
-
         $gameStatus = $this->get('game_status');
 
         $list = $gameStatus->getInfectionList($page, 10);

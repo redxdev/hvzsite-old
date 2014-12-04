@@ -38,7 +38,7 @@
                         <ul class="dropdown-menu" role="menu">
                             {# TODO: Implement stats pages #}
                             {{ components.nav_internal_link('spread', '#', 'Spread', selected2) }}
-                            {{ components.nav_internal_link('map', '#', 'Map', selected2) }}
+                            {{ components.nav_internal_link('map', path('web_stats_map'),'Map', selected2) }}
                         </ul>
                     </li>
                     {% if is_granted('ROLE_USER') %}
