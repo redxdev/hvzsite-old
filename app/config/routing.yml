@@ -1,3 +1,8 @@
-app:
+app_web:
     resource: "@AppBundle/Controller/Web/"
     type: annotation
+
+app_rest_v1:
+    resource: "@AppBundle/Controller/REST/v1/"
+    type: annotation
+    prefix: /api/v1

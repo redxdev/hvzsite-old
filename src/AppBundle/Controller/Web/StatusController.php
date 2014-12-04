@@ -25,6 +25,7 @@ class StatusController extends Controller
     {
         $gameStatus = $this->get('game_status');
         $statsManager = $this->get('stats_manager');
+
         $game = $gameStatus->getGameStatus();
         $teams = null;
         $infectionTimeline = null;

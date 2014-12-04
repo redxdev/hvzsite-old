@@ -73,8 +73,8 @@ class GameStatus
     {
         $userRepo = $this->entityManager->getRepository("AppBundle:User");
         return [
-            "humans" => $userRepo->findActiveCount(GameUtil::TEAM_HUMAN),
-            "zombies" => $userRepo->findActiveCount(GameUtil::TEAM_ZOMBIE)
+            "humans" => intval($userRepo->findActiveCount(GameUtil::TEAM_HUMAN)),
+            "zombies" => intval($userRepo->findActiveCount(GameUtil::TEAM_ZOMBIE))
         ];
     }
 
