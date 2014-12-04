@@ -73,6 +73,7 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <a href="{{ path('web_admin_player_generate_id', {'id': profile.id, 'token': csrf_token('generate_id')}) }}" class="btn btn-default">Generate</a>
             </div>
         </div>
         <div class="row">

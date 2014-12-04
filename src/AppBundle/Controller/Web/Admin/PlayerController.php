@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Web\Admin;
 
+use AppBundle\Entity\HumanId;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Service\ActionLogService;
@@ -13,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//TODO: Add option to generate additional human ids
 class PlayerController extends Controller
 {
     /**
@@ -155,6 +155,51 @@ class PlayerController extends Controller
         );
 
         return new Response($content);
+    }
+
+    /**
+     * @Route("/admin/player/{id}/generate_id", name="web_admin_player_generate_id", requirements={"id" = "\d+"})
+     * @ParamConverter("user", class="AppBundle:User")
+     * @Security("is_granted('ROLE_MOD')")
+     */
+    public function generateIdAction(Request $request, User $user)
+    {
+        $token = $request->query->get('token');
+        if(!$this->isCsrfTokenValid("generate_id", $token))
+        {
+            $request->getSession()->getFlashBag()->add(
+                'page.toast',
+                "Invalid CSRF token. Try generating another id."
+            );
+
+            return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $actLog = $this->get('action_log');
+        $idGen = $this->get('id_generator');
+
+        $id = new HumanId();
+        $id->setIdString($idGen->generate());
+        $id->setUser($user);
+        $user->addHumanId($id);
+        $entityManager->persist($id);
+
+        $actLog->record(
+            ActionLogService::TYPE_ADMIN,
+            $this->getUser()->getEmail(),
+            "Generated additional human id for " . $user->getEmail(),
+            false
+        );
+
+        $entityManager->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'page.toast',
+            "Generated additional human id for " . $user->getFullname()
+        );
+
+        return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
     }
 
     /**
