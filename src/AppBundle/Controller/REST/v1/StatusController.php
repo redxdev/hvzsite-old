@@ -60,7 +60,7 @@ class StatusController extends Controller
         $sort = $request->query->get('sort', GameUtil::SORT_TEAM);
 
         if($maxPerPage > 30)
-            return new JsonResponse(["status" => "error", "errors" => ["The maximum allowed per page is 30"]], 403);
+            return new JsonResponse(["status" => "error", "errors" => ["The maximum allowed per page is 30"]], 400);
 
         $gameStatus = $this->get('game_status');
         $list = $gameStatus->getPlayerList($page, $maxPerPage, $sort);
@@ -78,7 +78,7 @@ class StatusController extends Controller
 
         $term = $request->query->get('term');
         if(strlen($term) < 3)
-            return new JsonResponse(["status" => "error", "errors" => ["Search term must have at least three characters"]], 403);
+            return new JsonResponse(["status" => "error", "errors" => ["Search term must have at least three characters"]], 400);
 
         $list = $gameStatus->searchPlayerList($term);
 
@@ -94,7 +94,7 @@ class StatusController extends Controller
         $maxPerPage = $request->query->get('maxPerPage', 10);
 
         if($maxPerPage > 30)
-            return new JsonResponse(["status" => "error", "errors" => ["The maximum allowed per page is 30"]], 403);
+            return new JsonResponse(["status" => "error", "errors" => ["The maximum allowed per page is 30"]], 400);
 
         $gameStatus = $this->get('game_status');
         $list = $gameStatus->getInfectionList($page, $maxPerPage);
