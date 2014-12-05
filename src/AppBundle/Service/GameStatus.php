@@ -107,7 +107,7 @@ class GameStatus
         $players = [];
         foreach($playerEnts as $player)
         {
-            $players = $this->getPlayerInfo($player, $protectedInfo);
+            $players[] = $this->getPlayerInfo($player, $protectedInfo);
         }
 
         return $players;
