@@ -150,19 +150,22 @@ class GameAuthentication
     public function processApiKey($apikey)
     {
         if(strlen($apikey) != 32)
-            return null;
+            return ["status" => "error", "errors" => ["Invalid API key"]];
 
         $userRepo = $this->entityManager->getRepository('AppBundle:User');
         $user = $userRepo->findOneByApiKey($apikey);
 
+        if(!$user)
+            return ["status" => "error", "errors" => ["Invalid API key"]];
+
         if(!$user->getApiEnabled())
-            return "API not enabled for user";
+            return ["status" => "error", "errors" => ["API not enabled for user"]];
 
         if($user->getApiFails() >= $user->getMaxApiFails())
         {
-            return "Maximum API usage hit due to failure rate";
+            return ["status" => "error", "errors" => ["Maximum API usage hit due to failure rate"]];
         }
 
-        return $user;
+        return ["status" => "ok", "user" => $user];
     }
 }

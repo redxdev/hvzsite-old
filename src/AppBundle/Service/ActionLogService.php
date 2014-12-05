@@ -11,6 +11,7 @@ class ActionLogService
     const TYPE_ADMIN = "admin";
     const TYPE_AUTH = "auth";
     const TYPE_PROFILE = "profile";
+    const TYPE_API = "api";
 
     private $entityManager;
 

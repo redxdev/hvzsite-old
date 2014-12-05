@@ -21,16 +21,11 @@ class TestController extends Controller
         $apikey = $request->query->get('apikey');
         $result = $gameAuth->processApiKey($apikey);
 
-        if($result === null)
+        if($result["status"] !== "ok")
         {
-            return new JsonResponse(["status" => "error", "errors" => ["Invalid API key"]], 400);
+            return new JsonResponse($result, 400);
         }
 
-        if(is_string($result))
-        {
-            return new JsonResponse(["status" => "error", "errors" => [$result]], 400);
-        }
-
-        return new JsonResponse(["status" => "ok", "user_id" => $result->getId()]);
+        return new JsonResponse(["status" => "ok", "user_id" => $result["user"]->getId()]);
     }
 }
