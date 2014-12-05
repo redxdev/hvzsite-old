@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\REST\v1;
 
+use AppBundle\Service\ActionLogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,7 +40,16 @@ class GameController extends Controller
         if($result["status"] !== "ok")
         {
             $entityManager = $this->getDoctrine()->getManager();
+            $actLog = $this->get('action_log');
+
             $user->setApiFails($user->getApiFails() + 1);
+            $actLog->record(
+                ActionLogService::TYPE_API,
+                $user->getEmail(),
+                'API fail triggered - register infection endpoint',
+                false
+            );
+
             $entityManager->flush();
 
             $result["errors"][] = "Warning: Too many failed attempts will disable your API key";
