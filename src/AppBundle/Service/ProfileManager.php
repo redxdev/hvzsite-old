@@ -21,6 +21,7 @@ class ProfileManager
     {
         $profile = [
             "id" => $user->getId(),
+            "apikey" => $user->getApiKey(),
             "fullname" => $user->getFullname(),
             "email" => $user->getEmail(),
             "clan" => $user->getClan(),
@@ -36,6 +37,8 @@ class ProfileManager
         if($protectedInfo)
         {
             $profile["access"] = $user->getRoles()[0];
+            $profile["apiFailures"] = $user->getApiFails();
+            $profile["maxApiFailures"] = $user->getMaxApiFails();
         }
 
         $humanIds = $user->getHumanIds();

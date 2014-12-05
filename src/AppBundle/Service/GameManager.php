@@ -96,7 +96,9 @@ class GameManager
             return [
                 "status" => "ok",
                 "human_name" => $humanId->getUser()->getFullname(),
-                "zombie_name" => $zombie->getFullname()
+                "human_id" => $humanId->getUser()->getId(),
+                "zombie_name" => $zombie->getFullname(),
+                "zombie_id" => $zombie->getId()
             ];
         }
     }
@@ -257,7 +259,8 @@ class GameManager
 
             return [
                 "status" => "ok",
-                "zombie_name" => $zombie->getFullname()
+                "zombie_name" => $zombie->getFullname(),
+                "zombie_id" => $zombie->getId()
             ];
         }
     }

@@ -33,6 +33,8 @@ class IdGenerator
         $user->addHumanId($id2);
         $this->entityManager->persist($id2);
 
+        $user->setApiKey($this->generate(32));
+
         if($flush)
             $this->entityManager->flush();
 
@@ -45,7 +47,7 @@ class IdGenerator
         $count = 0;
 
         while($this->isDuplicateHumanId($str) ||
-            $this->isDuplicateZombieId($str) ||
+            $this->isDuplicateZombieIdOrApiKey($str) ||
             $this->isDuplicateAntiVirusId($str))
         {
             if($count > IdGenerator::MAX_REGEN_COUNT)
@@ -86,12 +88,13 @@ class IdGenerator
         return $query->getSingleScalarResult() != 0;
     }
 
-    private function isDuplicateZombieId($id)
+    private function isDuplicateZombieIdOrApiKey($id)
     {
         $query = $this->entityManager->createQueryBuilder()
             ->select("count(user.id)")
             ->from("AppBundle:User", 'user')
             ->where("user.zombieId = :gen")
+            ->orWhere("user.apiKey = :gen")
             ->setParameter("gen", $id)
             ->getQuery();
 

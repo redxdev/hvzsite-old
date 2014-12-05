@@ -14,6 +14,8 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class GameAuthentication
 {
+    const DEFAULT_MAX_API_FAILURES = 100;
+
     private $googleAuthService;
     private $entityManager;
     private $actLog;
@@ -143,5 +145,27 @@ class GameAuthentication
         return [
             "status" => "ok"
         ];
+    }
+
+    public function processApiKey($apikey)
+    {
+        if(strlen($apikey) != 32)
+            return ["status" => "error", "errors" => ["Invalid API key"]];
+
+        $userRepo = $this->entityManager->getRepository('AppBundle:User');
+        $user = $userRepo->findOneByApiKey($apikey);
+
+        if(!$user)
+            return ["status" => "error", "errors" => ["Invalid API key"]];
+
+        if(!$user->getApiEnabled())
+            return ["status" => "error", "errors" => ["API not enabled for user"]];
+
+        if($user->getApiFails() >= $user->getMaxApiFails())
+        {
+            return ["status" => "error", "errors" => ["Maximum API usage hit due to failure rate"]];
+        }
+
+        return ["status" => "ok", "user" => $user];
     }
 }
