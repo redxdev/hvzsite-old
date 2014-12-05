@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Service\GameAuthentication;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +33,34 @@ class User implements UserInterface, EquatableInterface, \Serializable
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apikey", type="string", length=32)
+     */
+    private $apiKey;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="api_enabled", type="boolean")
+     */
+    private $apiEnabled;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="api_fails", type="integer")
+     */
+    private $apiFails;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="max_api_fails", type="integer")
+     */
+    private $maxApiFails;
 
     /**
      * @var string
@@ -127,6 +156,9 @@ class User implements UserInterface, EquatableInterface, \Serializable
         $this->clan = "";
         $this->badges = array();
         $this->printed = false;
+        $this->apiEnabled = false;
+        $this->apiFails = 0;
+        $this->maxApiFails = GameAuthentication::DEFAULT_MAX_API_FAILURES;
     }
 
     public function eraseCredentials()
@@ -554,5 +586,97 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function getPrinted()
     {
         return $this->printed;
+    }
+
+    /**
+     * Set apiKey
+     *
+     * @param string $apiKey
+     * @return User
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * Get apiKey
+     *
+     * @return string 
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * Set apiEnabled
+     *
+     * @param boolean $apiEnabled
+     * @return User
+     */
+    public function setApiEnabled($apiEnabled)
+    {
+        $this->apiEnabled = $apiEnabled;
+
+        return $this;
+    }
+
+    /**
+     * Get apiEnabled
+     *
+     * @return boolean 
+     */
+    public function getApiEnabled()
+    {
+        return $this->apiEnabled;
+    }
+
+    /**
+     * Set apiFails
+     *
+     * @param integer $apiFails
+     * @return User
+     */
+    public function setApiFails($apiFails)
+    {
+        $this->apiFails = $apiFails;
+
+        return $this;
+    }
+
+    /**
+     * Get apiFails
+     *
+     * @return integer 
+     */
+    public function getApiFails()
+    {
+        return $this->apiFails;
+    }
+
+    /**
+     * Set maxApiFails
+     *
+     * @param integer $maxApiFails
+     * @return User
+     */
+    public function setMaxApiFails($maxApiFails)
+    {
+        $this->maxApiFails = $maxApiFails;
+
+        return $this;
+    }
+
+    /**
+     * Get maxApiFails
+     *
+     * @return integer 
+     */
+    public function getMaxApiFails()
+    {
+        return $this->maxApiFails;
     }
 }

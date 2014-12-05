@@ -34,7 +34,9 @@ class UserType extends AbstractType
                             "ROLE_ADMIN" => "Administrator"
                         ]
                     ]
-                ]);
+                ])
+                ->add("apiEnabled", "checkbox", ["required" => false, "label" => "API Key Enabled"])
+                ->add("maxApiFails", "integer", ["required" => false, "label" => "Maximum API Failures"]);
         }
     }
 

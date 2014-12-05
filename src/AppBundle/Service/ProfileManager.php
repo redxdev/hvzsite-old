@@ -36,6 +36,9 @@ class ProfileManager
         if($protectedInfo)
         {
             $profile["access"] = $user->getRoles()[0];
+            $profile["apiKey"] = $user->getApiKey();
+            $profile["apiFailures"] = $user->getApiFails();
+            $profile["maxApiFailures"] = $user->getMaxApiFails();
         }
 
         $humanIds = $user->getHumanIds();

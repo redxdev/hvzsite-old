@@ -60,6 +60,8 @@
             </div>
             <div class="col-sm-4">
                 <h3 class="hidden-xs">&nbsp;</h3>
+                <p><strong>API Key:</strong> {{ profile.apiKey }}</p>
+                <p><strong>API Failures:</strong> {{ profile.apiFailures }} / {{ profile.maxApiFailures }}</p>
                 <p><strong>Zombie Id:</strong> {{ profile.zombieId }} <small class="text-muted">(use as a zombie)</small></p>
                 <p><strong>Human Ids:</strong> <small class="text-muted">(give to zombies as a human)</small></p>
                 <ul>
