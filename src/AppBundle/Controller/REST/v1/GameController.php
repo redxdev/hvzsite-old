@@ -59,4 +59,63 @@ class GameController extends Controller
 
         return new JsonResponse($result);
     }
+
+    /**
+     * @Route("/antivirus", name="rest_v1_antivirus")
+     * @Method({"POST"})
+     */
+    public function antivirusAction(Request $request)
+    {
+        $gameAuth = $this->get('game_authentication');
+
+        $apikey = $request->query->get('apikey');
+        $result = $gameAuth->processApiKey($apikey);
+
+        if($result["status"] !== "ok")
+        {
+            return new JsonResponse($result, 400);
+        }
+
+        $user = $result["user"];
+
+        $avIdStr = $request->request->get('antivirus');
+        $zombieIdStr = $request->request->get('zombie');
+
+        $gameManager = $this->get('game_manager');
+        $result = $gameManager->processAntiVirus($avIdStr, $zombieIdStr);
+
+        if($result["status"] !== "ok")
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $actLog = $this->get('action_log');
+
+            $user->setApiFails($user->getApiFails() + 1);
+            $actLog->record(
+                ActionLogService::TYPE_API,
+                $user->getEmail(),
+                'API fail triggered - antivirus endpoint',
+                false
+            );
+
+            $entityManager->flush();
+
+            $result["errors"][] = "Warning: Too many failed attempts will disable your API key";
+
+            return new JsonResponse($result, 400);
+        }
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/antivirus/valid_time", name="rest_v1_antivirus_valid_time")
+     * @Method({"GET"})
+     */
+    public function validAntivirusTimeAction()
+    {
+        $gameManager = $this->get('game_manager');
+        $valid_time = $gameManager->isValidAntiVirusTime();
+
+        return new JsonResponse(["result" => $valid_time]);
+    }
 }

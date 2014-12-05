@@ -259,7 +259,8 @@ class GameManager
 
             return [
                 "status" => "ok",
-                "zombie_name" => $zombie->getFullname()
+                "zombie_name" => $zombie->getFullname(),
+                "zombie_id" => $zombie->getId()
             ];
         }
     }
