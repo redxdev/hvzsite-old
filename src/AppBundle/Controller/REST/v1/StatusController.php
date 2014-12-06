@@ -98,6 +98,10 @@ class StatusController extends Controller
 
         $gameStatus = $this->get('game_status');
         $list = $gameStatus->getInfectionList($page, $maxPerPage);
+        foreach($list["infections"] as $k => $inf)
+        {
+            $list["infections"][$k]["time"] = $inf["time"]->getTimestamp();
+        }
 
         return new JsonResponse($list);
     }
