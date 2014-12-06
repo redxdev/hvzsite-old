@@ -41,6 +41,12 @@ class ContentController extends Controller
 
         $contentManager = $this->get('content_manager');
 
-        return new JsonResponse($contentManager->getTeamMissionList($user->getTeam()));
+        $result = $contentManager->getTeamMissionList($user->getTeam());
+        foreach($result["missions"] as $k => $m)
+        {
+            $result["missions"][$k]["post_date"] = $m["post_date"]->getTimestamp();
+        }
+
+        return new JsonResponse($result);
     }
 }
