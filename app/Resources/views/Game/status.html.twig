@@ -97,7 +97,7 @@
                 var data = google.visualization.arrayToDataTable([
                         ['Time', '# Infections', {role: 'tooltip'}],
                         {% for entry in timeline %}
-                            ['{{ entry.time_str | e('js') }}', {{ entry.count }}, '{{ entry.count }} infection{% if entry.count != 1 %}s{% endif %}']
+                            ['{{ entry.time_str | e('js') }}', {{ entry.count }}, '{{ entry.count }} infection{% if entry.count != 1 %}s{% endif %}'],
                         {% endfor %}
                 ]);
 
