@@ -2,7 +2,7 @@
 {% import '::components.html.twig' as components %}
 
 {% block title %}
-    Register Infection | {{ parent() }}
+    Register Multiple Infections | {{ parent() }}
 {% endblock %}
 
 {% block body_def %}
@@ -19,9 +19,8 @@
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <h2>Register Infection</h2>
-                <p>Have an antivirus? <a href="{{ path('web_antivirus') }}">Click here!</a></p>
-                <p>Need to register more than one infection? <a href="{{ path('web_register_multiple_infections') }}">Click here!</a></p>
+                <h2>Register Multiple Infections</h2>
+                <p>There is a maximum of 10 infections per submission. Put one human id per line.</p>
             </div>
         </div>
 
@@ -39,16 +38,29 @@
             </div>
         {% endif %}
 
+        {% if successes is defined %}
+            <div id="successes">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 alert alert-success">
+                        <ul class="list-unstyled">
+                            {% for success in successes %}
+                                <li>{{ success }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <form method="post" action="{{ path('web_register_infection_submit') }}">
+                <form method="post" action="{{ path('web_register_multiple_infections_submit') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('register_infection') }}">
                     <input type="hidden" name="latitude" id="latitude">
                     <input type="hidden" name="longitude" id="longitude">
                     <div class="form-group">
-                        <label for="human_id">Human Id</label>
-                        <input type="text" class="form-control" id="human_id" name="human" placeholder="human id"
-                               {% if human is defined %}value="{{ human }}"{% endif %}>
+                        <label for="human_id">Human Ids</label>
+                        <textarea class="form-control" id="human_id"s name="humans" placeholder="human ids">{% if humans is defined %}{{ humans | e }}{% endif %}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="zombie_id">Zombie Id</label>
