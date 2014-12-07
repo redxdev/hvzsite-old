@@ -14,7 +14,7 @@ class TestController extends Controller
      * @Route("/test/key", name="rest_v1_test_key")
      * @Method({"GET"})
      */
-    public function testApiKey(Request $request)
+    public function testApiKeyAction(Request $request)
     {
         $gameAuth = $this->get('game_authentication');
 
