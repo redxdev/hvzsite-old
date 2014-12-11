@@ -35,10 +35,7 @@
 {% block body_javascripts %}
     {{ parent() }}
 
-    {% javascripts
-    'assets/bower_components/ckeditor/ckeditor.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script src="//cdn.ckeditor.com/4.4.6/standard/ckeditor.js"></script>
 
     <script type="text/javascript">
         $(function() {
