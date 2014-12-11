@@ -51,7 +51,7 @@ class ProfileManager
         }
 
         $infectionRepo = $this->entityManager->getRepository("AppBundle:InfectionSpread");
-        $infections = $infectionRepo->findByZombie($user);
+        $infections = $infectionRepo->findByZombieOrderedByTime($user);
         foreach($infections as $infection)
         {
             $profile["infections"][] = [

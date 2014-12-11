@@ -19,6 +19,19 @@ class InfectionSpreadRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findByZombieOrderedByTime(User $user)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('s')
+            ->from('AppBundle:InfectionSpread', 's')
+            ->where('s.zombie = :user')
+            ->orderBy('s.time', 'DESC')
+            ->setParameter('user', $user)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     public function findCount()
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
