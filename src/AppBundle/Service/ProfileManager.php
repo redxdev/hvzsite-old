@@ -60,7 +60,7 @@ class ProfileManager
                 "human_id" => $infection->getHuman()->getId(),
                 "zombie" => $infection->getZombie()->getFullname(),
                 "zombie_id" => $infection->getZombie()->getId(),
-                "time" => $infection->getTime(),
+                "time" => $infection->getTime()->getTimestamp(),
                 "longitude" => $infection->getLongitude(),
                 "latitude" => $infection->getLatitude()
             ];
