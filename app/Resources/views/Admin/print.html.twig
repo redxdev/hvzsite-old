@@ -24,9 +24,11 @@
             </div>
         </div>
         <div class="bottom">
-            <div class="qr">
-                <img src="{{ qrcode_data_uri(player.qr_data) }}" alt="qr code">
-            </div>
+            {% if not preview %}
+                <div class="qr">
+                    <img src="{{ qrcode_data_uri(player.qr_data) }}" alt="qr code">
+                </div>
+            {% endif %}
             <div class="ids">
                 {% for id in player.humanIds|reverse %}
                     {% if loop.index < 3 %}

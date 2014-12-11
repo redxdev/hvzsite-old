@@ -55,6 +55,7 @@ class ProfileManager
         foreach($infections as $infection)
         {
             $profile["infections"][] = [
+                "id" => $infection->getId(),
                 "human" => $infection->getHuman()->getFullname(),
                 "humanId" => $infection->getHuman()->getId(),
                 "zombie" => $infection->getZombie()->getFullname(),
