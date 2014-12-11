@@ -57,9 +57,9 @@ class ProfileManager
             $profile["infections"][] = [
                 "id" => $infection->getId(),
                 "human" => $infection->getHuman()->getFullname(),
-                "humanId" => $infection->getHuman()->getId(),
+                "human_id" => $infection->getHuman()->getId(),
                 "zombie" => $infection->getZombie()->getFullname(),
-                "zombieId" => $infection->getZombie()->getId(),
+                "zombie_id" => $infection->getZombie()->getId(),
                 "time" => $infection->getTime(),
                 "longitude" => $infection->getLongitude(),
                 "latitude" => $infection->getLatitude()
