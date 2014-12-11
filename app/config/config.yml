@@ -75,3 +75,9 @@ swiftmailer:
     spool:     { type: memory }
 
 knp_time: ~
+
+endroid_qr_code:
+    size: 100
+    padding: 1
+    extension: png
+    error_correction_level: medium

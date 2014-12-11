@@ -33,8 +33,19 @@ body {
 }
 
 .card .avatar img {
-    width: 3.7324cm;
-    height: 2.8cm;
+    width: 100px;
+    height: 100px;
+    max-height: 100%;
+    max-width: 100%;
+    float: left;
+    background-color: #D4D4D4;
+}
+
+.card .qr img {
+    margin-top: 0px;
+    padding-top: 0px;
+    width: 65px;
+    height: 65px;
     max-height: 100%;
     max-width: 100%;
     float: left;
@@ -50,6 +61,7 @@ body {
     width: inherit;
     text-align: center;
     color: black;
+    font-size: 0.9em;
 }
 
 .card p {

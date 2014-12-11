@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
+            new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
             new AppBundle\AppBundle(),
         );
 

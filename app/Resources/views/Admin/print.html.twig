@@ -24,12 +24,20 @@
             </div>
         </div>
         <div class="bottom">
-            {% for id in player.humanIds|reverse %}
-                {% if loop.index < 3 %}
+            <div class="qr">
+                <img src="{{ qrcode_data_uri(player.qr_data) }}" alt="qr code">
+            </div>
+            <div class="ids">
+                {% for id in player.humanIds|reverse %}
+                    {% if loop.index < 3 %}
+                        <hr>
+                        <p class="human-id">Human Id #{{ loop.length - loop.index + 1 }}: {% if not preview %}{{ id.id_string }}{% endif %}</p>
+                    {% endif %}
+                {% else %}
                     <hr>
-                    <p class="human-id">Human Id #{{ loop.length - loop.index + 1 }}: {% if not preview %}{{ id.id_string }}{% endif %}</p>
-                {% endif %}
-            {% endfor %}
+                    <p class="human-id">No Ids</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

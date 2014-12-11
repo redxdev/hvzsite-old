@@ -75,7 +75,13 @@ class ProfileManager
         $profiles = [];
         foreach($profileEnts as $profile)
         {
-            $profiles[] = $this->getProfileInfo($profile);
+            $profile = $this->getProfileInfo($profile);
+            $profile["profile"]["qr_data"] = json_encode(array(
+                "human" => count($profile["profile"]["humanIds"]) > 0 ?
+                    $profile["profile"]["humanIds"][0]["id_string"] : "invalid",
+                "zombie" => $profile["profile"]["zombieId"]
+            ), JSON_FORCE_OBJECT);
+            $profiles[] = $profile;
         }
 
         return ["profiles" => $profiles];
