@@ -11,12 +11,14 @@ class GameManager
     private $actLog;
     private $entityManager;
     private $badgeReg;
+    private $gameStatus;
 
-    public function __construct(ActionLogService $actLog, EntityManager $entityManager, BadgeRegistry $badgeReg)
+    public function __construct(ActionLogService $actLog, EntityManager $entityManager, BadgeRegistry $badgeReg, GameStatus $gameStatus)
     {
         $this->actLog = $actLog;
         $this->entityManager = $entityManager;
         $this->badgeReg = $badgeReg;
+        $this->gameStatus = $gameStatus;
     }
 
     public function processInfection($humanIdStr, $zombieIdStr, $latitude = null, $longitude = null)
@@ -28,6 +30,11 @@ class GameManager
 
         $humanId = $idRepo->findOneByIdString(trim(strtolower($humanIdStr)));
         $zombie = $userRepo->findOneByZombieId(trim(strtolower($zombieIdStr)));
+
+        if($this->gameStatus->getGameEnd() < new \DateTime())
+        {
+            $errors[] = "You can't register infections after the game has ended!";
+        }
 
         if(!$humanId || !$humanId->getActive() || !$humanId->getUser()->getActive())
         {
