@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Rest\v1;
+namespace AppBundle\Controller\REST\v1;
 
 use AppBundle\Service\ActionLogService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
