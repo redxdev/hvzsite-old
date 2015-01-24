@@ -156,7 +156,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
         $this->clan = "";
         $this->badges = array();
         $this->printed = false;
-        $this->apiEnabled = false;
+        $this->apiEnabled = true;
         $this->apiFails = 0;
         $this->maxApiFails = GameAuthentication::DEFAULT_MAX_API_FAILURES;
     }
