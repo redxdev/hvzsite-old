@@ -45,6 +45,7 @@ class AntiVirusId
     public function __construct()
     {
         $this->active = true;
+        $this->description = "";
     }
 
     /**
