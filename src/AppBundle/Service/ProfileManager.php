@@ -31,7 +31,12 @@ class ProfileManager
             "badges" => $this->badgeReg->getBadges($user),
             "avatar" => $user->getWebAvatarPath(),
             "humanIds" => [],
-            "infections" => []
+            "infections" => [],
+            "qr_data" => json_encode(array(
+                "human" => count($user->getHumanIds()) > 0 ?
+                    $user->gethumanIds()[0]->getIdString() : "invalid",
+                "zombie" => $user->getZombieId()
+            ), JSON_FORCE_OBJECT)
         ];
 
         if($protectedInfo)
@@ -77,11 +82,6 @@ class ProfileManager
         foreach($profileEnts as $profile)
         {
             $profile = $this->getProfileInfo($profile);
-            $profile["profile"]["qr_data"] = json_encode(array(
-                "human" => count($profile["profile"]["humanIds"]) > 0 ?
-                    $profile["profile"]["humanIds"][0]["id_string"] : "invalid",
-                "zombie" => $profile["profile"]["zombieId"]
-            ), JSON_FORCE_OBJECT);
             $profiles[] = $profile;
         }
 
