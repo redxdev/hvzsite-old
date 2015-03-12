@@ -42,7 +42,7 @@ services:
 
     profile_manager:
         class: AppBundle\Service\ProfileManager
-        arguments: ["@doctrine.orm.entity_manager", "@badge_registry"]
+        arguments: ["@doctrine.orm.entity_manager", "@badge_registry", "@id_generator"]
 
     stats_manager:
         class: AppBundle\Service\StatsManager

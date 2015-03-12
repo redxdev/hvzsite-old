@@ -48,7 +48,8 @@ class IdGenerator
 
         while($this->isDuplicateHumanId($str) ||
             $this->isDuplicateZombieIdOrApiKey($str) ||
-            $this->isDuplicateAntiVirusId($str))
+            $this->isDuplicateAntiVirusId($str) ||
+            $this->isDuplicateClanCode($str))
         {
             if($count > IdGenerator::MAX_REGEN_COUNT)
             {
@@ -107,6 +108,18 @@ class IdGenerator
             ->select("count(av.id)")
             ->from("AppBundle:AntiVirusId", 'av')
             ->where("av.idString = :gen")
+            ->setParameter("gen", $id)
+            ->getQuery();
+
+        return $query->getSingleScalarResult() != 0;
+    }
+
+    private function isDuplicateClanCode($id)
+    {
+        $query = $this->entityManager->createQueryBuilder()
+            ->select("count(clan.id)")
+            ->from("AppBundle:Clan", 'clan')
+            ->where("clan.code = :gen")
             ->setParameter("gen", $id)
             ->getQuery();
 

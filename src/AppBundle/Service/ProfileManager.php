@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Clan;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\EntityManager;
 
@@ -10,11 +11,29 @@ class ProfileManager
 {
     private $entityManager;
     private $badgeReg;
+    private $idGenerator;
 
-    public function __construct(EntityManager $entityManager, BadgeRegistry $badgeReg)
+    public function __construct(EntityManager $entityManager, BadgeRegistry $badgeReg, IdGenerator $idGenerator)
     {
         $this->entityManager = $entityManager;
         $this->badgeReg = $badgeReg;
+        $this->idGenerator = $idGenerator;
+    }
+
+    public function getClanInfo(Clan $clan, $user = null, $protectedInfo = false)
+    {
+        if($clan == null)
+            return null;
+
+        $info = [
+            "name" => $clan->getName(),
+            "owner" => $clan->getOwner()->getFullname()
+        ];
+
+        if($protectedInfo && $user != null && $user == $clan->getOwner())
+            $info["code"] = $clan->getCode();
+
+        return $info;
     }
 
     public function getProfileInfo(User $user, $protectedInfo = false)
@@ -24,7 +43,7 @@ class ProfileManager
             "apikey" => $user->getApiKey(),
             "fullname" => $user->getFullname(),
             "email" => $user->getEmail(),
-            "clan" => $user->getClan(),
+            "clan" => $this->getClanInfo($user->getClan(), $user, $protectedInfo),
             "team" => $user->getTeam() == GameUtil::TEAM_HUMAN ? 'human' : 'zombie',
             "zombieId" => $user->getZombieId(),
             "humansTagged" => $user->getHumansTagged(),
@@ -86,5 +105,28 @@ class ProfileManager
         }
 
         return ["profiles" => $profiles];
+    }
+
+    public function createClan(User $owner, $flush = true)
+    {
+        if($owner->getClan() != null)
+            return [
+                "status" => "error",
+                "errors" => [
+                    "Player is already in a clan."
+                ]
+            ];
+
+        $clan = new Clan();
+        $clan->setCode($this->idGenerator->generate());
+        $clan->setOwner($owner);
+        $clan->addMember($owner);
+        $owner->setClan($clan);
+
+        $this->entityManager->persist($clan);
+
+        if($flush) {
+            $this->entityManager->flush();
+        }
     }
 }
