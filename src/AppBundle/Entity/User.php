@@ -117,8 +117,9 @@ class User implements UserInterface, EquatableInterface, \Serializable
     private $humansTagged;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Clan", inversedBy="members")
-     * @ORM\JoinColumn(name="clan_id", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="clan", type="string", length=32, nullable=true)
      */
     private $clan;
 
@@ -158,7 +159,6 @@ class User implements UserInterface, EquatableInterface, \Serializable
         $this->apiEnabled = true;
         $this->apiFails = 0;
         $this->maxApiFails = GameAuthentication::DEFAULT_MAX_API_FAILURES;
-        $this->clan = null;
     }
 
     public function eraseCredentials()
@@ -447,6 +447,29 @@ class User implements UserInterface, EquatableInterface, \Serializable
     }
 
     /**
+     * Set clan
+     *
+     * @param string $clan
+     * @return User
+     */
+    public function setClan($clan)
+    {
+        $this->clan = $clan;
+
+        return $this;
+    }
+
+    /**
+     * Get clan
+     *
+     * @return string 
+     */
+    public function getClan()
+    {
+        return $this->clan;
+    }
+
+    /**
      * Set badges
      *
      * @param array $badges
@@ -655,28 +678,5 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function getMaxApiFails()
     {
         return $this->maxApiFails;
-    }
-
-    /**
-     * Set clan
-     *
-     * @param \AppBundle\Entity\Clan $clan
-     * @return User
-     */
-    public function setClan(\AppBundle\Entity\Clan $clan = null)
-    {
-        $this->clan = $clan;
-
-        return $this;
-    }
-
-    /**
-     * Get clan
-     *
-     * @return \AppBundle\Entity\Clan 
-     */
-    public function getClan()
-    {
-        return $this->clan;
     }
 }
