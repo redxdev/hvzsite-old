@@ -37,6 +37,7 @@
             <div class="col-sm-4">
                 <h3 class="hidden-xs">&nbsp;</h3>
                 <p><strong>API Key:</strong> {{ profile.apikey }}</p>
+                <img src="{{ qrcode_data_uri(profile.apikey) }}" alt="qr code">
                 <p><strong>Zombie Id:</strong> {{ profile.zombieId }} <small class="text-muted">(use as a zombie)</small></p>
                 <p><strong>Human Ids:</strong> <small class="text-muted">(give to zombies as a human)</small></p>
                 <ul>
