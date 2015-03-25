@@ -36,12 +36,12 @@ class ProfileManager
                 "human" => count($user->getHumanIds()) > 0 ?
                     $user->gethumanIds()[0]->getIdString() : "invalid",
                 "zombie" => $user->getZombieId()
-            ), JSON_FORCE_OBJECT)
+            ), JSON_FORCE_OBJECT),
+            "access" => $profile["access"] = $user->getRoles()[0]
         ];
 
         if($protectedInfo)
         {
-            $profile["access"] = $user->getRoles()[0];
             $profile["apiFailures"] = $user->getApiFails();
             $profile["maxApiFailures"] = $user->getMaxApiFails();
         }

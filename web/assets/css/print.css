@@ -6,6 +6,14 @@ body {
     height: 10.5em;
 }
 
+.card-mod {
+    border-color: #0000ee;
+}
+
+.card-admin {
+    border-color: #f5e625;
+}
+
 .card {
     float: left;
     width: 8cm;
