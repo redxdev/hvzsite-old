@@ -9,7 +9,7 @@
 <body>
 {% for p in profiles %}
     {% set player = p.profile %}
-    <div class="card{% if p.access == 'ROLE_MOD' %}card-mod{% elseif p.access == 'ROLE_ADMIN' %}card-admin{% endif %}">
+    <div class="card">
         <div class="top">
             <div class="avatar">
                 {% if player.avatar is not null %}
