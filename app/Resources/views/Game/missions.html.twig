@@ -20,12 +20,6 @@
                 <ul class="nav nav-pills nav-stacked side-nav">
                     {% for mission in missions %}
                         <li><a href="#mission-{{ loop.index }}">{{ mission.title }}</a></li>
-                    {% else %}
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h1>There were no missions found</h1>
-                            </div>
-                        </div>
                     {% endfor %}
                 </ul>
             </div>
@@ -47,6 +41,8 @@
                             {{ mission.body | raw }}
                         </div>
                     </section>
+                {% else %}
+                    <h1>There were no missions found</h1>
                 {% endfor %}
             </div>
         </div>
