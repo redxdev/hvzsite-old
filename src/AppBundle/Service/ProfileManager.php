@@ -19,6 +19,16 @@ class ProfileManager
 
     public function getProfileInfo(User $user, $protectedInfo = false)
     {
+        $validHumanId = "invalid";
+        foreach($user->getHumanIds() as $hid)
+        {
+            if($hid->getActive())
+            {
+                $validHumanId = $hid->getIdString();
+                break;
+            }
+        }
+
         $profile = [
             "id" => $user->getId(),
             "apikey" => $user->getApiKey(),
@@ -33,8 +43,7 @@ class ProfileManager
             "humanIds" => [],
             "infections" => [],
             "qr_data" => json_encode(array(
-                "human" => count($user->getHumanIds()) > 0 ?
-                    $user->gethumanIds()[0]->getIdString() : "invalid",
+                "human" => $validHumanId,
                 "zombie" => $user->getZombieId()
             ), JSON_FORCE_OBJECT)
         ];

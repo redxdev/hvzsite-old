@@ -19,7 +19,7 @@
         <div class="vertical-space"></div>
 
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-4 bg-{{ profile.team }}">
+            <div class="col-sm-offset-2 col-sm-8 bg-{{ profile.team }} text-center">
                 <h3>{{ profile.fullname }}</h3>
                 <p><strong>Email:</strong> {{ profile.email }}</p>
                 <p><strong>Team:</strong> {{ profile.team | default('none') }}</p>
@@ -34,28 +34,35 @@
                          alt="{{ badge.name }} badge">
                 {% endfor %}
             </div>
-            <div class="col-sm-4">
-                <h3 class="hidden-xs">&nbsp;</h3>
-                <p><b>API Key</b> (Scan with the app):</p>
-                <img src="{{ qrcode_data_uri('apikey:' ~ profile.apikey) }}" alt="qr code">
-                <p><strong>API Key:</strong> {{ profile.apikey }}</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8 well text-center">
                 <p><strong>Zombie Id:</strong> {{ profile.zombieId }} <small class="text-muted">(use as a zombie)</small></p>
                 <p><strong>Human Ids:</strong> <small class="text-muted">(give to zombies as a human)</small></p>
-                <ul>
-                    {% for id in profile.humanIds %}
-                        <li>
-                            {% if id.active == false %}
-                                <s>{{ id.id_string }}</s>
-                            {% else %}
-                                {{ id.id_string }}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% for id in profile.humanIds %}
+                    <p>
+                        {% if id.active == false %}
+                            <s>{{ id.id_string }}</s>
+                        {% else %}
+                            {{ id.id_string }}
+                        {% endif %}
+                    </p>
+                {% endfor %}
+                <img src="{{ qrcode_data_uri(profile.qr_data) }}" alt="id qr code">
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-4 text-center">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <p>API Key: <a onclick="toggleApiKey()" class="btn btn-danger btn-sm" id="toggleButton">Toggle</a></p>
+                <div id="apikey" class="hidden">
+                    <p>{{ profile.apikey }}</p>
+                    <img src="{{ qrcode_data_uri('apikey:' ~ profile.apikey) }}" alt="api key qr code">
+                    <p><small class="text-muted">scan this QR code on the app's settings page</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
                 <h1 class="header-text">{{ profile.humansTagged }} Tag{% if profile.humansTagged != 1 %}s{% endif %}</h1>
                 {% for infection in profile.infections %}
                     <p><strong>{{ infection.human }}</strong> <em>{{ time_diff(infection.time) }}</em></p>
@@ -72,5 +79,9 @@
         $(function() {
             $("[data-toggle='tooltip']").tooltip();
         });
+
+        function toggleApiKey() {
+            $('#apikey').toggleClass('hidden');
+        }
     </script>
 {% endblock %}
