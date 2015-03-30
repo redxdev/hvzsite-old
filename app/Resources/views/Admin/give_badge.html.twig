@@ -35,7 +35,7 @@
                             <a href="{{ path('web_admin_player_badge_give', {'user': userid, 'bid': badge.id}) }}" class="btn btn-primary">Give</a>
                         </p>
                     </div>
-            {% if loop.index0 is divisibleby(6) %}
+            {% if loop.index is divisibleby(6) %}
                 </div>
             {% endif %}
         {% else %}
