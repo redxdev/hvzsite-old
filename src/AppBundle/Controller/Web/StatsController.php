@@ -72,7 +72,7 @@ class StatsController extends Controller
         $inf = array();
         foreach(array_reverse($list["infections"]) as $i)
         {
-            $inf[$i["zombie_id"]] = $i;
+            $inf[$i["human_id"]] = $i;
         }
 
         $list["infections"] = $inf;
