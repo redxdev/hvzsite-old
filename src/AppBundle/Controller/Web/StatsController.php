@@ -54,6 +54,9 @@ class StatsController extends Controller
             if(!$user)
                 continue;
 
+            if(array_key_exists($user->getId(), $used))
+                continue;
+
             $list["infections"][] = [
                 "id" => -1,
                 "human" => $user->getFullname(),
