@@ -95,14 +95,77 @@ class BadgeRegistry
 
     public function registerBadges()
     {
-        // test badge
+        // example
         /*$this->registerBadge(
-            'test',
-            'Test',
-            'This is a test',
-            'infected.png',
-            'ROLE_MOD'
+            'internal-id',
+            'Readable Name',
+            'Description',
+            'image relative to web/assets/images/badges/',
+            'required role to give (INTERNAL, ROLE_MOD, or ROLE_ADMIN), defaults to ROLE_ADMIN'
         );*/
+
+        // twinkie
+        $this->registerBadge(
+            'twinkie',
+            'Twinkie!',
+            'Received a twinkie from a moderator',
+            'twinkie.png',
+            'ROLE_MOD'
+        );
+
+        // can't stop, won't stop
+        $this->registerBadge(
+            'plaid',
+            'Can\'t stop, won\'t stop',
+            'Hard work, dedication',
+            'plaid.png',
+            'ROLE_ADMIN'
+        );
+
+        // win midday mission
+        $this->registerBadge(
+            'midday',
+            'Win a Midday',
+            'Win a midday mission',
+            'sun.png',
+            'ROLE_ADMIN'
+        );
+
+        // #Selfie
+        $this->registerBadge(
+            'selfie',
+            '#Selfie',
+            'Take a selfie with 3 admins and 3 mods',
+            'selfie.png',
+            'ROLE_ADMIN'
+        );
+
+        // mod squad
+        $this->registerBadge(
+            'mod-squad',
+            'Mod Squad',
+            'I am a MODERATOR!',
+            'mod.png',
+            'ROLE_ADMIN'
+        );
+
+        // admin
+        $this->registerBadge(
+            'admin-squad',
+            'Yellow',
+            'I am an ADMIN',
+            'yellow.png',
+            'ROLE_ADMIN'
+        );
+
+        // chair ;_;
+        $this->registerBadge(
+            'chair-squad',
+            'Chair',
+            'I am a chair ;_;',
+            'chair.png',
+            'ROLE_ADMIN'
+        );
 
         // infection badge
         $this->registerBadge(
