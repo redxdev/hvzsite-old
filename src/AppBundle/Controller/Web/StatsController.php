@@ -45,6 +45,7 @@ class StatsController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $userRepo = $entityManager->getRepository("AppBundle:User");
 
+        $used = array();
         foreach($needLookup as $id => $lookup)
         {
             if(!$lookup)
@@ -53,6 +54,11 @@ class StatsController extends Controller
             $user = $userRepo->findOneById($id);
             if(!$user)
                 continue;
+
+            if(array_key_exists($user->getId(), $used))
+                continue;
+
+            $used[$user->getId] = true;
 
             $list["infections"][] = [
                 "id" => -1,
