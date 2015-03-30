@@ -1,0 +1,49 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Give Badge | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'players') }}
+
+    <div class="container">
+        <div class="vertical-space"></div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2>Give Badge</h2>
+                <h3>{{ fullname | e }} : {{ email | e }}</h3>
+            </div>
+        </div>
+        {% for badge in badges %}
+            {% if loop.index is divisibleby(12) %}
+                <div class="row">
+            {% endif %}
+                    <div class="col-sm-1 well text-center">
+                        <img src="{{ asset('assets/images/badges/' ~ badge.image) }}" alt="{{ badge.name }} badge">
+                        <p><strong>{{ badge.name }}</strong></p>
+                        <p>{{ badge.description }}</p>
+                        <p>
+                            {# TODO: Link #}
+                            <a href="#" class="btn btn-primary">Give</a>
+                        </p>
+                    </div>
+            {% if loop.index is divisibleby(12) %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h4>There aren't any badges you can give out!</h4>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
