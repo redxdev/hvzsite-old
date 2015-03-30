@@ -45,7 +45,6 @@ class StatsController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $userRepo = $entityManager->getRepository("AppBundle:User");
 
-        $used = array();
         foreach($needLookup as $id => $lookup)
         {
             if(!$lookup)
@@ -58,8 +57,6 @@ class StatsController extends Controller
             if(array_key_exists($user->getId(), $used))
                 continue;
 
-            $used[$user->getId] = true;
-
             $list["infections"][] = [
                 "id" => -1,
                 "human" => $user->getFullname(),
@@ -71,6 +68,14 @@ class StatsController extends Controller
                 "longitude" => null
             ];
         }
+
+        $inf = array();
+        foreach(array_reverse($list["infections"]) as $i)
+        {
+            $inf[$i["zombie_id"]] = $i;
+        }
+
+        $list["infections"] = $inf;
 
         $content = $this->renderView(
             ":Game:spread.html.twig",
