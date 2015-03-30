@@ -281,4 +281,65 @@ class PlayerController extends Controller
 
         return new Response($this->generateUrl('web_admin_player_change_avatar', ['id' => $user->getId()]));
     }
+
+    /**
+     * @Route("/admin/player/{id}/badge", name="web_admin_player_badge_list", requirements={"id" = "\d+"})
+     * @ParamConverter("user", class="AppBundle:User")
+     * @Security("is_granted('ROLE_MOD')")
+     */
+    public function badgeListAction(User $user)
+    {
+        $badgeReg = $this->get('badge_registry');
+        $badges = [];
+        $registry = $badgeReg->getRegistry();
+        foreach($registry as $k => $badge)
+        {
+            if($badge['access'] == 'INTERNAL' || !$this->get('security.authorization_checker')->isGranted($badge['access']))
+                continue;
+
+            $badges[] = [
+                'id' => $k,
+                'name' => $badge['name'],
+                'image' => $badge['image'],
+                'description' => $badge['description']
+            ];
+        }
+
+        $content = $this->renderView(
+            ':Admin:give_badge.html.twig',
+            [
+                'fullname' => $user->getFullname(),
+                'email' => $user->getEmail(),
+                'userid' => $user->getId(),
+                'badges' => $badges
+            ]
+        );
+
+        return new Response($content);
+    }
+
+    /**
+     * @Route("/admin/player/{user}/badge/{bid}", name="web_admin_player_badge_give", requirements={"user" = "\d+"})
+     * @ParamConverter("user", class="AppBundle:User")
+     * @Security("is_granted('ROLE_MOD')")
+     */
+    public function badgeGiveAction(User $user, $bid)
+    {
+        $badgeReg = $this->get('badge_registry');
+        if(!$badgeReg->badgeExists($bid))
+            throw $this->createNotFoundException("Unknown badge id");
+
+        $badge = $badgeReg->getBadge($bid);
+        if(!$this->get('security.authorization_checker')->isGranted($badge['access']))
+            throw $this->createAccessDeniedException();
+
+        $badgeReg->addBadge($user, $bid, true);
+
+        $this->get('session')->getFlashBag()->add(
+            'page.toast',
+            "Gave badge \"" . $badge['name'] . "\" successfully."
+        );
+
+        return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
+    }
 }

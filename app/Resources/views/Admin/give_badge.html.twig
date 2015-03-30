@@ -23,19 +23,19 @@
             </div>
         </div>
         {% for badge in badges %}
-            {% if loop.index is divisibleby(12) %}
+            {% if loop.index0 is divisibleby(6) %}
                 <div class="row">
             {% endif %}
-                    <div class="col-sm-1 well text-center">
+                    <div class="col-sm-2 well text-center">
                         <img src="{{ asset('assets/images/badges/' ~ badge.image) }}" alt="{{ badge.name }} badge">
                         <p><strong>{{ badge.name }}</strong></p>
                         <p>{{ badge.description }}</p>
                         <p>
                             {# TODO: Link #}
-                            <a href="#" class="btn btn-primary">Give</a>
+                            <a href="{{ path('web_admin_player_badge_give', {'user': userid, 'bid': badge.id}) }}" class="btn btn-primary">Give</a>
                         </p>
                     </div>
-            {% if loop.index is divisibleby(12) %}
+            {% if loop.index0 is divisibleby(6) %}
                 </div>
             {% endif %}
         {% else %}

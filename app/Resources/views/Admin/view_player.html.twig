@@ -37,6 +37,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ path('web_admin_player_badge_list', {'id': profile.id}) }}">
+                            Give Badge
+                        </a>
+                    </li>
+                    <li>
                         <a href="javascript:void(0)" onclick="showDeleteDialog('{{ profile.fullname | e('js') }}', '{{ path('web_admin_player_delete', {'id': profile.id, 'token': csrf_token('player_delete')}) }}')">
                             Delete
                         </a>

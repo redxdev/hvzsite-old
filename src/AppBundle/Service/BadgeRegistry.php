@@ -70,11 +70,11 @@ class BadgeRegistry
     }
 
     /**
-     * @param $id internal badge id
-     * @param $name human-readable name
-     * @param $description human-readable description
-     * @param $imgPath path relative to public/images/badges
-     * @param string $access role required to give a badge (use INTERNAL to not allow)
+     * @param $id string internal badge id
+     * @param $name string human-readable name
+     * @param $description string human-readable description
+     * @param $imgPath string path relative to public/images/badges
+     * @param $access string role required to give a badge (use INTERNAL to not allow)
      * @throws \DuplicateKeyException
      */
     public function registerBadge($id, $name, $description, $imgPath, $access = 'ROLE_ADMIN')
@@ -95,6 +95,15 @@ class BadgeRegistry
 
     public function registerBadges()
     {
+        // test badge
+        /*$this->registerBadge(
+            'test',
+            'Test',
+            'This is a test',
+            'infected.png',
+            'ROLE_MOD'
+        );*/
+
         // infection badge
         $this->registerBadge(
             'infected',
