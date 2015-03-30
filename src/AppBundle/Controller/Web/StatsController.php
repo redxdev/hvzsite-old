@@ -69,14 +69,6 @@ class StatsController extends Controller
             ];
         }
 
-        $inf = array();
-        foreach(array_reverse($list["infections"]) as $i)
-        {
-            $inf[$i["human_id"]] = $i;
-        }
-
-        $list["infections"] = $inf;
-
         $content = $this->renderView(
             ":Game:spread.html.twig",
             $list
