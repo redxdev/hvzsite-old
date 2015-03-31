@@ -84,24 +84,28 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
         <script type="text/javascript">
-            google.load("visualization", "1", {packages:["corechart"]});
+            google.load("visualization", "1.1", {packages:['bar']});
             google.setOnLoadCallback(drawInfectionChart);
 
             function drawInfectionChart() {
-                var data = google.visualization.arrayToDataTable([
-                        ['Time', '# Infections', {role: 'tooltip'}],
-                        {% for entry in timeline %}
-                            ['{{ entry.time_str | e('js') }}', {{ entry.count }}, '{{ entry.count }} infection{% if entry.count != 1 %}s{% endif %}'],
-                        {% endfor %}
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('datetime', 'Time');
+                data.addColumn('number', 'Infections');
+
+                data.addRows([
+                    {% for entry in timeline %}
+                        [new Date({{ entry.year }},{{ entry.month }},{{ entry.day }},{{ entry.hour }},0,0,0), {{ entry.count }}]
+                    {% endfor %}
                 ]);
 
-                var options = {
+                var options = google.charts.Bar.convertOptions({
                     title: 'Infection Timeline',
                     colors: ['black'],
                     legend: 'none'
-                };
+                });
 
-                var chart = new google.visualization.ColumnChart(document.getElementById('infection-chart'));
+                var chart = new google.charts.Bar(document.getElementById('infection-chart'));
                 chart.draw(data, options);
 
                 $(window).resize(function() {
