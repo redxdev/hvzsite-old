@@ -1,40 +1,21 @@
-{% extends '::base.html.twig' %}
-{% import '::components.html.twig' as components %}
-
-{% block title %}
-    Error | {{ parent() }}
-{% endblock %}
-
-{% block body_def %}
-    class="navbar-offset"
-{% endblock %}
-
-{% block body %}
-    {{ parent() }}
-
-    {{ components.navbar('fixed-top', '') }}
-
-    <div class="container">
-        <div class="vertical-space"></div>
-        <div class="vertical-space"></div>
-
-        <div class="row">
-            <div class="col-md-12 text-center" id="spread-chart">
-                {% block error %}
-                    <h1>Uh oh!</h1>
-                    <p>
-                        It seems we've encountered a <strong>{{ status_code }}</strong> error. Here's what it has to
-                        say:
-                    </p>
-                    <blockquote>
-                        <p>{{ status_text }}</p>
-                    </blockquote>
-                    <p>
-                        Rest assured, we will dispatch our team of trained <s>zombies</s> humans to <s>eat brans</s>
-                        fix the issue.
-                    </p>
-                {% endblock %}
-            </div>
-        </div>
-    </div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Error | HvZ @ RIT</title>
+</head>
+<body>
+<h1>Uh oh!</h1>
+<p>
+    It seems we've encountered a <strong>{{ status_code }} error</strong>. Here's what it has to
+    say:
+</p>
+<blockquote>
+    <p>{{ status_text }}</p>
+</blockquote>
+<p>
+    Rest assured, we will dispatch our team of trained <s>zombies</s> humans to <s>eat brans</s>
+    fix the issue.
+</p>
+</body>
+</html>
