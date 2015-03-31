@@ -25,7 +25,7 @@ class StatsManager
             $timeline[] = [
                 "count" => $entry["totalCount"],
                 "time" => $time,
-                "time_str" => $time->format('D H:i')
+                "time_str" => $time->format('D H:00')
             ];
         }
 
