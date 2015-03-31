@@ -95,7 +95,7 @@
 
                 data.addRows([
                     {% for entry in timeline %}
-                        [new Date({{ entry.year }},{{ entry.month }},{{ entry.day }},{{ entry.hour }},0,0,0), {{ entry.count }}]
+                        [new Date({{ entry.year }},{{ entry.month }},{{ entry.day }},{{ entry.hour }},0,0,0), {{ entry.count }}],
                     {% endfor %}
                 ]);
 
