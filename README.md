@@ -13,6 +13,7 @@ Requirements
   * PHP PDO
   * PHP JSON
   * Recommended: APC 3.0.17+
+  * A database (any driver supported by Doctrine should work, MySQL is recommended)
 
 Installation
 ============
