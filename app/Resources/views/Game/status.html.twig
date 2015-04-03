@@ -46,12 +46,14 @@
                 {% endif %}
             </div>
         </div>
-        <div class="row">
-            <div id="infection-chart" class="col-md-12" style="height: 250px;">
+        {% if timeline is defined and timeline|length > 0 %}
+            <div class="row">
+                <div id="infection-chart" class="col-md-12" style="height: 250px;">
+                </div>
             </div>
-        </div>
+        {% endif %}
         <div class="row">
-            {% if infections is not null %}
+            {% if infections is defined and infections|length > 0 %}
                 <div class="col-sm-6 text-center">
                     <h1>Recent Infections</h1>
                     {% for infection in infections %}
@@ -59,7 +61,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            {% if top_players is not null %}
+            {% if top_players is defined and top_players|length > 0 %}
                 <div class="col-sm-6 text-center">
                     <h1>Top Players</h1>
                     {% for player in top_players %}
