@@ -36,7 +36,12 @@ class StatusController extends Controller
             $teams = $gameStatus->getTeamStatus();
             $infectionTimeline = $statsManager->getInfectionTimeline()["timeline"];
             $infections = $gameStatus->getInfectionList(0, 5)["infections"];
-            $topPlayers = $gameStatus->getPlayerList(0, 5, GameUtil::SORT_TEAM)["players"];
+            $top = $gameStatus->getPlayerList(0, 5, GameUtil::SORT_TEAM)["players"];
+            foreach($top as $p)
+            {
+                if($p['humans_tagged'] > 0)
+                    $topPlayers[] = $p;
+            }
         }
 
         $content = $this->renderView(
