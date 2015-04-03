@@ -30,7 +30,7 @@ class StatusController extends Controller
         $teams = null;
         $infectionTimeline = null;
         $infections = null;
-        $topPlayers = null;
+        $topPlayers = [];
         if($game["status"] != "no-game")
         {
             $teams = $gameStatus->getTeamStatus();
