@@ -113,15 +113,6 @@ class BadgeRegistry
             'ROLE_MOD'
         );
 
-        // can't stop, won't stop
-        $this->registerBadge(
-            'plaid',
-            'Can\'t stop, won\'t stop',
-            'Hard work, dedication',
-            'plaid.png',
-            'ROLE_ADMIN'
-        );
-
         // win midday mission
         $this->registerBadge(
             'midday',
