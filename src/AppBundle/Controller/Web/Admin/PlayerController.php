@@ -123,7 +123,7 @@ class PlayerController extends Controller
                 'Successfully edited user ' . $user->getFullname() . '.'
             );
 
-            return $this->redirectToRoute('web_admin_players');
+            return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
         }
 
         $content = $this->renderView(
