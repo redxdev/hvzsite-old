@@ -63,7 +63,7 @@
             {% endif %}
             {% if top_players is not null and top_players|length > 0 %}
                 <div class="col-sm-6 text-center">
-                    <h1>Top Players</h1>
+                    <h1>Top Zombies</h1>
                     {% for player in top_players %}
                         <p><strong>{{ player.fullname }}</strong> with <strong>{{ player.humansTagged }}</strong> tags</p>
                     {% endfor %}
