@@ -79,7 +79,7 @@ class ProfileController extends Controller
         {
             $request->getSession()->getFlashBag()->add(
                 'page.toast',
-                'Go away, you porker!'
+                'Go away you porker!'
             );
 
             return $this->redirectToRoute("web_profile_change_clan");
