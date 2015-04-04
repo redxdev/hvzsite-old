@@ -54,8 +54,8 @@ body.navbar-offset {
     .navbar-fixed-top .navbar-brand-centered .logo {
         position: relative;
         top: -10px;
-        width: 100px;
-        height: 100px;
+        width: 65px;
+        height: 50px;
     }
 
     .vertical-space {
