@@ -258,6 +258,7 @@ class GameManager
             );
 
             $avId->setActive(false);
+            $avId->setUser($zombie);
             $zombie->setTeam(GameUtil::TEAM_HUMAN);
 
             $this->badgeReg->addBadge($zombie, 'used-av', false);

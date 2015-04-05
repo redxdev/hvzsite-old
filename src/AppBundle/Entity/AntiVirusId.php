@@ -42,10 +42,17 @@ class AntiVirusId
      */
     private $description;
 
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->active = true;
         $this->description = "";
+        $this->user = null;
     }
 
     /**
@@ -125,5 +132,28 @@ class AntiVirusId
     public function getIdString()
     {
         return $this->idString;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return AntiVirusId
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

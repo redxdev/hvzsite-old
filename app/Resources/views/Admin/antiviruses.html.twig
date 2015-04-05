@@ -33,7 +33,7 @@
                             <h3>
                                 #{{ av.id }}:
                                 {% if not av.active %}
-                                    <s>{{ av.id_string }}</s>
+                                    <s>{{ av.id_string }}</s> <b>Used by: </b> {{ av.user }}
                                 {% else %}
                                     {{ av.id_string }}
                                 {% endif %}

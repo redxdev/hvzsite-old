@@ -31,7 +31,8 @@ class AntivirusController extends Controller
                 "id" => $av->getId(),
                 "active" => $av->getActive(),
                 "id_string" => $av->getIdString(),
-                "description" => $av->getDescription()
+                "description" => $av->getDescription(),
+                "user" => $av->getUser() == null ? null : $av->getUser()->getFullname()
             ];
         }
 
