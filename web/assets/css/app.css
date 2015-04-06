@@ -96,5 +96,5 @@ a.offset {
 }
 
 span.hover-text {
-    border-bottom: dotted;
+    border-bottom: thin dotted;
 }
