@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block body_javascripts %}
-    {{ components.delete_dialog('Are you sure you want to mark all active users as printed') }}
+    {{ components.delete_dialog('Are you sure you want to mark all active users as printed', "Mark users as printed", "Yes") }}
 
     {{ parent() }}
 
