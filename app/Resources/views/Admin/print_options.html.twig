@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path('web_admin_print_mark', {'token': csrf_token('print_mark')}) }}">
+                        <a href="javascript:void(0)" onclick="showDeleteDialog('', '{{ path('web_admin_print_mark', {'token': csrf_token('print_mark')}) }}')">
                             Mark active users as printed
                         </a>
                     </li>
@@ -40,4 +40,12 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ components.delete_dialog('Are you sure you want to mark all active users as printed') }}
+
+    {{ parent() }}
+
+    {{ components.delete_dialog_script() }}
 {% endblock %}
