@@ -20,7 +20,12 @@
         <div class="row">
             <div id="tag-list" class="col-md-12 text-center">
                 {% for infection in infections if infection.zombie != null %}
-                    <p><strong>{{ infection.human }}</strong> was tagged by <strong>{{ infection.zombie }}</strong> <em>{{ time_diff(infection.time) }}</em></p>
+                    <p>
+                        <strong>{{ infection.human }}</strong> was tagged by <strong>{{ infection.zombie }}</strong>
+                        <span title="{{ infection.time|date('Y-m-d h:i:s a') }}" class="hover-text">
+                            <em>{{ time_diff(infection.time) }}</em>
+                        </span>
+                    </p>
                 {% else %}
                     <div class="row">
                         <div class="col-md-12 text-center">

@@ -94,3 +94,7 @@ a.offset {
     top: -80px;
     visibility: hidden;
 }
+
+span.hover-text {
+    border-bottom: dotted;
+}
