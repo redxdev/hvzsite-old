@@ -63,7 +63,7 @@ class GameStatus
                 "hours" => $diff->h,
                 "minutes" => $diff->i,
                 "seconds" => $diff->s,
-                "diff" => $diff->getTimestamp()
+                "timestamp" => $toDiff->getTimestamp()
             ]
         ];
 
