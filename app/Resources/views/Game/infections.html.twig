@@ -22,7 +22,7 @@
                 {% for infection in infections if infection.zombie != null %}
                     <p>
                         <strong>{{ infection.human }}</strong> was tagged by <strong>{{ infection.zombie }}</strong>
-                        <span title="{{ infection.time|date('Y-m-d h:i:s a') }}" class="hover-text">
+                        <span title="{{ infection.time|date('Y/m/d g:i:s a') }}" class="hover-text">
                             <em>{{ time_diff(infection.time) }}</em>
                         </span>
                     </p>
