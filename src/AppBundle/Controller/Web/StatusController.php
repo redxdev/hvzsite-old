@@ -39,7 +39,7 @@ class StatusController extends Controller
             $top = $gameStatus->getPlayerList(0, 5, GameUtil::SORT_TEAM)["players"];
             foreach($top as $p)
             {
-                if($p['humans_tagged'] > 0)
+                if($p['humansTagged'] > 0)
                     $topPlayers[] = $p;
             }
         }
