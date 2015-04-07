@@ -15,8 +15,6 @@
     {{ components.navbar('fixed-top', 'user', 'profile') }}
 
     <div class="container">
-        <div class="vertical-space"></div>
-
         <div class="col-sm-4 col-sm-offset-4">
             <form method="post" action="{{ path('web_profile_submit_clan') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token('change_clan') }}">
