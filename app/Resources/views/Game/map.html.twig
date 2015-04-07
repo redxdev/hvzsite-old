@@ -14,13 +14,19 @@
         }
 
         body {
-            margin: 0;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #map-canvas {
+            width: 100%;
+            height: 100%;
         }
     </style>
 {% endblock %}
 
 {% block body_def %}
-    class="navbar-offset"
+    {# class="navbar-offset" #}
 {% endblock %}
 
 {% block body %}
@@ -28,11 +34,7 @@
 
     {{ components.navbar('fixed-top', 'stats', 'map') }}
 
-    <div class="container" style="overflow: auto; height:100%; width: 100%;">
-        <div class="row" style="height: 100%; width: 100%;">
-            <div class="col-sm-12" id="map-canvas" style="height: 100%; width: 100%;">
-            </div>
-        </div>
+    <div id="map-canvas">
     </div>
 {% endblock %}
 
