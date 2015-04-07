@@ -36,6 +36,7 @@ class UserType extends AbstractType
                     ]
                 ])
                 ->add("apiEnabled", "checkbox", ["required" => false, "label" => "API Key Enabled"])
+                ->add("apiFails", "integer", ["required" => false, "label" => "API Failures"])
                 ->add("maxApiFails", "integer", ["required" => false, "label" => "Maximum API Failures"]);
         }
     }
