@@ -2,6 +2,10 @@ body.navbar-offset {
     padding-top: 80px;
 }
 
+body.navbar-offset-less {
+    padding-top: 50px;
+}
+
 .jumbotron.header {
     background: transparent;
     position: relative;
