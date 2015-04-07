@@ -112,6 +112,8 @@ class GameManager
 
     private function applyBadges($human, $zombie, $infection)
     {
+        $infectionRepo = $this->entityManager->getRepository("AppBundle:InfectionSpread");
+
         $this->badgeReg->addBadge($human, 'infected', false);
 
         $now = new \DateTime();
@@ -137,7 +139,11 @@ class GameManager
             $this->badgeReg->addBadge($human, 'so-close', false);
         }
 
-        $infectionRepo = $this->entityManager->getRepository("AppBundle:InfectionSpread");
+        if($infectionRepo->findIsRecentDeath($zombie) === true)
+        {
+            $this->badgeReg->addBadge($zombie, 'quick-turnaround', false);
+        }
+
         $recentKills = $infectionRepo->findForKillstreak($zombie);
         $recentKills[] = $infection;
 

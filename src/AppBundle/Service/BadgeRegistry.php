@@ -212,6 +212,15 @@ class BadgeRegistry
             'INTERNAL'
         );
 
+        // killed a human within an hour of becoming a zombie
+        $this->registerBadge(
+            'quick-turnaround',
+            'Quick Turnaround',
+            'Killed a human within an hour of becoming a zombie',
+            'clock.png',
+            'INTERNAL'
+        );
+
         // killstreaks
         $this->registerBadge(
             'streak-2',

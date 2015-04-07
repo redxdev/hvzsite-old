@@ -68,4 +68,19 @@ class InfectionSpreadRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function findIsRecentDeath($zombie)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(s)')
+            ->from('AppBundle:InfectionSpread', 's')
+            ->where('s.human = :zombie')
+            ->andWhere('s.time BETWEEN :start AND :end')
+            ->setParameter('zombie', $zombie)
+            ->setParameter('start', new \DateTime('-1 hour'))
+            ->setParameter('end', new \DateTime())
+            ->getQuery();
+
+        return $query->getSingleScalarResult() > 0;
+    }
 }
