@@ -10,6 +10,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContentController extends Controller
 {
     /**
+     * @Route("/contact", name="web_contact")
+     */
+    public function contactAction()
+    {
+        $content = $this->renderView(
+            ":Game:contact.html.twig",
+            []
+        );
+
+        return new Response($content);
+    }
+
+    /**
      * @Route("/rules", name="web_rules")
      */
     public function rulesAction()

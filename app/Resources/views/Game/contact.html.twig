@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Contact | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', '') }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <h2 class="text-center">Contact</h2>
+                For inquiries, disputes, or anything else, please email <a href="mailto:hvz@rit.edu">hvz@rit.edu</a>.
+            </div>
+        </div>
+    </div>
+{% endblock %}
