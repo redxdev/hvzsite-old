@@ -31,7 +31,7 @@ class InfectCommand extends ContainerAwareCommand
         $userRepo = $entityManager->getRepository('AppBundle:User');
         foreach($ids as $id)
         {
-            $user = $userRepo->findById($id);
+            $user = $userRepo->findOneById($id);
             if($user == null)
             {
                 $output->writeln("<error>Unknown user id $id</error>");
