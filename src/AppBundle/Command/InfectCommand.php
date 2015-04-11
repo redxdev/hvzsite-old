@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InfectCommand extends ContainerAwareCommand
 {
-    protected function confgiure()
+    protected function configure()
     {
         $this
             ->setName("hvz:infect:oz")
