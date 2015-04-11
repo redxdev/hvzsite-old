@@ -47,7 +47,7 @@ class InfectCommand extends ContainerAwareCommand
             $users[] = $user;
         }
 
-        $this->actLog->record(
+        $this->getContainer()->get("action_log")->record(
             ActionLogService::TYPE_ADMIN,
             'console',
             'OZ\'d players ' . implode(' ', $ids),
