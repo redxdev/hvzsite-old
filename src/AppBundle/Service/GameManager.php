@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\InfectionSpread;
+use AppBundle\Entity\User;
 use AppBundle\Util\GameUtil;
 use Doctrine\ORM\EntityManager;
 

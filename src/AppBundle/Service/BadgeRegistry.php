@@ -167,6 +167,15 @@ class BadgeRegistry
             'INTERNAL'
         );
 
+        // OZ badge
+        $this->registerBadge(
+            'oz',
+            'OZ',
+            'Patient Zero',
+            'infected.png',
+            'INTERNAL'
+        );
+
         // used an AV
         $this->registerBadge(
             'used-av',
