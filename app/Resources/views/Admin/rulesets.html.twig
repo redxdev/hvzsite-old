@@ -16,11 +16,13 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5 col-sm-4">
-                <a href="{{ path('web_admin_ruleset_create') }}" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="col-md-5 col-sm-4">
+                    <a href="{{ path('web_admin_ruleset_create') }}" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            {% endif %}
         </div>
 
         <div class="vertical-space"></div>
