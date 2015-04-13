@@ -159,6 +159,9 @@ class PlayerController extends Controller
                 false
             );
 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+
             $idGen = $this->get('id_generator');
             $idGen->generateUser($user, false);
 
