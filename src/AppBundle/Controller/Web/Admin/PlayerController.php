@@ -139,6 +139,53 @@ class PlayerController extends Controller
     }
 
     /**
+     * @Route("/admin/player/create", name="web_admin_player_create")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function playerCreateAction(Request $request)
+    {
+        $user = new User();
+        $form = $this->createForm(new UserType(), $user, ["show_roles" => true, "show_id_info" => true]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $actLog = $this->get('action_log');
+            $actLog->record(
+                ActionLogService::TYPE_ADMIN,
+                $this->getUser()->getEmail(),
+                "Created user " . $user->getEmail(),
+                false
+            );
+
+            $idGen = $this->get('id_generator');
+            $idGen->generateUser($user, false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            $request->getSession()->getFlashBag()->add(
+                'page.toast',
+                'Successfully created user ' . $user->getFullname() . '.'
+            );
+
+            return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
+        }
+
+        $content = $this->renderView(
+            ':Admin:edit_player.html.twig',
+            [
+                'fullname' => "Create User",
+                'email' => '',
+                'form' => $form->createView()
+            ]
+        );
+
+        return new Response($content);
+    }
+
+    /**
      * @Route("/admin/player/{id}/view", name="web_admin_player_view", requirements={"id" = "\d+"})
      * @ParamConverter("user", class="AppBundle:User")
      * @Security("is_granted('ROLE_MOD')")

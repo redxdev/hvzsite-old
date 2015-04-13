@@ -11,6 +11,13 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if($options["show_id_info"] === true)
+        {
+            $builder
+                ->add("email", "email", ["required" => true])
+                ->add("fullname", "text", ["required" => true, "label" => "Name"]);
+        }
+
         $builder
             ->add("active", "checkbox", ["required" => false])
             ->add("printed", "checkbox", ["required" => false])

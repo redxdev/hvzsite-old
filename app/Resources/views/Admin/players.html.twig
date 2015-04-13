@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5 col-sm-4">
+            <div class="col-md-5 col-sm-8">
                 <form role="search" action="{{ path('web_admin_players_search') }}" method="get">
                     <div class="input-group">
                         <input name="term" type="text" class="form-control" placeholder="Search"
@@ -29,7 +29,14 @@
                     </div>
                 </form>
             </div>
+
+            <div class="col-md-5 col-md-offset-2 col-sm-4">
+                <a href="{{ path('web_admin_player_create') }}" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
         </div>
+
         <div class="vertical-space"></div>
 
         {% for player in players %}
