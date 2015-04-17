@@ -69,10 +69,7 @@ class NotificationHub {
         if($this->iosEnabled) {
             $enc = json_encode(["aps" =>
                 [
-                    "alert" => [
-                        "title" => "HvZ Announcement",
-                        "body" => $message
-                    ],
+                    "alert" => $message,
                     "sound" => "default"
                 ]]);
             $notification = new Notification("apple", $enc);
