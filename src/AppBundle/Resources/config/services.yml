@@ -50,4 +50,4 @@ services:
 
     notification_hub:
         class: AppBundle\Service\NotificationHub
-        arguments: ["%notification_hub_connection_string%", "%notification_hub_path%"]
+        arguments: ["%notification_hub_enabled%", "%notification_hub_connection_string%", "%notification_hub_path%", "%notification_hub_ios%", "%notification_hub_android%"]

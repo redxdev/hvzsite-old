@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\External\Notification;
 
+// Windows Azure Notification Hub
 class NotificationHub {
 
     const API_VERSION = "?api-version=2013-10";
@@ -13,10 +14,21 @@ class NotificationHub {
     private $sasKeyName;
     private $sasKeyValue;
 
-    public function __construct($connectionString, $hubPath) {
+    private $enabled;
+    private $iosEnabled;
+    private $androidEnabled;
+
+    public function __construct($enabled, $connectionString, $hubPath, $iosEnabled, $androidEnabled) {
         $this->hubPath = $hubPath;
 
-        $this->parseConnectionString($connectionString);
+        $this->enabled = $enabled;
+
+        if($enabled) {
+            $this->parseConnectionString($connectionString);
+        }
+
+        $this->iosEnabled = $iosEnabled;
+        $this->androidEnabled = $androidEnabled;
     }
 
     private function parseConnectionString($connectionString) {
@@ -54,16 +66,18 @@ class NotificationHub {
 
     public function broadcastMessage($message) {
         // iOS
-        /*
-        $enc = json_encode(["aps" => ["alert" => $message]]);
-        $notification = new Notification("apple", $enc);
-        $notificationHub->broadcastNotification($notification);
-        */
+        if($this->iosEnabled) {
+            $enc = json_encode(["aps" => ["alert" => $message]]);
+            $notification = new Notification("apple", $enc);
+            $this->broadcastNotification($notification);
+        }
 
         // Android
-        $enc = json_encode(["data" => ["msg" => $message]]);
-        $notification = new Notification("gcm", $enc);
-        $this->broadcastNotification($notification);
+        if($this->androidEnabled) {
+            $enc = json_encode(["data" => ["msg" => $message]]);
+            $notification = new Notification("gcm", $enc);
+            $this->broadcastNotification($notification);
+        }
     }
 
     public function broadcastNotification($notification) {
@@ -71,6 +85,9 @@ class NotificationHub {
     }
 
     public function sendNotification($notification, $tagsOrTagExpression) {
+        if(!$this->enabled)
+            return;
+
         if (is_array($tagsOrTagExpression)) {
             $tagExpression = implode(" || ", $tagsOrTagExpression);
         } else {

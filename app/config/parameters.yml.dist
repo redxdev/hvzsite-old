@@ -23,6 +23,9 @@ parameters:
     google_client_secret:     ChangeMe
     google_application_name:  Humans vs Zombies @ RIT
 
+    notification_hub_enabled: false
+    notification_hub_ios: false
+    notification_hub_android: false
     notification_hub_connection_string:
     notification_hub_path:
 
