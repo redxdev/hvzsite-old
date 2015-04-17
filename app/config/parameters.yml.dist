@@ -23,5 +23,8 @@ parameters:
     google_client_secret:     ChangeMe
     google_application_name:  Humans vs Zombies @ RIT
 
+    notification_hub_connection_string:
+    notification_hub_path:
+
     hvz_game_start: 2015-01-01 21:00:00
     hvz_game_end:   2015-01-07 21:00:00

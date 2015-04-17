@@ -1,0 +1,44 @@
+{% extends ':Admin:base.html.twig' %}
+{% import '::components.html.twig' as components %}
+
+{% block title %}
+    Notify Players | {{ parent() }}
+{% endblock %}
+
+{% block body_def %}
+    class="navbar-offset"
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ components.navbar('fixed-top', 'admin', 'notify') }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2>Notify Players</h2>
+                <p>
+                    <span style="color: red;">WARNING:</span> Be very careful with this! This page broadcasts a
+                    notification to all players that have the app. Do not play with this page, do not spam
+                    notifications, and be VERY careful with how you use this!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form action="{{ path('web_admin_notify_send') }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token('notify_players') }}">
+                    <div class="input-group">
+                        <input name="message" type="text" class="form-control" placeholder="Message">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-send"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

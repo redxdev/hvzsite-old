@@ -47,3 +47,7 @@ services:
     stats_manager:
         class: AppBundle\Service\StatsManager
         arguments: ["@doctrine.orm.entity_manager"]
+
+    notification_hub:
+        class: AppBundle\Service\NotificationHub
+        arguments: ["%notification_hub_connection_string%", "%notification_hub_path%"]
