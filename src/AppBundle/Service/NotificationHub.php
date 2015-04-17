@@ -67,7 +67,14 @@ class NotificationHub {
     public function broadcastMessage($message) {
         // iOS
         if($this->iosEnabled) {
-            $enc = json_encode(["aps" => ["alert" => $message]]);
+            $enc = json_encode(["aps" =>
+                [
+                    "alert" => [
+                        "title" => "HvZ Announcement",
+                        "body" => $message
+                    ],
+                    "sound" => "default"
+                ]]);
             $notification = new Notification("apple", $enc);
             $this->broadcastNotification($notification);
         }
