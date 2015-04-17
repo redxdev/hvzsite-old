@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class AntiVirusIdRepository extends EntityRepository
 {
+    public function findHasUsedAntivirus($user)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(av)')
+            ->from('AppBundle:AntiVirusId', 'av')
+            ->where('av.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery();
+
+        return $query->getSingleScalarResult() > 0;
+    }
 }
