@@ -75,16 +75,6 @@ class ProfileController extends Controller
             return $this->redirectToRoute("web_profile_change_clan");
         }
 
-        if(preg_match("/.*[pP][oO][rR][kK].*/", $clan) === 1)
-        {
-            $request->getSession()->getFlashBag()->add(
-                'page.toast',
-                'Go away you porker!'
-            );
-
-            return $this->redirectToRoute("web_profile_change_clan");
-        }
-
         $entityManager = $this->getDoctrine()->getManager();
         $actLog = $this->get('action_log');
 
