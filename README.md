@@ -18,6 +18,21 @@ Requirements
 Installation
 ============
 
+External Services
+-----------------
+
+The website, at a minimum, requires access to google apis. Create a new project at the [Google Developers Console](https://console.developers.google.com/) and create a new client id for web applications. You will need to authorize the following redirect URIs:
+
+* website-path/auth/register/code
+* website-path/auth/login/code
+
+Make sure you keep the client id and secret handy, as composer will ask for them when you set it up.
+
+If you want support for push notifications, you will also have to set up Azure Notification Hubs. If you do not want notification support, then just set enabled to false when composer asks you (and leave any other notification information blank).
+
+Composer
+--------
+
 Make sure you have [Composer](https://getcomposer.org/) installed, open up the root directory of this project in a
 terminal, and run:
 
@@ -25,11 +40,17 @@ terminal, and run:
 
 The command should download all backend dependencies and walk you through setting everything up.
 
+Bower
+-----
+
 Next, make sure you have [Bower](http://bower.io/) installed. In the root directory of this project run:
 
     bower install
 
 This command should download all frontend dependencies.
+
+Symfony
+-------
 
 Next you need to install assets.
 
