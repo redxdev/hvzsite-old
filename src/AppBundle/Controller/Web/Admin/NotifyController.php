@@ -19,7 +19,7 @@ class NotifyController extends Controller
 {
     /**
      * @Route("/admin/notify", name="web_admin_notify")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_SUPERADMIN')")
      */
     public function notifyAction()
     {
@@ -33,7 +33,7 @@ class NotifyController extends Controller
 
     /**
      * @Route("/admin/notify/send", name="web_admin_notify_send")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_SUPERADMIN')")
      * @Method({"POST"})
      */
     public function notifySendAction(Request $request)
