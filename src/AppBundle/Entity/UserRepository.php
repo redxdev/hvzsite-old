@@ -20,7 +20,10 @@ class UserRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $query = $qb->select('count(u)')
             ->from('AppBundle:User', 'u')
-            ->where('u.active = true');
+            ->where('u.active = true')
+            ->andWhere('u.roles LIKE :user')
+            ->setParameter('user', '%ROLE_USER%');
+        
         if($team >= 0)
         {
             $query = $query->andWhere('u.team = :team')
@@ -102,10 +105,12 @@ class UserRepository extends EntityRepository
             ->where('u.active = true')
             ->andWhere($qb->expr()->orx(
                 'u.roles LIKE :admin',
-                'u.roles LIKE :mod'
+                'u.roles LIKE :mod',
+                'u.roles LIKE :superadmin'
             ))
             ->setParameter('admin', '%ROLE_ADMIN%')
             ->setParameter('mod', '%ROLE_MOD%')
+            ->setParameter('superadmin', '%ROLE_SUPERADMIN%')
             ->getQuery()
             ->setMaxResults($maxPerPage)
             ->setFirstResult($page * $maxPerPage);
@@ -121,10 +126,12 @@ class UserRepository extends EntityRepository
             ->where('u.active = true')
             ->andWhere($qb->expr()->orx(
                 'u.roles LIKE :admin',
-                'u.roles LIKE :mod'
+                'u.roles LIKE :mod',
+                'u.roles LIKE :superadmin'
             ))
             ->setParameter('admin', '%ROLE_ADMIN%')
             ->setParameter('mod', '%ROLE_MOD%')
+            ->setParameter('superadmin', '%ROLE_SUPERADMIN%')
             ->getQuery();
 
         return $query->getSingleScalarResult();
