@@ -34,6 +34,21 @@ class UserRepository extends EntityRepository
         return $query->getSingleScalarResult();
     }
 
+    public function findActiveNormalCount()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select('count(u)')
+            ->from('AppBundle:User', 'u')
+            ->where('u.active = true')
+            ->andWhere('u.roles LIKE :roles')
+            ->addOrderBy('u.team', 'DESC')
+            ->addOrderBy('u.humansTagged', 'DESC')
+            ->setParameter('roles', '%ROLE_USER%')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
     public function findActiveOrderedByNumberTaggedAndTeam($page, $maxPerPage = 10)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
