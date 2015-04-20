@@ -122,19 +122,6 @@ class UserRepository extends EntityRepository
         return $query->getSingleScalarResult();
     }
 
-    public function findActiveNormalUsersCount()
-    {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $query = $qb->select('count(u)')
-            ->from('AppBundle:User', 'u')
-            ->where('u.active = true')
-            ->andWhere('u.roles LIKE :user')
-            ->setParameter('user', '%ROLE_USER%')
-            ->getQuery();
-
-        return $query->getSingleScalarResult();
-    }
-
     public function findAllByPage($page, $maxPerPage = 10)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
