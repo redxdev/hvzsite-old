@@ -22,6 +22,6 @@ class UserCountCommand extends ContainerAwareCommand
     {
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
         $userRepo = $entityManager->getRepository('AppBundle:User');
-        $output->writeln("<info>".$userRepo->findActiveNormalUsersCount()."</info>");
+        $output->writeln("<info>".$userRepo->findActiveCount()."</info>");
     }
 }
