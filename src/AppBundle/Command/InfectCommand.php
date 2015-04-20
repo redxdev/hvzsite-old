@@ -50,7 +50,7 @@ class InfectCommand extends ContainerAwareCommand
         $this->getContainer()->get("action_log")->record(
             ActionLogService::TYPE_ADMIN,
             'console',
-            'OZ\'d players ' . implode(' ', $ids),
+            'OZ\'d players',
             false
         );
 
