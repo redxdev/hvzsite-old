@@ -72,10 +72,15 @@
 {% block body_javascripts %}
     {{ parent() }}
 
-    {% if clan matches '/.*[aA][nN][tT][iI][vV][iI][rR][uU][sS].*/' %}
+    {% if clan matches '/[oO][zZ][mM][aA]/' %}
         <script type="text/javascript">
-            // Check yo console
-            eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){while(c--){d[c]=k[c]||c}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('$(0(){1.2(3("4"))});',5,5,'function|console|log|atob|V2VsY29tZSB0byB0aGUgY2xhbiBvZiBBVnMhIGZrbnM0cnQ3'.split('|'),0,{}));
+            // Check your console
+            eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){while(c--){d[c]=k[c]||c}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('$(0(){1.2(3("4="))});',5,5,'function|console|log|atob|V2VsY29tZSB0byB0aGUgY2xhbiBvZiBhbnRpdmlydXNlcyEgODluZnFrZmM'.split('|'),0,{}));
         </script>
+    {% else %}
+        <!--
+        I bet you're looking for an antivirus! Unfortunately, you don't seem to have the correct qualifications.
+        Come back when you do :)
+        -->
     {% endif %}
 {% endblock %}
