@@ -169,10 +169,17 @@ class GameController extends Controller
     {
         $gameManager = $this->get('game_manager');
 
+        $avClan = null;
+        if($this->getUser() != null)
+        {
+            $avClan = $this->getUser()->getClan();
+        }
+
         $content = $this->renderView(
             ":Game:antivirus.html.twig",
             [
-                "valid_time" => $gameManager->isValidAntiVirusTime()
+                "valid_time" => $gameManager->isValidAntiVirusTime(),
+                "av_clan" => $avClan
             ]
         );
 
