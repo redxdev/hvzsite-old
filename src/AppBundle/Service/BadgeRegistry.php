@@ -172,7 +172,7 @@ class BadgeRegistry
             'oz',
             'OZ',
             'Patient Zero',
-            'infected.png',
+            'zero.png',
             'INTERNAL'
         );
 
