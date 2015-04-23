@@ -83,6 +83,11 @@ class PlayerController extends Controller
             false
         );
 
+        foreach($user->getHumanIds() as $id)
+        {
+            $entityManager->remove($id);
+        }
+
         $entityManager->remove($user);
         $entityManager->flush();
 
