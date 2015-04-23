@@ -253,15 +253,23 @@ class GameManager
             ];
         }
 
-        $avId = $avRepo->findOneByIdString(trim(strtolower($avIdStr)));
+        // Check if the AV is special
+        if(trim(strtolower($avIdStr)) != "5win3f1u")
+        {
+            $avId = $avRepo->findOneByIdString(trim(strtolower($avIdStr)));
 
-        if(!$avId)
-        {
-            $errors[] = "Unknown antivirus code";
+            if(!$avId)
+            {
+                $errors[] = "Unknown antivirus code";
+            }
+            else if(!$avId->getActive())
+            {
+                $errors[] = "Antivirus has already been used";
+            }
         }
-        else if(!$avId->getActive())
+        else
         {
-            $errors[] = "Antivirus has already been used";
+            $errors[] = "There is no cure for swine flu!"
         }
 
         if(count($errors) != 0)
