@@ -254,7 +254,7 @@ class GameManager
         }
 
         // Check if the AV is special
-        if(trim(strtolower($avIdStr)) != "aDFuMXox")
+        if(trim(strtolower($avIdStr)) != "adfumxox")
         {
             $avId = $avRepo->findOneByIdString(trim(strtolower($avIdStr)));
 
