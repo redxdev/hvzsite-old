@@ -269,7 +269,7 @@ class GameManager
         }
         else
         {
-            $errors[] = "There is no cure for swine flu!"
+            $errors[] = "There is no cure for swine flu!";
         }
 
         if(count($errors) != 0)
