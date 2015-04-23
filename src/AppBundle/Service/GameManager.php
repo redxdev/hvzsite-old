@@ -88,8 +88,8 @@ class GameManager
             $infection = new InfectionSpread();
             $infection->setHuman($humanId->getUser());
             $infection->setZombie($zombie);
-            $infection->setLatitude($latitude);
-            $infection->setLongitude($longitude);
+            $infection->setLatitude($latitude == 0 ? null : $latitude);
+            $infection->setLongitude($longitude == 0 ? null : $longitude);
             $this->entityManager->persist($infection);
 
             $humanId->getUser()->setTeam(GameUtil::TEAM_ZOMBIE);

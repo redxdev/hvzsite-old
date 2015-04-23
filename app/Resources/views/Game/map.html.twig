@@ -50,7 +50,8 @@
         var infectionData = [
             {% for infection in infections %}
                 {% if infection.latitude is defined and infection.longitude is defined
-                and infection.latitude is not null and infection.longitude is not null %}
+                 and infection.latitude is not null and infection.longitude is not null
+                 and not (infection.latitude == 0 and infection.longitude == 0)%}
                     {location: new google.maps.LatLng({{ infection.latitude }}, {{ infection.longitude }}), weight: 1},
                 {% endif %}
             {% endfor %}

@@ -86,7 +86,7 @@
             navigator.geolocation.getCurrentPosition(function(pos) {
                 $('#latitude').val(pos.coords.latitude);
                 $('#longitude').val(pos.coords.longitude);
-                $('#loc-status').html("OK");
+                $('#loc-status').html("SENDING (accuracy: " + pos.coords.accuracy + " meters)");
             }, function() {}, {enableHighAccuracy: true, timeout: Infinity, maximumAge: 0});
         });
     </script>
