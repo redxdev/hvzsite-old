@@ -196,7 +196,7 @@ class GameManager
             return false;
         }
 
-        if($day > 5 && $hour >= 2)
+        if($day >= 5 && $hour >= 2)
         {
             return false;
         }
