@@ -31,17 +31,15 @@ class StatusController extends Controller
         $infectionTimeline = null;
         $infections = null;
         $topPlayers = [];
-        if($game["status"] != "no-game")
+        
+        $teams = $gameStatus->getTeamStatus();
+        $infectionTimeline = $statsManager->getInfectionTimeline()["timeline"];
+        $infections = $gameStatus->getInfectionList(0, 5)["infections"];
+        $top = $gameStatus->getPlayerList(0, 5, GameUtil::SORT_TEAM)["players"];
+        foreach($top as $p)
         {
-            $teams = $gameStatus->getTeamStatus();
-            $infectionTimeline = $statsManager->getInfectionTimeline()["timeline"];
-            $infections = $gameStatus->getInfectionList(0, 5)["infections"];
-            $top = $gameStatus->getPlayerList(0, 5, GameUtil::SORT_TEAM)["players"];
-            foreach($top as $p)
-            {
-                if($p['humansTagged'] > 0)
-                    $topPlayers[] = $p;
-            }
+            if($p['humansTagged'] > 0)
+                $topPlayers[] = $p;
         }
 
         $content = $this->renderView(

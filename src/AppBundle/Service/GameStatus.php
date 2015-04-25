@@ -39,7 +39,7 @@ class GameStatus
 
         if($now > $this->endTime)
         {
-            $result["status"] = "no-game";
+            $result["status"] = "end-game";
             return $result;
         }
         else if($now < $this->startTime)
