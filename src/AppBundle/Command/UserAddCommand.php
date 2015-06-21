@@ -61,18 +61,18 @@ class UserAddCommand extends ContainerAwareCommand
         $name = $input->getArgument("name");
         $email = $input->getArgument("email");
 
-        if($input->hasOption("admin") && $input->hasOption("mod")) {
+        if($input->getOption("admin") && $input->getOption("mod")) {
             $output->writeln("<error>Cannot specify both admin and mod options.</error>");
             return;
         }
 
         $role = "ROLE_USER";
-        if($input->hasOption("admin"))
+        if($input->getOption("admin"))
             $role = "ROLE_ADMIN";
-        else if($input->hasOption("mod"))
+        else if($input->getOption("mod"))
             $role = "ROLE_MOD";
 
-        $team = $input->hasOption("zombie") ? GameUtil::TEAM_ZOMBIE : GameUtil::TEAM_HUMAN;
+        $team = $input->getOption("zombie") ? GameUtil::TEAM_ZOMBIE : GameUtil::TEAM_HUMAN;
 
         if($userRepo->findOneByEmail($email) != null) {
             $output->writeln("<error>There is already a user with that email!</error>");
@@ -84,7 +84,7 @@ class UserAddCommand extends ContainerAwareCommand
         $user->setEmail($email);
         $user->setRoles([$role]);
         $user->setTeam($team);
-        $user->setActive($input->hasOption("active"));
+        $user->setActive($input->getOption("active"));
 
         $actLog = $this->getContainer()->get('action_log');
         $actLog->record(
