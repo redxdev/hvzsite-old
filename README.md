@@ -70,14 +70,9 @@ Setting up user accounts
 **Note:** By default, google accounts are restricted to RIT accounts. This can be changed in
 "src/AppBundle/Service/GameAuthentication.php" inside the "register" function.
 
-To set up the initial admin account, point your browser to the website, click Account->Register and sign into your
-Google RIT account. You then have to open up the database and edit your entry in the "users" table. Change the "roles"
-column to the following:
+To set up your admin account, run this command, using your name and email address:
 
-    a:1:{i:0;s:10:"ROLE_ADMIN";}
-
-This will mark your account as an administrator. Once done, log out of the website and log back in. You should now have
-access to the administration panel.
+    php app/console hvz:users:add --active --admin "Your Name" "your@email.com"
 
 User roles and permissions
 ==========================
