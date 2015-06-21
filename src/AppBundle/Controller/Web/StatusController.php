@@ -31,7 +31,7 @@ class StatusController extends Controller
         $infectionTimeline = null;
         $infections = null;
         $topPlayers = [];
-        
+
         $teams = $gameStatus->getTeamStatus();
         $infectionTimeline = $statsManager->getInfectionTimeline()["timeline"];
         $infections = $gameStatus->getInfectionList(0, 5)["infections"];
