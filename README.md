@@ -58,6 +58,9 @@ Next you need to install assets.
 
 Warnings about hard links being used instead of symlinks can be safely ignored.
 
+In production, you'll have to run this as well:
+    php app/console assetic:dump --env=prod --no-debug
+
 Finally, initialize the database schema by running:
 
     php app/console doctrine:schema:update --force
