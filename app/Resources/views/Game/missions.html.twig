@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="hidden-xs col-sm-3">
+            <div class="hidden-xs col-sm-3" style="overflow: auto; height: 100%;">
                 <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix">
                     {% for mission in missions %}
                         <li><a href="#mission-{{ loop.index }}">{{ mission.title }}</a></li>
