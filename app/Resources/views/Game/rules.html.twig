@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="hidden-xs col-sm-3" style="overflow: auto; height: 100%;">
-                <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix">
+            <div class="hidden-xs col-sm-3">
+                <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix" style="overflow: auto; height: 100%;">
                     {% for ruleset in rulesets %}
                         <li><a href="#rule-{{ loop.index }}">{{ ruleset.title }}</a></li>
                     {% endfor %}
