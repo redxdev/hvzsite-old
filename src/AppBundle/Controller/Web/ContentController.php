@@ -52,4 +52,34 @@ class ContentController extends Controller
 
         return new Response($content);
     }
+
+    /**
+     * @Route("/game_over", name="web_game_over")
+     */
+    public function gameOverAction()
+    {
+        $gameStatus = $this->get('game_status')->getGameStatus()['status'];
+        if ($gameStatus !== 'end-game') {
+            $content = $this->renderView(
+                "::message.html.twig",
+                [
+                    'message' => [
+                        'type' => 'danger',
+                        'body' => "The game isn't over yet!"
+                    ]
+                ]
+            );
+
+            return new Response($content);
+        }
+
+        $contentManager = $this->get('content_manager');
+
+        $content = $this->renderView(
+            ":Game:missions.html.twig",
+            $contentManager->getFullMissionList()
+        );
+
+        return new Response($content);
+    }
 }

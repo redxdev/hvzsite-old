@@ -33,6 +33,7 @@ twig:
         resources: ['bootstrap_3_layout.html.twig']
     globals:
         notification_hub_enabled: %notification_hub_enabled%
+        game_status: "@game_status"
 
 # Assetic Configuration
 assetic:

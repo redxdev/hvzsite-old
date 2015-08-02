@@ -40,7 +40,9 @@
                             {{ components.nav_internal_link('map', path('web_stats_map'),'Map', selected2) }}
                         </ul>
                     </li>
-                    {% if is_granted('ROLE_USER') %}
+                    {% if game_status.getGameStatus().status == 'end-game' %}
+                        {{ components.nav_internal_link('missions', path('web_game_over'), 'Missions', selected) }}
+                    {% elseif is_granted('ROLE_USER') %}
                         {{ components.nav_internal_link('missions', path('web_missions'), 'Missions', selected) }}
                     {% endif %}
                 </ul>
