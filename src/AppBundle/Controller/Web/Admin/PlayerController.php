@@ -106,9 +106,6 @@ class PlayerController extends Controller
      */
     public function playerEditAction(Request $request, User $user)
     {
-        global $donotfly_list;
-        require '/srv/www/t2.hvz.redxdev.com/application/donotfly.php';
-
         $form = $this->createForm(new UserType(), $user, ["show_roles" => $this->isGranted("ROLE_ADMIN")]);
 
         $form->handleRequest($request);
@@ -134,15 +131,12 @@ class PlayerController extends Controller
             return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
         }
 
-        $donotfly_status = array_key_exists($user->getEmail(), $donotfly_list);
-
         $content = $this->renderView(
             ":Admin:edit_player.html.twig",
             [
                 "fullname" => $user->getFullname(),
                 "email" => $user->getEmail(),
-                "form" => $form->createView(),
-                "donotfly" => ($donotfly_status ? $donotfly_list[$user->getEmail()] : "")
+                "form" => $form->createView()
             ]
         );
 
