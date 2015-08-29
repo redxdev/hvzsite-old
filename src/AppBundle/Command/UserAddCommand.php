@@ -84,7 +84,7 @@ class UserAddCommand extends ContainerAwareCommand
 
         $role = "ROLE_USER";
         if ($input->getOption("superadmin"))
-            $role = "ROLE_SUPERADMIN"
+            $role = "ROLE_SUPERADMIN";
         else if($input->getOption("admin"))
             $role = "ROLE_ADMIN";
         else if($input->getOption("mod"))
