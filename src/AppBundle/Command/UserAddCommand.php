@@ -28,6 +28,12 @@ class UserAddCommand extends ContainerAwareCommand
                 "The email for the user."
             )
             ->addOption(
+                "superadmin",
+                null,
+                InputOption::VALUE_NONE,
+                "If set, the user will be created as a superadmin (admin + notify perms)"
+            )
+            ->addOption(
                 "admin",
                 null,
                 InputOption::VALUE_NONE,
@@ -65,9 +71,21 @@ class UserAddCommand extends ContainerAwareCommand
             $output->writeln("<error>Cannot specify both admin and mod options.</error>");
             return;
         }
+        
+        if ($input->getOption("superadmin") && $input->getOption("admin")) {
+            $output->writeln("<error>Cannot specify both superadmin and admin options.</error>");
+            return;
+        }
+        
+        if($input->getOption("superadmin") && $input->getOption("mod")) {
+            $output->writeln("<error>Cannot specify both superadmin and mod options.</error>");
+            return;
+        }
 
         $role = "ROLE_USER";
-        if($input->getOption("admin"))
+        if ($input->getOption("superadmin"))
+            $role = "ROLE_SUPERADMIN"
+        else if($input->getOption("admin"))
             $role = "ROLE_ADMIN";
         else if($input->getOption("mod"))
             $role = "ROLE_MOD";
