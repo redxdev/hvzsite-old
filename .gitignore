@@ -34,3 +34,6 @@
 # Other
 *.php~
 deployment.sh
+
+# Archive
+/web/archive/
