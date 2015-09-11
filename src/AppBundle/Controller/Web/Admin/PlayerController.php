@@ -106,6 +106,17 @@ class PlayerController extends Controller
      */
     public function playerEditAction(Request $request, User $user)
     {
+        if (($this->isGranted('ROLE_MOD') && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SUPERADMIN', $user->getRoles())))
+            || ($this->isGranted('ROLE_ADMIN') && in_array('ROLE_SUPERADMIN', $user->getRoles())))
+        {
+            $request->getSession()->getFlashBag()->add(
+                'page.toast',
+                'You cannot edit users with higher privileges than your own.'
+            );
+
+            return $this->redirectToRoute('web_admin_player_view', ['id' => $user->getId()]);
+        }
+
         $form = $this->createForm(new UserType(), $user, ["show_roles" => $this->isGranted("ROLE_ADMIN"), "show_superadmin_role" => $this->isGranted("ROLE_SUPERADMIN")]);
 
         $form->handleRequest($request);
