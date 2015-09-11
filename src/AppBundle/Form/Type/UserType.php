@@ -58,7 +58,8 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\User',
             'show_roles' => false,
-            'show_id_info' => false
+            'show_id_info' => false,
+            'show_superadmin_role' => false
         ]);
     }
 
