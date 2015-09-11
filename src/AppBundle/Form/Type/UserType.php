@@ -31,15 +31,21 @@ class UserType extends AbstractType
 
         if($options["show_roles"] === true)
         {
+            $choices = [
+                "ROLE_USER" => "User",
+                "ROLE_MOD" => "Moderator",
+                "ROLE_ADMIN" => "Administrator"
+            ];
+
+            if($options["show_superadmin_role"] === true)
+                $choices["ROLE_SUPERADMIN"] = "Superadmin";
+
+
             $builder
                 ->add("roles", "collection", [
                     "type" => "choice",
                     "options" => [
-                        "choices" => [
-                            "ROLE_USER" => "User",
-                            "ROLE_MOD" => "Moderator",
-                            "ROLE_ADMIN" => "Administrator"
-                        ]
+                        "choices" => $choices;
                     ]
                 ])
                 ->add("apiEnabled", "checkbox", ["required" => false, "label" => "API Key Enabled"])

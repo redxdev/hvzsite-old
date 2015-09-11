@@ -106,7 +106,7 @@ class PlayerController extends Controller
      */
     public function playerEditAction(Request $request, User $user)
     {
-        $form = $this->createForm(new UserType(), $user, ["show_roles" => $this->isGranted("ROLE_ADMIN")]);
+        $form = $this->createForm(new UserType(), $user, ["show_roles" => $this->isGranted("ROLE_ADMIN"), "show_superadmin_role" => $this->isGranted("ROLE_SUPERADMIN")]);
 
         $form->handleRequest($request);
 
