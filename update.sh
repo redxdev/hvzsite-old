@@ -19,4 +19,9 @@ php app/console assetic:dump --no-debug --env=prod
 
 echo ""
 
+echo "Clearing production cache..."
+php app/console cache:clear --env=prod
+
+echo ""
+
 echo "Done!"
