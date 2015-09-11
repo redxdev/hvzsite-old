@@ -106,8 +106,8 @@ class PlayerController extends Controller
      */
     public function playerEditAction(Request $request, User $user)
     {
-        if (($this->isGranted('ROLE_MOD') && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SUPERADMIN', $user->getRoles())))
-            || ($this->isGranted('ROLE_ADMIN') && in_array('ROLE_SUPERADMIN', $user->getRoles())))
+        if ((!$this->isGranted('ROLE_ADMIN') && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SUPERADMIN', $user->getRoles())))
+            || (!$this->isGranted('ROLE_SUPERADMIN') && in_array('ROLE_SUPERADMIN', $user->getRoles())))
         {
             $request->getSession()->getFlashBag()->add(
                 'page.toast',
