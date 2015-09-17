@@ -51,7 +51,8 @@
             {% for infection in infections %}
                 {% if infection.latitude is defined and infection.longitude is defined
                  and infection.latitude is not null and infection.longitude is not null
-                 and not (infection.latitude == 0 and infection.longitude == 0)%}
+                 and not (infection.latitude == 0 and infection.longitude == 0)
+                 and infection.latitude > 40 and infection.latitude < 45 and infection.longitude < -75 and infection.longitude > -80%}
                     {location: new google.maps.LatLng({{ infection.latitude }}, {{ infection.longitude }}), weight: 1},
                 {% endif %}
             {% endfor %}
