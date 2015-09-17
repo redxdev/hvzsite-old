@@ -204,9 +204,9 @@ class GameManager
         return true;
     }
 
-    public function processAntiVirus($avIdStr, $zombieIdStr)
+    public function processAntiVirus($avIdStr, $zombieIdStr, $bypassTimeCheck = false)
     {
-        if(!$this->isValidAntiVirusTime())
+        if(!$bypassTimeCheck && !$this->isValidAntiVirusTime())
         {
             return [
                 "status" => "error",
