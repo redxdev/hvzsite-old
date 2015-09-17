@@ -178,7 +178,7 @@ class GameController extends Controller
         $content = $this->renderView(
             ":Game:antivirus.html.twig",
             [
-                "valid_time" => $gameManager->isValidAntiVirusTime(),
+                "valid_time" => $gameManager->isValidAntiVirusTime() || $this->isGranted('ROLE_ADMIN'),
                 "av_clan" => $avClan
             ]
         );
@@ -212,7 +212,7 @@ class GameController extends Controller
         }
 
         $gameManager = $this->get('game_manager');
-        $result = $gameManager->processAntiVirus($avIdStr, $zombieIdStr);
+        $result = $gameManager->processAntiVirus($avIdStr, $zombieIdStr, $this->isGranted('ROLE_ADMIN'));
         $result["valid_time"] = $gameManager->isValidAntiVirusTime();
 
         if($result["status"] == "ok")
