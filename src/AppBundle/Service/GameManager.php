@@ -206,6 +206,16 @@ class GameManager
 
     public function processAntiVirus($avIdStr, $zombieIdStr, $bypassTimeCheck = false)
     {
+        if($this->gameStatus->getGameEnd() < new \DateTime())
+        {
+            return [
+                "status" => "error",
+                "errors" => ["You may not use an antivirus after the game has ended"],
+                "antivirus" => $avIdStr,
+                "zombie" => $zombieIdStr
+            ];
+        }
+        
         if(!$bypassTimeCheck && !$this->isValidAntiVirusTime())
         {
             return [
