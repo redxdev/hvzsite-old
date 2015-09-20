@@ -158,6 +158,15 @@ class BadgeRegistry
             'ROLE_ADMIN'
         );
 
+        // helicopter extraction
+        $this->registerBadge(
+            'helicopter-extraction',
+            'Extraction',
+            'Survived the week and made it to extraction',
+            'helicopter.png',
+            'ROLE_ADMIN'
+        );
+
         // infection badge
         $this->registerBadge(
             'infected',
