@@ -7,7 +7,7 @@ used in the Fall 2014 weeklong game of HvZ, with ~850 participants, the Spring 2
 Out with the old
 ================
 
-The upcoming Fall 2015 version of hvzsite is likely to be the last one to use this codebase. Aside from a few extra features, we will be moving to a NodeJS codebase for Spring 2016 (you can check it out at https://github.com/redxdev/hvzsite-ng).
+The upcoming Fall 2015 version of hvzsite is likely to be the last one to use this codebase. Aside from a few extra features, we will be moving to a NodeJS codebase for Spring 2016 (you can check it out at https://github.com/redxdev/hvzsite-next).
 
 Requirements
 ============
